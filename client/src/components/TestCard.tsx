@@ -63,12 +63,12 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`test-card-hover bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden`}
+      className={`test-card-hover bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden h-full flex flex-col`}
       onClick={() => onStartTest(test.id)}
     >
 
       
-      <div className="text-center">
+      <div className="text-center flex flex-col h-full">
         <motion.div 
           className="text-6xl mb-6"
           whileHover={{ scale: 1.1, rotate: 5 }}
@@ -78,7 +78,7 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
         </motion.div>
         
         <h3 className="text-2xl font-bold text-gray-800 mb-3 break-keep">{test.title}</h3>
-        <p className="text-gray-600 mb-6 leading-relaxed break-keep hyphens-auto">{test.description}</p>
+        <p className="text-gray-600 mb-6 leading-relaxed break-keep hyphens-auto flex-grow">{test.description}</p>
         
         <div className={`${colors.bg} rounded-xl p-3 mb-6`}>
           <div className={`flex justify-between text-sm ${colors.text}`}>
@@ -91,10 +91,10 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`bg-gradient-to-r ${colors.button} text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all shadow-lg w-full`}
+          className={`bg-gradient-to-r ${colors.button} text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all shadow-lg w-full break-keep whitespace-nowrap`}
         >
           <i className="fas fa-play mr-2"></i>
-          테스트 시작하기
+          <span className="break-keep">테스트 시작하기</span>
         </motion.button>
       </div>
     </motion.div>
