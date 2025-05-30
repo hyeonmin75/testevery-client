@@ -2,20 +2,9 @@ import { motion } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { TestCard } from '../components/TestCard';
 import { tests } from '../data/tests';
-import { getTestHistory } from '../utils/testLogic';
-import { CalculatedResult } from '../types/test';
 
 export default function Home() {
   const [, setLocation] = useLocation();
-  const testHistory = getTestHistory();
-
-  const getTestProgress = (testId: string): { isCompleted: boolean; progress?: number } => {
-    const completed = testHistory.find((result: CalculatedResult) => result.testId === testId);
-    return {
-      isCompleted: !!completed,
-      progress: completed ? 100 : undefined
-    };
-  };
 
   const handleStartTest = (testId: string) => {
     setLocation(`/test/${testId}`);
@@ -88,51 +77,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div 
-            className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-lg border border-white/50">
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div>
-                  <motion.div 
-                    className="text-3xl font-bold text-purple-600"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, type: "spring" }}
-                  >
-                    {testHistory.length || 0}
-                  </motion.div>
-                  <div className="text-sm text-gray-600">완료한 테스트</div>
-                </div>
-                <div>
-                  <motion.div 
-                    className="text-3xl font-bold text-pink-600"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1, type: "spring" }}
-                  >
-                    {Object.keys(tests).length}
-                  </motion.div>
-                  <div className="text-sm text-gray-600">이용 가능한 테스트</div>
-                </div>
-                <div>
-                  <motion.div 
-                    className="text-3xl font-bold text-indigo-600"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.2, type: "spring" }}
-                  >
-                    {testHistory.length * 3 || 0}
-                  </motion.div>
-                  <div className="text-sm text-gray-600">공유된 결과</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+
 
           {/* Test Cards */}
           <motion.div 
@@ -142,14 +87,11 @@ export default function Home() {
             animate="visible"
           >
             {Object.values(tests).map((test) => {
-              const { isCompleted, progress } = getTestProgress(test.id);
               return (
                 <motion.div key={test.id} variants={itemVariants}>
                   <TestCard
                     test={test}
                     onStartTest={handleStartTest}
-                    isCompleted={isCompleted}
-                    progress={progress}
                   />
                 </motion.div>
               );

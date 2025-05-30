@@ -5,11 +5,9 @@ import { formatParticipants } from '../utils/testLogic';
 interface TestCardProps {
   test: TestData;
   onStartTest: (testId: string) => void;
-  isCompleted?: boolean;
-  progress?: number;
 }
 
-export function TestCard({ test, onStartTest, isCompleted, progress }: TestCardProps) {
+export function TestCard({ test, onStartTest }: TestCardProps) {
   const getColorClasses = (color: string) => {
     const colorMap = {
       orange: {
@@ -68,13 +66,7 @@ export function TestCard({ test, onStartTest, isCompleted, progress }: TestCardP
       className={`test-card-hover bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden`}
       onClick={() => onStartTest(test.id)}
     >
-      {isCompleted && (
-        <div className="absolute top-3 right-3">
-          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-            <i className="fas fa-check text-white text-xs"></i>
-          </div>
-        </div>
-      )}
+
       
       <div className="text-center">
         <motion.div 
@@ -91,27 +83,18 @@ export function TestCard({ test, onStartTest, isCompleted, progress }: TestCardP
         <div className={`${colors.bg} rounded-xl p-3 mb-6`}>
           <div className={`flex justify-between text-sm ${colors.text}`}>
             <span><i className="fas fa-clock mr-1"></i>{test.duration}</span>
-            <span><i className="fas fa-question mr-1"></i>{test.questionCount}문항</span>
+            <span><i className="fas fa-list mr-1"></i>{test.questionCount}문항</span>
             <span><i className="fas fa-users mr-1"></i>{formatParticipants(test.participants)}명</span>
           </div>
         </div>
-        
-        {progress !== undefined && progress > 0 && (
-          <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-            <div 
-              className={`${colors.progress} h-2 rounded-full transition-all duration-500`}
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        )}
         
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className={`bg-gradient-to-r ${colors.button} text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all shadow-lg w-full`}
         >
-          <i className={`fas ${isCompleted ? 'fa-eye' : 'fa-play'} mr-2`}></i>
-          {isCompleted ? '결과 보기' : progress ? '계속하기' : '테스트 시작하기'}
+          <i className="fas fa-play mr-2"></i>
+          테스트 시작하기
         </motion.button>
       </div>
     </motion.div>

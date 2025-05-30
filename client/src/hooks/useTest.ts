@@ -44,7 +44,7 @@ export function useTest() {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     const calculatedResult = calculateTestResult(testData, session.answers);
-    saveTestResult(calculatedResult);
+    // 테스트 결과를 저장하지 않음 - saveTestResult(calculatedResult);
     
     setResult(calculatedResult);
     setSession({
