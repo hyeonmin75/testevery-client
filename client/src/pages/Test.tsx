@@ -92,7 +92,7 @@ export default function Test() {
           >
             🧠
           </motion.div>
-          <p className="text-gray-600">테스트를 준비하고 있습니다...</p>
+          <p className="text-gray-600">곧 결과가 나옵니다 잠시만 기다려주세요</p>
         </div>
       </div>
     );
