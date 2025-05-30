@@ -161,7 +161,7 @@ export default function Home() {
 
           {/* Footer */}
           <motion.div 
-            className="text-center text-gray-500 text-sm bg-white/50 backdrop-blur-sm rounded-3xl p-8"
+            className="text-center text-gray-500 text-xs lg:text-sm bg-white/50 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 lg:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.6, duration: 0.6 }}
