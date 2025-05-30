@@ -70,7 +70,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-korean">
       <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
-        <div className="max-w-6xl w-full scale-75 lg:scale-90 xl:scale-100">
+        <div className="max-w-6xl w-full">
           {/* Header */}
           <motion.div 
             className="text-center mb-6 sm:mb-8 lg:mb-12"
