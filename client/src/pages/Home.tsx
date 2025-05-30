@@ -117,25 +117,6 @@ export default function Home() {
 
 
 
-          {/* Test Cards */}
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {Object.values(tests).map((test) => {
-              return (
-                <motion.div key={test.id} variants={itemVariants}>
-                  <TestCard
-                    test={test}
-                    onStartTest={handleStartTest}
-                  />
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
           {/* Popular Tests */}
           <motion.div 
             className="mb-8 lg:mb-12"
@@ -157,6 +138,25 @@ export default function Home() {
                 ))}
               </div>
             </div>
+          </motion.div>
+
+          {/* Test Cards */}
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {Object.values(tests).map((test) => {
+              return (
+                <motion.div key={test.id} variants={itemVariants}>
+                  <TestCard
+                    test={test}
+                    onStartTest={handleStartTest}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>
 
           {/* Footer */}
