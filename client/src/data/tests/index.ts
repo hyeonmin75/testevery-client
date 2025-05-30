@@ -10,6 +10,7 @@ import { disneyTest } from './disney';
 import { foodPersonalityTest } from './food-personality';
 import { reactionSpeedTest } from './reaction_speed';
 import { studyStyleTest } from './study-style';
+import { careerTest } from './career';
 
 export const tests: Record<string, TestData> = {
   animal: animalTest,
@@ -22,7 +23,8 @@ export const tests: Record<string, TestData> = {
   disney: disneyTest,
   food_personality: foodPersonalityTest,
   reaction_speed: reactionSpeedTest,
-  study_style: studyStyleTest
+  study_style: studyStyleTest,
+  career: careerTest
 };
 
 export default tests;
