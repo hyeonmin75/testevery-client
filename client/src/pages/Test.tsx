@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuestionCard } from '../components/QuestionCard';
 import { ProgressBar } from '../components/ProgressBar';
@@ -8,7 +8,7 @@ import { useTest } from '../hooks/useTest';
 
 export default function Test() {
   const { testId } = useParams<{ testId: string }>();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const [selectedOptionId, setSelectedOptionId] = useState<string>('');
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -29,14 +29,14 @@ export default function Test() {
 
   useEffect(() => {
     if (!testData) {
-      navigate('/');
+      setLocation('/');
       return;
     }
 
     if (!session) {
       startTest(testData);
     }
-  }, [testData, session, startTest, navigate]);
+  }, [testData, session, startTest, setLocation]);
 
   useEffect(() => {
     if (testData && isTestComplete(testData) && !isLoading) {

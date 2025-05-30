@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 import { TestCard } from '../components/TestCard';
 import { tests } from '../data/tests';
 import { getTestHistory } from '../utils/testLogic';
 import { CalculatedResult } from '../types/test';
 
 export default function Home() {
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const testHistory = getTestHistory();
 
   const getTestProgress = (testId: string): { isCompleted: boolean; progress?: number } => {
@@ -18,7 +18,7 @@ export default function Home() {
   };
 
   const handleStartTest = (testId: string) => {
-    navigate(`/test/${testId}`);
+    setLocation(`/test/${testId}`);
   };
 
   const containerVariants = {
@@ -77,7 +77,7 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
-                당신의 숨겨진 성격을 발견해보세요!<br>
+                당신의 숨겨진 성격을 발견해보세요!<br />
                 <span className="text-purple-600 font-semibold">{Object.keys(tests).length}가지 재미있는 테스트</span>로 나만의 특별함을 찾아보세요
               </p>
               <div className="mt-6 flex justify-center gap-4 text-2xl">
