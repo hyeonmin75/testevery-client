@@ -1,0 +1,119 @@
+import { motion } from 'framer-motion';
+import { TestData } from '../types/test';
+import { formatParticipants } from '../utils/testLogic';
+
+interface TestCardProps {
+  test: TestData;
+  onStartTest: (testId: string) => void;
+  isCompleted?: boolean;
+  progress?: number;
+}
+
+export function TestCard({ test, onStartTest, isCompleted, progress }: TestCardProps) {
+  const getColorClasses = (color: string) => {
+    const colorMap = {
+      orange: {
+        border: 'hover:border-orange-200',
+        bg: 'bg-orange-50',
+        text: 'text-orange-700',
+        button: 'from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600',
+        progress: 'bg-orange-500'
+      },
+      pink: {
+        border: 'hover:border-pink-200',
+        bg: 'bg-pink-50',
+        text: 'text-pink-700',
+        button: 'from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600',
+        progress: 'bg-pink-500'
+      },
+      blue: {
+        border: 'hover:border-blue-200',
+        bg: 'bg-blue-50',
+        text: 'text-blue-700',
+        button: 'from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600',
+        progress: 'bg-blue-500'
+      },
+      purple: {
+        border: 'hover:border-purple-200',
+        bg: 'bg-purple-50',
+        text: 'text-purple-700',
+        button: 'from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600',
+        progress: 'bg-purple-500'
+      },
+      red: {
+        border: 'hover:border-red-200',
+        bg: 'bg-red-50',
+        text: 'text-red-700',
+        button: 'from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600',
+        progress: 'bg-red-500'
+      },
+      green: {
+        border: 'hover:border-green-200',
+        bg: 'bg-green-50',
+        text: 'text-green-700',
+        button: 'from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600',
+        progress: 'bg-green-500'
+      }
+    };
+    return colorMap[color as keyof typeof colorMap] || colorMap.purple;
+  };
+
+  const colors = getColorClasses(test.color);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`test-card-hover bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden`}
+      onClick={() => onStartTest(test.id)}
+    >
+      {isCompleted && (
+        <div className="absolute top-3 right-3">
+          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+            <i className="fas fa-check text-white text-xs"></i>
+          </div>
+        </div>
+      )}
+      
+      <div className="text-center">
+        <motion.div 
+          className="text-6xl mb-6"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          {test.emoji}
+        </motion.div>
+        
+        <h3 className="text-2xl font-bold text-gray-800 mb-3">{test.title}</h3>
+        <p className="text-gray-600 mb-6 leading-relaxed">{test.description}</p>
+        
+        <div className={`${colors.bg} rounded-xl p-3 mb-6`}>
+          <div className={`flex justify-between text-sm ${colors.text}`}>
+            <span><i className="fas fa-clock mr-1"></i>{test.duration}</span>
+            <span><i className="fas fa-question mr-1"></i>{test.questionCount}문항</span>
+            <span><i className="fas fa-users mr-1"></i>{formatParticipants(test.participants)}명</span>
+          </div>
+        </div>
+        
+        {progress !== undefined && progress > 0 && (
+          <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+            <div 
+              className={`${colors.progress} h-2 rounded-full transition-all duration-500`}
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        )}
+        
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`bg-gradient-to-r ${colors.button} text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all shadow-lg w-full`}
+        >
+          <i className={`fas ${isCompleted ? 'fa-eye' : 'fa-play'} mr-2`}></i>
+          {isCompleted ? '결과 보기' : progress ? '계속하기' : '테스트 시작하기'}
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+}
