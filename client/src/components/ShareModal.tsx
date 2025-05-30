@@ -79,8 +79,8 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = 1080;
+    canvas.height = 1920; // 더 긴 세로 형태로 모든 내용 포함
 
     // 배경 그라데이션
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -91,40 +91,127 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
 
     // 텍스트 설정
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 48px Arial';
     ctx.textAlign = 'center';
-    
-    // 이모지와 제목
-    ctx.font = '72px Arial';
-    ctx.fillText(result.result.emoji, canvas.width / 2, 150);
-    
-    ctx.font = 'bold 36px Arial';
-    ctx.fillText(result.result.title, canvas.width / 2, 250);
-    
-    ctx.font = '24px Arial';
-    const maxWidth = 600;
-    const lineHeight = 35;
-    const words = result.result.description.split(' ');
-    let line = '';
-    let y = 320;
-    
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + ' ';
-      const metrics = ctx.measureText(testLine);
-      const testWidth = metrics.width;
-      if (testWidth > maxWidth && n > 0) {
-        ctx.fillText(line, canvas.width / 2, y);
-        line = words[n] + ' ';
-        y += lineHeight;
-      } else {
-        line = testLine;
-      }
-    }
-    ctx.fillText(line, canvas.width / 2, y);
+    let currentY = 120;
 
-    // 하단 텍스트
-    ctx.font = '20px Arial';
-    ctx.fillText('심리테스트 모음집', canvas.width / 2, canvas.height - 50);
+    // 이모지
+    ctx.font = '120px Arial';
+    ctx.fillText(result.result.emoji, canvas.width / 2, currentY);
+    currentY += 150;
+
+    // 메인 제목
+    ctx.font = 'bold 60px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+    const titleText = `당신은 ${result.result.title}입니다!`;
+    ctx.fillText(titleText, canvas.width / 2, currentY);
+    currentY += 100;
+
+    // 한국어 텍스트를 여러 줄로 나누어 표시
+    const drawMultilineText = (text: string, fontSize: number, lineHeight: number, maxWidth: number) => {
+      ctx.font = `${fontSize}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
+      
+      // 한국어는 띄어쓰기 기준으로 분할하되, 긴 단어는 문자 단위로 분할
+      let words = text.split(' ');
+      let line = '';
+      
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + (line ? ' ' : '') + words[i];
+        const metrics = ctx.measureText(testLine);
+        
+        if (metrics.width > maxWidth && line) {
+          ctx.fillText(line, canvas.width / 2, currentY);
+          line = words[i];
+          currentY += lineHeight;
+          
+          // 단일 단어가 너무 긴 경우 문자 단위로 분할
+          while (ctx.measureText(line).width > maxWidth && line.length > 1) {
+            let splitIndex = Math.floor(line.length * 0.8);
+            ctx.fillText(line.substring(0, splitIndex), canvas.width / 2, currentY);
+            line = line.substring(splitIndex);
+            currentY += lineHeight;
+          }
+        } else {
+          line = testLine;
+        }
+      }
+      
+      if (line) {
+        ctx.fillText(line, canvas.width / 2, currentY);
+        currentY += lineHeight;
+      }
+    };
+
+    // 상세 설명
+    drawMultilineText(result.result.detailedDescription, 36, 50, 900);
+    currentY += 50;
+
+    // 특성들 표시 (traits가 있는 경우)
+    if (result.result.traits && result.result.traits.length > 0) {
+      ctx.font = 'bold 48px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText('당신의 특성', canvas.width / 2, currentY);
+      currentY += 80;
+
+      result.result.traits.forEach(trait => {
+        ctx.font = '36px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+        ctx.fillText(`${trait.emoji} ${trait.name}: ${trait.percentage}%`, canvas.width / 2, currentY);
+        currentY += 60;
+      });
+      currentY += 50;
+    }
+
+    // 강점들 표시
+    if (result.result.strengths && result.result.strengths.length > 0) {
+      ctx.font = 'bold 48px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText('당신의 강점', canvas.width / 2, currentY);
+      currentY += 80;
+
+      result.result.strengths.forEach(strength => {
+        ctx.font = '36px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+        drawMultilineText(`✨ ${strength}`, 36, 60, 900);
+      });
+      currentY += 50;
+    }
+
+    // 개선 사항들 표시
+    if (result.result.improvements && result.result.improvements.length > 0) {
+      ctx.font = 'bold 48px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText('개선할 점', canvas.width / 2, currentY);
+      currentY += 80;
+
+      result.result.improvements.forEach(improvement => {
+        ctx.font = '36px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+        drawMultilineText(`🎯 ${improvement}`, 36, 60, 900);
+      });
+      currentY += 50;
+    }
+
+    // 호환성 정보 표시 (compatibleTypes가 있는 경우)
+    if (result.result.compatibleTypes && result.result.compatibleTypes.length > 0) {
+      ctx.font = 'bold 48px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText('잘 맞는 유형', canvas.width / 2, currentY);
+      currentY += 80;
+
+      result.result.compatibleTypes.slice(0, 3).forEach(compatible => {
+        ctx.font = '36px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+        ctx.fillText(`${compatible.emoji} ${compatible.title} (${compatible.compatibility}%)`, canvas.width / 2, currentY);
+        currentY += 60;
+      });
+      currentY += 50;
+    }
+
+    // 반응속도 결과 (해당하는 경우)
+    if (result.averageReactionTime) {
+      ctx.font = 'bold 48px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText('반응속도 결과', canvas.width / 2, currentY);
+      currentY += 80;
+
+      ctx.font = '36px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+      ctx.fillText(`평균 반응속도: ${result.averageReactionTime}ms`, canvas.width / 2, currentY);
+      currentY += 80;
+    }
+
+    // 하단 브랜딩
+    ctx.font = 'bold 40px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+    ctx.fillText('심리테스트 모음집', canvas.width / 2, canvas.height - 80);
 
     // 이미지 다운로드
     const link = document.createElement('a');
