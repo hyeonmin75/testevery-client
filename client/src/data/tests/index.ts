@@ -11,6 +11,7 @@ import { foodPersonalityTest } from './food-personality';
 import { reactionSpeedTest } from './reaction_speed';
 import { studyStyleTest } from './study-style';
 import { careerTest } from './career';
+import { healingStyleTest } from './healing-style';
 
 export const tests: Record<string, TestData> = {
   animal: animalTest,
@@ -24,7 +25,8 @@ export const tests: Record<string, TestData> = {
   food_personality: foodPersonalityTest,
   reaction_speed: reactionSpeedTest,
   study_style: studyStyleTest,
-  career: careerTest
+  career: careerTest,
+  healing_style: healingStyleTest
 };
 
 export default tests;
