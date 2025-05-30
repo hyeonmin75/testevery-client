@@ -108,21 +108,32 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     canvas.width = 1080;
     canvas.height = Math.max(estimatedHeight, 800); // 최소 높이 보장
 
-    // 부드러운 그라데이션 배경
+    // 더 아름다운 그라데이션 배경
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
     gradient.addColorStop(0, '#667eea');
-    gradient.addColorStop(0.5, '#764ba2');
+    gradient.addColorStop(0.3, '#764ba2');
+    gradient.addColorStop(0.7, '#667eea');
     gradient.addColorStop(1, '#5b4b8a');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 배경에 미묘한 패턴 추가
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-    for (let i = 0; i < 15; i++) {
+    // 우아한 장식 요소들 추가
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    for (let i = 0; i < 12; i++) {
       ctx.beginPath();
-      ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 25 + 8, 0, Math.PI * 2);
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const size = Math.random() * 20 + 10;
+      ctx.arc(x, y, size, 0, Math.PI * 2);
       ctx.fill();
     }
+
+    // 상단과 하단에 미묘한 하이라이트
+    const topGradient = ctx.createLinearGradient(0, 0, 0, 100);
+    topGradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
+    topGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = topGradient;
+    ctx.fillRect(0, 0, canvas.width, 100);
 
     // 반응형 설정 - 화면 크기에 따른 조정
     const isMobile = canvas.width <= 768;
@@ -138,17 +149,22 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     // 텍스트 설정
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
-    let currentY = 80;
-    const leftMargin = isMobile ? 60 : 100;
+    let currentY = 120;
+    const leftMargin = isMobile ? 80 : 120;
     const rightMargin = canvas.width - leftMargin;
     const maxWidth = rightMargin - leftMargin;
 
-    // 이모지
+    // 이모지 - 더 크고 멋지게
     ctx.font = `${fontSize.emoji}px Arial`;
     ctx.fillText(result.result.emoji, canvas.width / 2, currentY);
-    currentY += fontSize.emoji + 20;
+    currentY += fontSize.emoji + 40;
 
-    // 메인 제목 - 반응형 폰트 크기
+    // 메인 제목 - 그림자 효과와 함께
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    
     ctx.font = `bold ${fontSize.title}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
     const titleText = `당신은 ${result.result.title}입니다!`;
     
@@ -159,12 +175,19 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       const firstLine = titleWords.slice(0, midPoint).join(' ');
       const secondLine = titleWords.slice(midPoint).join(' ');
       ctx.fillText(firstLine, canvas.width / 2, currentY);
-      currentY += fontSize.title + 10;
+      currentY += fontSize.title + 15;
       ctx.fillText(secondLine, canvas.width / 2, currentY);
     } else {
       ctx.fillText(titleText, canvas.width / 2, currentY);
     }
-    currentY += fontSize.title + 30;
+    
+    // 그림자 효과 제거
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    
+    currentY += fontSize.title + 50;
 
     // 한국어 텍스트를 여러 줄로 나누어 표시 - 반응형 개선 버전
     const drawMultilineText = (text: string, textFontSize: number, lineHeight: number, maxTextWidth: number, isBold: boolean = false) => {
@@ -204,47 +227,71 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       }
     };
 
-    // 상세 설명 - 반응형 폰트와 여백
-    drawMultilineText(result.result.detailedDescription, fontSize.description, fontSize.description + 15, maxWidth * 0.9);
-    currentY += 30;
+    // 상세 설명 - 더 넓은 여백과 깔끔한 레이아웃
+    drawMultilineText(result.result.detailedDescription, fontSize.description, fontSize.description + 18, maxWidth * 0.85);
+    currentY += 60;
 
-    // 섹션별로 카드 스타일 배경 추가 - 반응형
+    // 섹션별로 우아한 카드 스타일 - 더 깔끔하고 예쁘게
     const drawSection = (title: string, content: () => void) => {
-      // 섹션 제목
+      // 섹션 시작 여백
+      currentY += 20;
+      
+      // 섹션 배경 카드 그리기
+      const cardPadding = 40;
+      const cardStartY = currentY - 15;
+      let contentStartY = currentY;
+      
+      // 내용 높이 미리 계산을 위한 임시 Y 저장
+      const tempY = currentY;
+      currentY += fontSize.sectionTitle + 35;
+      content();
+      const cardHeight = currentY - cardStartY + 25;
+      currentY = tempY; // Y 위치 복원
+      
+      // 반투명 카드 배경
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.beginPath();
+      ctx.roundRect(leftMargin - cardPadding, cardStartY, rightMargin - leftMargin + (cardPadding * 2), cardHeight, 20);
+      ctx.fill();
+      
+      // 카드 테두리
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      // 섹션 제목 - 그라데이션 효과
+      const titleGradient = ctx.createLinearGradient(0, currentY, 0, currentY + fontSize.sectionTitle);
+      titleGradient.addColorStop(0, '#FFD700');
+      titleGradient.addColorStop(1, '#FFA500');
+      ctx.fillStyle = titleGradient;
       ctx.font = `bold ${fontSize.sectionTitle}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
-      ctx.fillStyle = '#FFD700'; // 금색 제목
       ctx.fillText(title, canvas.width / 2, currentY);
-      currentY += fontSize.sectionTitle + 25;
+      currentY += fontSize.sectionTitle + 35;
       
       // 내용
       ctx.fillStyle = 'white';
       content();
-      currentY += 20;
-      
-      // 섹션 구분선
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-      ctx.lineWidth = isMobile ? 1 : 2;
-      ctx.beginPath();
-      const lineMargin = isMobile ? 40 : 50;
-      ctx.moveTo(leftMargin + lineMargin, currentY);
-      ctx.lineTo(rightMargin - lineMargin, currentY);
-      ctx.stroke();
-      currentY += isMobile ? 25 : 35;
+      currentY += 40;
     };
 
     // 특성들 표시 (traits가 있는 경우)
     if (result.result.traits && result.result.traits.length > 0) {
       drawSection('🎯 당신의 특성', () => {
-        result.result.traits.forEach(trait => {
+        result.result.traits.forEach((trait, index) => {
           ctx.font = `${fontSize.content}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
           const traitText = `${trait.emoji} ${trait.name}: ${trait.percentage}%`;
           
           // 특성 텍스트가 길면 줄바꿈
-          if (ctx.measureText(traitText).width > maxWidth * 0.9) {
-            drawMultilineText(traitText, fontSize.content, fontSize.content + 10, maxWidth * 0.85);
+          if (ctx.measureText(traitText).width > maxWidth * 0.8) {
+            drawMultilineText(traitText, fontSize.content, fontSize.content + 20, maxWidth * 0.75);
           } else {
             ctx.fillText(traitText, canvas.width / 2, currentY);
-            currentY += fontSize.content + 15;
+            currentY += fontSize.content + 25;
+          }
+          
+          // 특성 간 추가 여백
+          if (index < result.result.traits.length - 1) {
+            currentY += 10;
           }
         });
       });
@@ -253,8 +300,13 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     // 강점들 표시
     if (result.result.strengths && result.result.strengths.length > 0) {
       drawSection('✨ 당신의 강점', () => {
-        result.result.strengths.forEach(strength => {
-          drawMultilineText(`• ${strength}`, fontSize.list, fontSize.list + 12, maxWidth * 0.85);
+        result.result.strengths.forEach((strength, index) => {
+          drawMultilineText(`• ${strength}`, fontSize.list, fontSize.list + 20, maxWidth * 0.8);
+          
+          // 강점 간 추가 여백
+          if (index < result.result.strengths.length - 1) {
+            currentY += 15;
+          }
         });
       });
     }
@@ -262,8 +314,13 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     // 개선 사항들 표시
     if (result.result.improvements && result.result.improvements.length > 0) {
       drawSection('🚀 개선할 점', () => {
-        result.result.improvements.forEach(improvement => {
-          drawMultilineText(`• ${improvement}`, fontSize.list, fontSize.list + 12, maxWidth * 0.85);
+        result.result.improvements.forEach((improvement, index) => {
+          drawMultilineText(`• ${improvement}`, fontSize.list, fontSize.list + 20, maxWidth * 0.8);
+          
+          // 개선사항 간 추가 여백
+          if (index < result.result.improvements.length - 1) {
+            currentY += 15;
+          }
         });
       });
     }
@@ -271,15 +328,20 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     // 호환성 정보 표시 (compatibleTypes가 있는 경우)
     if (result.result.compatibleTypes && result.result.compatibleTypes.length > 0) {
       drawSection('💕 잘 맞는 유형', () => {
-        result.result.compatibleTypes.slice(0, 3).forEach(compatible => {
+        result.result.compatibleTypes.slice(0, 3).forEach((compatible, index) => {
           const compatText = `${compatible.emoji} ${compatible.title} (${compatible.compatibility}%)`;
           ctx.font = `${fontSize.list}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
           
-          if (ctx.measureText(compatText).width > maxWidth * 0.9) {
-            drawMultilineText(compatText, fontSize.list, fontSize.list + 10, maxWidth * 0.85);
+          if (ctx.measureText(compatText).width > maxWidth * 0.8) {
+            drawMultilineText(compatText, fontSize.list, fontSize.list + 20, maxWidth * 0.75);
           } else {
             ctx.fillText(compatText, canvas.width / 2, currentY);
-            currentY += fontSize.list + 12;
+            currentY += fontSize.list + 25;
+          }
+          
+          // 호환성 간 추가 여백
+          if (index < Math.min(result.result.compatibleTypes.length, 3) - 1) {
+            currentY += 10;
           }
         });
       });
@@ -290,7 +352,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       drawSection('⚡ 반응속도 결과', () => {
         ctx.font = `${fontSize.content}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
         ctx.fillText(`평균 반응속도: ${result.averageReactionTime}ms`, canvas.width / 2, currentY);
-        currentY += fontSize.content + 15;
+        currentY += fontSize.content + 25;
       });
     }
 
