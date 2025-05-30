@@ -147,7 +147,7 @@ export default function Result() {
           </motion.div>
           
           <motion.h1
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-gray-800 break-keep px-2"
+            className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-4 sm:mb-6 text-gray-800 break-keep px-4 leading-tight"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -158,7 +158,7 @@ export default function Result() {
           </motion.h1>
           
           <motion.p
-            className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed break-keep hyphens-auto px-4"
+            className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-loose break-keep hyphens-auto px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
