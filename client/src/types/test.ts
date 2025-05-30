@@ -68,4 +68,6 @@ export interface CalculatedResult {
   scores: Record<string, number>;
   completedAt: number;
   testId: string;
+  averageReactionTime?: number;
+  allReactionTimes?: number[];
 }

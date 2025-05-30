@@ -37,7 +37,9 @@ export function ReactionTest({ onComplete, round, totalRounds }: ReactionTestPro
   }, []);
 
   const handleClick = useCallback(() => {
-    if (phase === 'go') {
+    if (phase === 'waiting') {
+      startTest();
+    } else if (phase === 'go') {
       const endTime = performance.now();
       const reaction = Math.round(endTime - startTimeRef.current);
       setReactionTime(reaction);
@@ -59,7 +61,7 @@ export function ReactionTest({ onComplete, round, totalRounds }: ReactionTestPro
         setReactionTime(null);
       }, 3000);
     }
-  }, [phase, onComplete]);
+  }, [phase, onComplete, startTest]);
 
   useEffect(() => {
     return () => {
