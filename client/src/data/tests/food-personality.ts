@@ -8,7 +8,7 @@ export const foodPersonalityTest: TestData = {
   color: 'orange',
   duration: '2-3분',
   questionCount: 12,
-  participants: 2358,
+  participants: 934,
   questions: [
     {
       id: 1,

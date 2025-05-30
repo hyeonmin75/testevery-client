@@ -8,7 +8,7 @@ export const foodTest: TestData = {
   color: 'red',
   duration: '2-3분',
   questionCount: 10,
-  participants: 2847,
+  participants: 756,
   questions: [
     {
       id: 1,

@@ -8,7 +8,7 @@ export const gameCharacterTest: TestData = {
   color: 'blue',
   duration: '3-4분',
   questionCount: 10,
-  participants: 850000,
+  participants: 1123,
   questions: [
     {
       id: 1,

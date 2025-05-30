@@ -8,7 +8,7 @@ export const healingStyleTest: TestData = {
   color: 'green',
   duration: '3-4분',
   questionCount: 9,
-  participants: 875000,
+  participants: 698,
   questions: [
     {
       id: 1,

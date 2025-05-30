@@ -8,7 +8,7 @@ export const studyStyleTest: TestData = {
   color: 'green',
   duration: '3-4분',
   questionCount: 10,
-  participants: 980000,
+  participants: 1278,
   questions: [
     {
       id: 1,

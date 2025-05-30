@@ -8,7 +8,7 @@ export const fairytaleTest: TestData = {
   color: 'pink',
   duration: '3-4분',
   questionCount: 10,
-  participants: 925000,
+  participants: 1847,
   questions: [
     {
       id: 1,

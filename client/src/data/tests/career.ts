@@ -8,7 +8,7 @@ export const careerTest: TestData = {
   color: 'purple',
   duration: '4-5분',
   questionCount: 10,
-  participants: 1350000,
+  participants: 2634,
   questions: [
     {
       id: 1,

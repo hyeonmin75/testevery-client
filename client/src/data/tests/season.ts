@@ -8,7 +8,7 @@ export const seasonTest: TestData = {
   color: 'green',
   duration: '2-3분',
   questionCount: 10,
-  participants: 1965,
+  participants: 523,
   questions: [
     {
       id: 1,

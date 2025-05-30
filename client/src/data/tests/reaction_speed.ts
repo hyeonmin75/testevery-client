@@ -8,7 +8,7 @@ export const reactionSpeedTest: TestData = {
   color: 'red',
   duration: '2-3분',
   questionCount: 5,
-  participants: 1200000,
+  participants: 389,
   questions: [
     {
       id: 1,

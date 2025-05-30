@@ -8,7 +8,7 @@ export const disneyTest: TestData = {
   color: 'pink',
   duration: '3-4분',
   questionCount: 11,
-  participants: 4521,
+  participants: 1423,
   questions: [
     {
       id: 1,
