@@ -31,17 +31,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-korean">
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
         <div className="max-w-6xl w-full">
           {/* Header */}
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             <motion.div 
-              className="text-7xl mb-6"
+              className="text-5xl sm:text-6xl lg:text-7xl mb-4 sm:mb-6"
               animate={{ 
                 scale: [1, 1.05, 1],
                 rotate: [0, 2, -2, 0]
@@ -52,7 +52,7 @@ export default function Home() {
             </motion.div>
             
             <motion.h1 
-              className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent break-keep"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent break-keep"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
@@ -65,11 +65,11 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto break-keep hyphens-auto">
+              <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto break-keep hyphens-auto px-4">
                 당신의 숨겨진 성격을 발견해보세요!<br />
                 <span className="text-purple-600 font-semibold break-keep">{Object.keys(tests).length}가지 재미있는 테스트</span>로 나만의 특별함을 찾아보세요
               </p>
-              <div className="mt-6 flex justify-center gap-4 text-2xl">
+              <div className="mt-4 sm:mt-6 flex justify-center gap-3 sm:gap-4 text-xl sm:text-2xl">
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}>✨</motion.span>
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}>🎯</motion.span>
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}>💫</motion.span>

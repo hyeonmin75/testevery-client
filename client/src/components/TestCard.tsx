@@ -63,25 +63,25 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`test-card-hover bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden h-full flex flex-col`}
+      className={`test-card-hover bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl hover:shadow-2xl border-2 border-transparent ${colors.border} cursor-pointer relative overflow-hidden h-full flex flex-col`}
       onClick={() => onStartTest(test.id)}
     >
 
       
       <div className="text-center flex flex-col h-full">
         <motion.div 
-          className="text-6xl mb-6"
+          className="text-4xl sm:text-5xl lg:text-6xl mb-4 sm:mb-6"
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
           {test.emoji}
         </motion.div>
         
-        <h3 className="text-2xl font-bold text-gray-800 mb-3 break-keep">{test.title}</h3>
-        <p className="text-gray-600 mb-6 leading-relaxed break-keep hyphens-auto flex-grow">{test.description}</p>
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3 break-keep">{test.title}</h3>
+        <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed break-keep hyphens-auto flex-grow">{test.description}</p>
         
-        <div className={`${colors.bg} rounded-xl p-3 mb-6`}>
-          <div className={`flex justify-between text-sm ${colors.text}`}>
+        <div className={`${colors.bg} rounded-xl p-2 sm:p-3 mb-4 sm:mb-6`}>
+          <div className={`flex justify-between text-xs sm:text-sm ${colors.text}`}>
             <span><i className="fas fa-clock mr-1"></i>{test.duration}</span>
             <span><i className="fas fa-list mr-1"></i>{test.questionCount}문항</span>
             <span><i className="fas fa-users mr-1"></i>{formatParticipants(test.participants)}명</span>
@@ -91,7 +91,7 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`bg-gradient-to-r ${colors.button} text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all shadow-lg w-full break-keep whitespace-nowrap`}
+          className={`bg-gradient-to-r ${colors.button} text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base lg:text-lg font-semibold transition-all shadow-lg w-full break-keep whitespace-nowrap`}
         >
           <i className="fas fa-play mr-2"></i>
           <span className="break-keep">테스트 시작하기</span>
