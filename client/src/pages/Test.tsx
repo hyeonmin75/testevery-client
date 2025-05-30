@@ -40,23 +40,21 @@ export default function Test() {
 
   useEffect(() => {
     if (testData && isTestComplete(testData) && !isLoading) {
-      finishTest(testData);
-    }
-  }, [testData, isTestComplete, finishTest, isLoading]);
-
-  useEffect(() => {
-    if (testData && isTestComplete(testData) && isLoading) {
-      // 테스트 완료 및 결과 계산 중일 때 결과 페이지로 이동
-      const timer = setTimeout(() => {
-        setLocation(`/result/${testId}`);
-      }, 2500); // 결과 계산 애니메이션 후 이동
+      // 테스트 완료 시 결과 계산 및 페이지 이동
+      const processResult = async () => {
+        await finishTest(testData);
+        // 결과 계산 완료 후 페이지 이동
+        setTimeout(() => {
+          setLocation(`/result/${testId}`);
+        }, 1000);
+      };
       
-      return () => clearTimeout(timer);
+      processResult();
     }
-  }, [testData, isTestComplete, isLoading, testId, setLocation]);
+  }, [testData, isTestComplete, finishTest, isLoading, setLocation, testId]);
 
   const handleSelectOption = async (optionId: string) => {
-    if (isAnimating) return;
+    if (isAnimating || !testData || !session) return;
     
     setSelectedOptionId(optionId);
     setIsAnimating(true);
@@ -65,6 +63,16 @@ export default function Test() {
     await new Promise(resolve => setTimeout(resolve, 500));
     
     answerQuestion(optionId);
+    
+    // 답변 후 테스트 완료 여부 확인
+    const nextQuestionIndex = session.currentQuestionIndex + 1;
+    if (nextQuestionIndex >= testData.questions.length) {
+      // 마지막 질문 완료 - 결과 계산 시작
+      await finishTest(testData);
+      // 결과 페이지로 이동
+      setLocation(`/result/${testId}`);
+    }
+    
     setSelectedOptionId('');
     setIsAnimating(false);
   };
