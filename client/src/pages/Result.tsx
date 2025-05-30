@@ -118,7 +118,7 @@ export default function Result() {
       blue: 'from-blue-100 to-cyan-100',
       purple: 'from-purple-100 to-indigo-100',
       red: 'from-red-100 to-orange-100',
-      green: 'from-green-100 to-emerald-100'
+      green: 'from-emerald-100 to-cyan-100'
     };
     return colorMap[color as keyof typeof colorMap] || colorMap.purple;
   };
