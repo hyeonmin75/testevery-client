@@ -54,20 +54,20 @@ export function QuestionCard({
             </div>
           </div>
           
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 leading-relaxed break-keep px-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight break-keep px-4">
             {question.text}
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 break-keep hyphens-auto px-2">{question.subtitle}</p>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 break-keep hyphens-auto px-4 leading-relaxed">{question.subtitle}</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5 sm:space-y-6">
           {question.options.map((option, index) => (
             <motion.button
               key={option.id}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onSelectOption(option.id)}
-              className={`question-option-hover w-full p-3 sm:p-4 lg:p-6 text-left border-2 border-transparent rounded-xl sm:rounded-2xl transition-all duration-200 ${
+              className={`question-option-hover w-full p-4 sm:p-5 lg:p-7 text-left border-2 border-transparent rounded-xl sm:rounded-2xl transition-all duration-200 ${
                 selectedOptionId === option.id 
                   ? 'border-purple-500 bg-purple-100' 
                   : `bg-gradient-to-r ${getOptionColor(index)} hover:border-opacity-100`
@@ -76,8 +76,8 @@ export function QuestionCard({
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="text-2xl sm:text-3xl flex-shrink-0">{option.emoji}</div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-gray-800 mb-1 break-keep text-sm sm:text-base">{option.text}</div>
-                  <div className="text-xs sm:text-sm text-gray-600 break-keep hyphens-auto">{option.description}</div>
+                  <div className="font-semibold text-gray-800 mb-2 break-keep text-base sm:text-lg lg:text-xl leading-tight">{option.text}</div>
+                  <div className="text-sm sm:text-base lg:text-lg text-gray-600 break-keep hyphens-auto leading-relaxed">{option.description}</div>
                 </div>
                 <div className={`w-6 h-6 border-2 rounded-full transition-colors ${
                   selectedOptionId === option.id

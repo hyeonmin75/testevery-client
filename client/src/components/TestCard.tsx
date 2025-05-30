@@ -77,21 +77,21 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
           {test.emoji}
         </motion.div>
         
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3 break-keep">{test.title}</h3>
-        <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed break-keep hyphens-auto flex-grow">{test.description}</p>
+        <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 break-keep leading-tight px-2">{test.title}</h3>
+        <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-loose break-keep hyphens-auto flex-grow px-2">{test.description}</p>
         
-        <div className={`${colors.bg} rounded-xl p-2 sm:p-3 mb-4 sm:mb-6`}>
-          <div className={`flex justify-between text-xs sm:text-sm ${colors.text}`}>
-            <span><i className="fas fa-clock mr-1"></i>{test.duration}</span>
-            <span><i className="fas fa-list mr-1"></i>{test.questionCount}문항</span>
-            <span><i className="fas fa-users mr-1"></i>{formatParticipants(test.participants)}명</span>
+        <div className={`${colors.bg} rounded-xl p-3 sm:p-4 mb-6 sm:mb-8 mx-2`}>
+          <div className={`flex justify-between text-xs sm:text-sm ${colors.text} gap-2`}>
+            <span className="flex items-center gap-1"><i className="fas fa-clock"></i>{test.duration}</span>
+            <span className="flex items-center gap-1"><i className="fas fa-list"></i>{test.questionCount}문항</span>
+            <span className="flex items-center gap-1"><i className="fas fa-users"></i>{formatParticipants(test.participants)}명</span>
           </div>
         </div>
         
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`bg-gradient-to-r ${colors.button} text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base lg:text-lg font-semibold transition-all shadow-lg w-full break-keep whitespace-nowrap`}
+          className={`bg-gradient-to-r ${colors.button} text-white px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-base sm:text-lg lg:text-xl font-semibold transition-all shadow-lg w-full break-keep whitespace-nowrap mx-2`}
         >
           <i className="fas fa-play mr-2"></i>
           <span className="break-keep">테스트 시작하기</span>
