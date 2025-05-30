@@ -52,7 +52,7 @@ export default function Home() {
             </motion.div>
             
             <motion.h1 
-              className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"
+              className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent break-keep"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
@@ -65,9 +65,9 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+              <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto break-keep hyphens-auto">
                 당신의 숨겨진 성격을 발견해보세요!<br />
-                <span className="text-purple-600 font-semibold">{Object.keys(tests).length}가지 재미있는 테스트</span>로 나만의 특별함을 찾아보세요
+                <span className="text-purple-600 font-semibold break-keep">{Object.keys(tests).length}가지 재미있는 테스트</span>로 나만의 특별함을 찾아보세요
               </p>
               <div className="mt-6 flex justify-center gap-4 text-2xl">
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}>✨</motion.span>

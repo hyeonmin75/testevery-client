@@ -227,7 +227,7 @@ export default function Result() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2 break-keep">
               <i className="fas fa-lightbulb text-yellow-500"></i>
               성장 포인트
             </h3>
@@ -241,7 +241,7 @@ export default function Result() {
                   transition={{ delay: 1.2 + index * 0.1 }}
                 >
                   <i className="fas fa-arrow-up text-blue-500 mt-1 flex-shrink-0"></i>
-                  <span>{improvement}</span>
+                  <span className="break-keep hyphens-auto">{improvement}</span>
                 </motion.li>
               ))}
             </ul>
@@ -255,7 +255,7 @@ export default function Result() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.6 }}
         >
-          <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">나와 잘 맞는 타입들</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-6 text-center break-keep">나와 잘 맞는 타입들</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {result.result.compatibleTypes.map((type, index) => (
               <motion.div
@@ -266,8 +266,8 @@ export default function Result() {
                 transition={{ delay: 1.6 + index * 0.1, type: "spring" }}
               >
                 <div className="text-4xl mb-2">{type.emoji}</div>
-                <div className="font-semibold text-gray-800">{type.title}</div>
-                <div className="text-xs text-green-600 font-semibold">{type.compatibility}% 궁합</div>
+                <div className="font-semibold text-gray-800 break-keep">{type.title}</div>
+                <div className="text-xs text-green-600 font-semibold break-keep">{type.compatibility}% 궁합</div>
               </motion.div>
             ))}
           </div>
