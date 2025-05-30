@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
 import { tests } from '../data/tests';
@@ -8,7 +8,7 @@ import { CalculatedResult } from '../types/test';
 
 export default function Result() {
   const { testId } = useParams<{ testId: string }>();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const [showShareModal, setShowShareModal] = useState(false);
   const [result, setResult] = useState<CalculatedResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function Result() {
 
   useEffect(() => {
     if (!testData) {
-      navigate('/');
+      setLocation('/');
       return;
     }
 
@@ -31,28 +31,28 @@ export default function Result() {
       if (latestResult) {
         setResult(latestResult);
       } else {
-        navigate('/');
+        setLocation('/');
       }
       setIsLoading(false);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [testData, testId, navigate]);
+  }, [testData, testId, setLocation]);
 
   const handleShare = () => {
     setShowShareModal(true);
   };
 
   const handleRetakeTest = () => {
-    navigate(`/test/${testId}`);
+    setLocation(`/test/${testId}`);
   };
 
   const handleGoHome = () => {
-    navigate('/');
+    setLocation('/');
   };
 
   const handleStartOtherTest = (otherTestId: string) => {
-    navigate(`/test/${otherTestId}`);
+    setLocation(`/test/${otherTestId}`);
   };
 
   if (isLoading) {

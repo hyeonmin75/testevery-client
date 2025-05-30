@@ -46,9 +46,9 @@ export default function Test() {
 
   useEffect(() => {
     if (isLoading) {
-      navigate(`/result/${testId}`);
+      setLocation(`/result/${testId}`);
     }
-  }, [isLoading, testId, navigate]);
+  }, [isLoading, testId, setLocation]);
 
   const handleSelectOption = async (optionId: string) => {
     if (isAnimating) return;
@@ -65,7 +65,7 @@ export default function Test() {
   };
 
   const handleBack = () => {
-    navigate('/');
+    setLocation('/');
   };
 
   if (!testData || !session || !currentQuestion) {
