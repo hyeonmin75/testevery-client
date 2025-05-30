@@ -128,14 +128,17 @@ export default function Home() {
               <h2 className="text-xl lg:text-3xl font-bold mb-2 lg:mb-4">🔥 인기 테스트 TOP 3</h2>
               <p className="text-purple-100 mb-4 lg:mb-6 text-sm lg:text-base">가장 많이 참여한 테스트들을 확인해보세요!</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-                {Object.values(tests).slice(0, 3).map((test, index) => (
-                  <TopTestCard 
-                    key={test.id}
-                    test={test}
-                    rank={index + 1}
-                    onStartTest={handleStartTest}
-                  />
-                ))}
+                {Object.values(tests)
+                  .sort((a, b) => b.participants - a.participants)
+                  .slice(0, 3)
+                  .map((test, index) => (
+                    <TopTestCard 
+                      key={test.id}
+                      test={test}
+                      rank={index + 1}
+                      onStartTest={handleStartTest}
+                    />
+                  ))}
               </div>
             </div>
           </motion.div>
