@@ -71,6 +71,16 @@ export function ReactionTest({ onComplete, round, totalRounds }: ReactionTestPro
     };
   }, []);
 
+  // 라운드가 변경될 때 상태 초기화
+  useEffect(() => {
+    setPhase('waiting');
+    setReactionTime(null);
+    setCountdown(3);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }, [round]);
+
   const getPhaseColor = () => {
     switch (phase) {
       case 'ready': return 'bg-red-500';
