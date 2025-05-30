@@ -54,10 +54,10 @@ export function QuestionCard({
             </div>
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 leading-relaxed">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 leading-relaxed break-keep">
             {question.text}
           </h2>
-          <p className="text-gray-600">{question.subtitle}</p>
+          <p className="text-gray-600 break-keep hyphens-auto">{question.subtitle}</p>
         </div>
 
         <div className="space-y-4">
@@ -76,8 +76,8 @@ export function QuestionCard({
               <div className="flex items-center gap-4">
                 <div className="text-3xl flex-shrink-0">{option.emoji}</div>
                 <div className="flex-1">
-                  <div className="font-semibold text-gray-800 mb-1">{option.text}</div>
-                  <div className="text-sm text-gray-600">{option.description}</div>
+                  <div className="font-semibold text-gray-800 mb-1 break-keep">{option.text}</div>
+                  <div className="text-sm text-gray-600 break-keep hyphens-auto">{option.description}</div>
                 </div>
                 <div className={`w-6 h-6 border-2 rounded-full transition-colors ${
                   selectedOptionId === option.id

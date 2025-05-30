@@ -77,8 +77,8 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
           {test.emoji}
         </motion.div>
         
-        <h3 className="text-2xl font-bold text-gray-800 mb-3">{test.title}</h3>
-        <p className="text-gray-600 mb-6 leading-relaxed">{test.description}</p>
+        <h3 className="text-2xl font-bold text-gray-800 mb-3 break-keep">{test.title}</h3>
+        <p className="text-gray-600 mb-6 leading-relaxed break-keep hyphens-auto">{test.description}</p>
         
         <div className={`${colors.bg} rounded-xl p-3 mb-6`}>
           <div className={`flex justify-between text-sm ${colors.text}`}>

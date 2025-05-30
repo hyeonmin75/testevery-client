@@ -140,18 +140,18 @@ export default function Result() {
           </motion.div>
           
           <motion.h1
-            className="text-4xl font-bold mb-4 text-gray-800"
+            className="text-4xl font-bold mb-4 text-gray-800 break-keep"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            당신은 <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+            당신은 <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent break-keep">
               {result.result.title}
             </span>입니다!
           </motion.h1>
           
           <motion.p
-            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed break-keep hyphens-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
@@ -167,7 +167,7 @@ export default function Result() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">성격 특성</h3>
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {result.result.traits.map((trait, index) => (
               <motion.div
@@ -178,7 +178,7 @@ export default function Result() {
                 transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
               >
                 <div className="text-3xl mb-2">{trait.emoji}</div>
-                <div className="font-semibold text-gray-800">{trait.name}</div>
+                <div className="font-semibold text-gray-800 break-keep">{trait.name}</div>
                 <div className="text-sm text-gray-600">{trait.percentage}%</div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                   <motion.div
@@ -201,7 +201,7 @@ export default function Result() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2 break-keep">
               <i className="fas fa-star text-yellow-500"></i>
               당신의 강점
             </h3>
@@ -215,7 +215,7 @@ export default function Result() {
                   transition={{ delay: 1.2 + index * 0.1 }}
                 >
                   <i className="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>
-                  <span>{strength}</span>
+                  <span className="break-keep hyphens-auto">{strength}</span>
                 </motion.li>
               ))}
             </ul>
