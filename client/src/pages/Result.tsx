@@ -21,20 +21,27 @@ export default function Result() {
       return;
     }
 
-    // Simulate loading time for better UX
+    // 세션 스토리지에서 현재 테스트 결과 가져오기
     const timer = setTimeout(() => {
-      const history = getTestHistory();
-      const latestResult = history
-        .filter(r => r.testId === testId)
-        .sort((a, b) => b.completedAt - a.completedAt)[0];
-
-      if (latestResult) {
-        setResult(latestResult);
-      } else {
-        setLocation('/');
+      const savedResult = sessionStorage.getItem('currentTestResult');
+      
+      if (savedResult) {
+        try {
+          const parsedResult = JSON.parse(savedResult);
+          // 테스트 ID가 일치하는지 확인
+          if (parsedResult.testId === testId) {
+            setResult(parsedResult);
+            setIsLoading(false);
+            return;
+          }
+        } catch (error) {
+          console.error('결과 파싱 오류:', error);
+        }
       }
-      setIsLoading(false);
-    }, 2000);
+      
+      // 결과를 찾을 수 없으면 홈으로 이동
+      setLocation('/');
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [testData, testId, setLocation]);

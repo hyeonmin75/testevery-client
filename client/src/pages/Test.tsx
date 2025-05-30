@@ -45,10 +45,15 @@ export default function Test() {
   }, [testData, isTestComplete, finishTest, isLoading]);
 
   useEffect(() => {
-    if (isLoading) {
-      setLocation(`/result/${testId}`);
+    if (testData && isTestComplete(testData) && isLoading) {
+      // 테스트 완료 및 결과 계산 중일 때 결과 페이지로 이동
+      const timer = setTimeout(() => {
+        setLocation(`/result/${testId}`);
+      }, 2500); // 결과 계산 애니메이션 후 이동
+      
+      return () => clearTimeout(timer);
     }
-  }, [isLoading, testId, setLocation]);
+  }, [testData, isTestComplete, isLoading, testId, setLocation]);
 
   const handleSelectOption = async (optionId: string) => {
     if (isAnimating) return;
