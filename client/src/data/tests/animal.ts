@@ -8,7 +8,7 @@ export const animalTest: TestData = {
   color: 'orange',
   duration: '3-5분',
   questionCount: 8,
-  participants: 1247,
+  participants: 2847,
   questions: [
     {
       id: 1,

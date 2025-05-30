@@ -8,7 +8,7 @@ export const loveTest: TestData = {
   color: 'pink',
   duration: '4-6분',
   questionCount: 9,
-  participants: 2156,
+  participants: 3421,
   questions: [
     {
       id: 1,

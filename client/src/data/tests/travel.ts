@@ -8,7 +8,7 @@ export const travelTest: TestData = {
   color: 'blue',
   duration: '3-4분',
   questionCount: 8,
-  participants: 1823,
+  participants: 1689,
   questions: [
     {
       id: 1,

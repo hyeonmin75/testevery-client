@@ -8,7 +8,7 @@ export const colorTest: TestData = {
   color: 'purple',
   duration: '2-3분',
   questionCount: 8,
-  participants: 3012,
+  participants: 2156,
   questions: [
     {
       id: 1,
