@@ -1,7 +1,7 @@
 import { TestData } from '../../types/test';
 
 export const gameCharacterTest: TestData = {
-  id: 'game-character',
+  id: 'game_character',
   title: '내가 게임 속 캐릭터라면?',
   description: '당신의 성향으로 알아보는 게임 캐릭터 유형',
   emoji: '🎮',
