@@ -127,11 +127,11 @@ export default function Test() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="text-6xl mb-4"
+            className="text-4xl sm:text-5xl lg:text-6xl mb-4"
           >
             🧠
           </motion.div>
-          <p className="text-gray-600">곧 결과가 나옵니다 잠시만 기다려주세요</p>
+          <p className="text-gray-600 text-sm sm:text-base px-4">곧 결과가 나옵니다 잠시만 기다려주세요</p>
         </div>
       </div>
     );
@@ -179,25 +179,26 @@ export default function Test() {
 
   return (
     <div className="min-h-screen bg-gradient-korean">
-      <div className="max-w-4xl mx-auto p-4 py-8">
+      <div className="max-w-4xl mx-auto p-2 sm:p-4 py-4 sm:py-8">
         {/* Header */}
         <motion.div 
-          className="bg-white rounded-3xl p-6 shadow-lg mb-8"
+          className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg mb-4 sm:mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <motion.button
               onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <i className="fas fa-arrow-left"></i>
-              <span>홈으로 돌아가기</span>
+              <span className="hidden sm:inline">홈으로 돌아가기</span>
+              <span className="sm:hidden">홈</span>
             </motion.button>
-            <div className="text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500 break-keep">
               {testData.emoji} {testData.title}
             </div>
           </div>
