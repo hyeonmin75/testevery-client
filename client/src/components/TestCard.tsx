@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { TestData } from '../types/test';
 import { formatParticipants } from '../utils/testLogic';
 
@@ -8,6 +9,26 @@ interface TestCardProps {
 }
 
 export function TestCard({ test, onStartTest }: TestCardProps) {
+  const [animatedCount, setAnimatedCount] = useState(0);
+
+  useEffect(() => {
+    const duration = 2000; // 2초
+    const steps = 60;
+    const increment = test.participants / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= test.participants) {
+        setAnimatedCount(test.participants);
+        clearInterval(timer);
+      } else {
+        setAnimatedCount(Math.floor(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [test.participants]);
   const getColorClasses = (color: string) => {
     const colorMap = {
       orange: {
@@ -84,7 +105,7 @@ export function TestCard({ test, onStartTest }: TestCardProps) {
           <div className={`flex justify-between text-xs sm:text-sm ${colors.text} gap-2`}>
             <span className="flex items-center gap-1"><i className="fas fa-clock"></i>{test.duration}</span>
             <span className="flex items-center gap-1"><i className="fas fa-list"></i>{test.questionCount}문항</span>
-            <span className="flex items-center gap-1"><i className="fas fa-users"></i>{formatParticipants(test.participants)}명</span>
+            <span className="flex items-center gap-1"><i className="fas fa-users"></i>{formatParticipants(animatedCount)}명</span>
           </div>
         </div>
         

@@ -1,7 +1,45 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { TestCard } from '../components/TestCard';
 import { tests } from '../data/tests';
+import { TestData } from '../types/test';
+
+// TopTestCard 컴포넌트 정의
+function TopTestCard({ test, rank, onStartTest }: { test: TestData; rank: number; onStartTest: (testId: string) => void }) {
+  const [animatedCount, setAnimatedCount] = useState(0);
+
+  useEffect(() => {
+    const duration = 2000; // 2초
+    const steps = 60;
+    const increment = test.participants / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= test.participants) {
+        setAnimatedCount(test.participants);
+        clearInterval(timer);
+      } else {
+        setAnimatedCount(Math.floor(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [test.participants]);
+
+  return (
+    <motion.div
+      className="bg-white/20 backdrop-blur-sm rounded-xl lg:rounded-2xl p-4 lg:p-6 hover:bg-white/30 transition-colors cursor-pointer"
+      whileHover={{ scale: 1.05 }}
+      onClick={() => onStartTest(test.id)}
+    >
+      <div className="text-2xl lg:text-4xl mb-2 lg:mb-3">{test.emoji}</div>
+      <div className="font-semibold text-sm lg:text-base">{test.title.replace(' 테스트', '')}</div>
+      <div className="text-xs lg:text-sm text-purple-100">{rank}위 • {animatedCount.toLocaleString()}명 참여</div>
+    </motion.div>
+  );
+}
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -32,10 +70,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-korean">
       <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
-        <div className="max-w-6xl w-full">
+        <div className="max-w-6xl w-full scale-75 lg:scale-90 xl:scale-100">
           {/* Header */}
           <motion.div 
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-6 sm:mb-8 lg:mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -81,7 +119,7 @@ export default function Home() {
 
           {/* Test Cards */}
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -100,26 +138,22 @@ export default function Home() {
 
           {/* Popular Tests */}
           <motion.div 
-            className="mb-12"
+            className="mb-8 lg:mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
           >
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-8 text-white text-center shadow-2xl">
-              <h2 className="text-3xl font-bold mb-4">🔥 인기 테스트 TOP 3</h2>
-              <p className="text-purple-100 mb-6">가장 많이 참여한 테스트들을 확인해보세요!</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl lg:rounded-3xl p-4 lg:p-8 text-white text-center shadow-2xl">
+              <h2 className="text-xl lg:text-3xl font-bold mb-2 lg:mb-4">🔥 인기 테스트 TOP 3</h2>
+              <p className="text-purple-100 mb-4 lg:mb-6 text-sm lg:text-base">가장 많이 참여한 테스트들을 확인해보세요!</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                 {Object.values(tests).slice(0, 3).map((test, index) => (
-                  <motion.div
+                  <TopTestCard 
                     key={test.id}
-                    className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/30 transition-colors cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => handleStartTest(test.id)}
-                  >
-                    <div className="text-4xl mb-3">{test.emoji}</div>
-                    <div className="font-semibold">{test.title.replace(' 테스트', '')}</div>
-                    <div className="text-sm text-purple-100">{index + 1}위 • {test.participants}명 참여</div>
-                  </motion.div>
+                    test={test}
+                    rank={index + 1}
+                    onStartTest={handleStartTest}
+                  />
                 ))}
               </div>
             </div>
