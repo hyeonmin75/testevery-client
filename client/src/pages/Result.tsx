@@ -273,6 +273,79 @@ export default function Result() {
           </div>
         </motion.div>
 
+        {/* Quick Share Buttons */}
+        <motion.div
+          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+        >
+          <h3 className="text-lg font-bold text-gray-800 mb-4 text-center break-keep">빠른 공유</h3>
+          <div className="flex justify-center gap-4">
+            <motion.button
+              onClick={() => {
+                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
+                const url = window.location.href;
+                if (navigator.share) {
+                  navigator.share({ title: '심리테스트 결과', text: text, url: url });
+                } else {
+                  const kakaoUrl = `kakaotalk://share?text=${encodeURIComponent(text + ' ' + url)}`;
+                  window.location.href = kakaoUrl;
+                }
+              }}
+              className="w-12 h-12 bg-yellow-400 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fas fa-comment text-white"></i>
+            </motion.button>
+            
+            <motion.button
+              onClick={() => {
+                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
+              }}
+              className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fab fa-facebook-f text-white"></i>
+            </motion.button>
+            
+            <motion.button
+              onClick={() => {
+                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank', 'width=600,height=400');
+              }}
+              className="w-12 h-12 bg-gray-800 hover:bg-gray-900 rounded-full flex items-center justify-center transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fab fa-twitter text-white"></i>
+            </motion.button>
+            
+            <motion.button
+              onClick={async () => {
+                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
+                const fullText = `${text}\n${window.location.href}`;
+                try {
+                  await navigator.clipboard.writeText(fullText);
+                  alert('결과 텍스트와 링크가 복사되었습니다!');
+                } catch (err) {
+                  prompt('다음 텍스트를 복사해주세요:', fullText);
+                }
+              }}
+              className="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fas fa-link text-white"></i>
+            </motion.button>
+          </div>
+        </motion.div>
+
         {/* Action Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 mb-8"
@@ -282,32 +355,32 @@ export default function Result() {
         >
           <motion.button
             onClick={handleShare}
-            className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg flex items-center justify-center gap-3"
+            className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg flex items-center justify-center gap-3 break-keep"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             <i className="fas fa-share-alt"></i>
-            결과 공유하기
+            <span className="break-keep">더 많은 공유 옵션</span>
           </motion.button>
           
           <motion.button
             onClick={handleRetakeTest}
-            className="flex-1 bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:border-gray-300 transition-all flex items-center justify-center gap-3"
+            className="flex-1 bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:border-gray-300 transition-all flex items-center justify-center gap-3 break-keep"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             <i className="fas fa-redo"></i>
-            다시 테스트하기
+            <span className="break-keep">다시 테스트하기</span>
           </motion.button>
           
           <motion.button
             onClick={handleGoHome}
-            className="flex-1 bg-purple-100 text-purple-700 px-8 py-4 rounded-2xl font-semibold hover:bg-purple-200 transition-all flex items-center justify-center gap-3"
+            className="flex-1 bg-purple-100 text-purple-700 px-8 py-4 rounded-2xl font-semibold hover:bg-purple-200 transition-all flex items-center justify-center gap-3 break-keep"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             <i className="fas fa-home"></i>
-            다른 테스트 해보기
+            <span className="break-keep">다른 테스트 해보기</span>
           </motion.button>
         </motion.div>
 
