@@ -137,8 +137,8 @@ export function ReactionTest({ onComplete, round, totalRounds }: ReactionTestPro
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <div className="text-center text-white">
-          <div className="text-6xl font-bold mb-4 whitespace-nowrap">
+        <div className="text-center text-white px-4">
+          <div className="text-4xl md:text-5xl font-bold mb-4 whitespace-nowrap">
             {getPhaseText()}
           </div>
           {phase === 'clicked' && reactionTime && (
