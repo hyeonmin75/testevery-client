@@ -1,10 +1,6 @@
-import { TestData } from '../types/test';
-
-export const tests: Record<string, TestData> = {
-  animal: {
-    id: 'animal',
-    title: '동물 캐릭터 테스트',
-    description: '당신의 성격을 닮은 동물을 찾아보세요',
+// 이 파일은 더 이상 사용되지 않습니다. tests/index.ts를 사용하세요.
+// 하위 호환성을 위해 새로운 구조를 re-export합니다.
+export { tests } from './tests/index';
     emoji: '🦁',
     color: 'orange',
     duration: '3-5분',
