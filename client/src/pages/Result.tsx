@@ -167,38 +167,102 @@ export default function Result() {
           </motion.p>
         </motion.div>
 
-        {/* Traits */}
-        <motion.div
-          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {result.result.traits.map((trait, index) => (
-              <motion.div
-                key={trait.name}
-                className="text-center p-4 bg-gray-50 rounded-2xl"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
-              >
-                <div className="text-3xl mb-2">{trait.emoji}</div>
-                <div className="font-semibold text-gray-800 break-keep">{trait.name}</div>
-                <div className="text-sm text-gray-600">{trait.percentage}%</div>
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                  <motion.div
-                    className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${trait.percentage}%` }}
-                    transition={{ delay: 1 + index * 0.1, duration: 0.8 }}
-                  />
+        {/* Reaction Speed Results or Traits */}
+        {testData.id === 'reaction_speed' && result.averageReactionTime ? (
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">반응속도 측정 결과</h3>
+            
+            {/* Average Reaction Time */}
+            <div className="text-center mb-8">
+              <div className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-2xl">
+                <div className="text-lg font-semibold mb-1">평균 반응속도</div>
+                <div className="text-4xl font-bold">{result.averageReactionTime}ms</div>
+                <div className="text-sm opacity-90 mt-1">
+                  {result.averageReactionTime < 250 ? '⚡ 매우 빠름!' :
+                   result.averageReactionTime < 350 ? '🔥 빠름!' :
+                   result.averageReactionTime < 450 ? '👍 좋음!' : '🐌 보통'}
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+              </div>
+            </div>
+
+            {/* Individual Round Results */}
+            <div className="grid grid-cols-5 gap-4 mb-6">
+              {result.allReactionTimes?.map((time, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-4 bg-gray-50 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
+                >
+                  <div className="text-2xl mb-2">⚡</div>
+                  <div className="font-semibold text-gray-800">{index + 1}라운드</div>
+                  <div className="text-lg font-bold text-red-500">{time}ms</div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Performance Comparison */}
+            <div className="bg-gray-50 rounded-2xl p-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">일반적인 반응속도와 비교</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">프로 게이머 수준</span>
+                  <span className="text-sm font-semibold text-green-500">150-200ms</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">매우 빠름</span>
+                  <span className="text-sm font-semibold text-blue-500">200-300ms</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">평균 수준</span>
+                  <span className="text-sm font-semibold text-yellow-500">300-500ms</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">느림</span>
+                  <span className="text-sm font-semibold text-red-500">500ms 이상</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {result.result.traits.map((trait, index) => (
+                <motion.div
+                  key={trait.name}
+                  className="text-center p-4 bg-gray-50 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
+                >
+                  <div className="text-3xl mb-2">{trait.emoji}</div>
+                  <div className="font-semibold text-gray-800 break-keep">{trait.name}</div>
+                  <div className="text-sm text-gray-600">{trait.percentage}%</div>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <motion.div
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${trait.percentage}%` }}
+                      transition={{ delay: 1 + index * 0.1, duration: 0.8 }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* Details */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
