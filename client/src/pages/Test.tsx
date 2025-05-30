@@ -179,10 +179,10 @@ export default function Test() {
 
   return (
     <div className="min-h-screen bg-gradient-korean">
-      <div className="max-w-4xl mx-auto p-2 sm:p-4 py-4 sm:py-8">
+      <div className="max-w-4xl mx-auto p-2 sm:p-4 py-2 sm:py-4">
         {/* Header */}
         <motion.div 
-          className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg mb-4 sm:mb-8"
+          className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-lg mb-3 sm:mb-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}

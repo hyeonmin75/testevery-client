@@ -79,20 +79,34 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // 콘텐츠 양에 따라 동적으로 높이 계산
-    const baseHeight = 1200;
-    const contentSections = [
-      result.result.traits?.length || 0,
-      result.result.strengths?.length || 0,
-      result.result.improvements?.length || 0,
-      result.result.compatibleTypes?.length || 0,
-      result.averageReactionTime ? 1 : 0
-    ].filter(count => count > 0).length;
+    // 콘텐츠 양에 따라 동적으로 높이 계산 - 더 정확한 계산
+    let estimatedHeight = 300; // 헤더 영역
     
-    const calculatedHeight = baseHeight + (contentSections * 300);
+    // 제목과 설명 영역
+    estimatedHeight += 200;
+    
+    // 각 섹션별 높이 추정
+    if (result.result.traits?.length) {
+      estimatedHeight += 100 + (result.result.traits.length * 50);
+    }
+    if (result.result.strengths?.length) {
+      estimatedHeight += 100 + (result.result.strengths.length * 60);
+    }
+    if (result.result.improvements?.length) {
+      estimatedHeight += 100 + (result.result.improvements.length * 60);
+    }
+    if (result.result.compatibleTypes?.length) {
+      estimatedHeight += 100 + (Math.min(result.result.compatibleTypes.length, 3) * 50);
+    }
+    if (result.averageReactionTime) {
+      estimatedHeight += 150;
+    }
+    
+    // 여백 추가
+    estimatedHeight += 100;
 
     canvas.width = 1080;
-    canvas.height = Math.min(calculatedHeight, 2400); // 최대 높이 제한
+    canvas.height = Math.max(estimatedHeight, 800); // 최소 높이 보장
 
     // 부드러운 그라데이션 배경
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);

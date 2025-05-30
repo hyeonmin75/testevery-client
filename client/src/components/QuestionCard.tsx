@@ -34,11 +34,11 @@ export function QuestionCard({
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.3 }}
-        className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl mb-4 sm:mb-8"
+        className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 shadow-xl mb-3 sm:mb-6"
       >
-        <div className="text-center mb-6 sm:mb-8">
+        <div className="text-center mb-4 sm:mb-6">
           <motion.div 
-            className="text-4xl sm:text-5xl lg:text-6xl mb-4 sm:mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl mb-3 sm:mb-4"
             animate={{ 
               scale: [1, 1.1, 1],
               rotate: [0, 5, -5, 0]
@@ -48,36 +48,36 @@ export function QuestionCard({
             {question.emoji}
           </motion.div>
           
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-4 mb-3">
             <div className="text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 sm:px-3 py-1 rounded-full">
               질문 {questionNumber} / {totalQuestions}
             </div>
           </div>
           
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight break-keep px-4">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 leading-tight break-keep px-2">
             {question.text}
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 break-keep hyphens-auto px-4 leading-relaxed">{question.subtitle}</p>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 break-keep hyphens-auto px-2 leading-relaxed">{question.subtitle}</p>
         </div>
 
-        <div className="space-y-5 sm:space-y-6">
+        <div className="space-y-3 sm:space-y-4">
           {question.options.map((option, index) => (
             <motion.button
               key={option.id}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onSelectOption(option.id)}
-              className={`question-option-hover w-full p-4 sm:p-5 lg:p-7 text-left border-2 border-transparent rounded-xl sm:rounded-2xl transition-all duration-200 ${
+              className={`question-option-hover w-full p-3 sm:p-4 lg:p-5 text-left border-2 border-transparent rounded-xl sm:rounded-2xl transition-all duration-200 ${
                 selectedOptionId === option.id 
                   ? 'border-purple-500 bg-purple-100' 
                   : `bg-gradient-to-r ${getOptionColor(index)} hover:border-opacity-100`
               }`}
             >
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="text-2xl sm:text-3xl flex-shrink-0">{option.emoji}</div>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="text-xl sm:text-2xl flex-shrink-0">{option.emoji}</div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-gray-800 mb-2 break-keep text-base sm:text-lg lg:text-xl leading-tight">{option.text}</div>
-                  <div className="text-sm sm:text-base lg:text-lg text-gray-600 break-keep hyphens-auto leading-relaxed">{option.description}</div>
+                  <div className="font-semibold text-gray-800 mb-1 break-keep text-sm sm:text-base lg:text-lg leading-tight">{option.text}</div>
+                  <div className="text-xs sm:text-sm lg:text-base text-gray-600 break-keep hyphens-auto leading-relaxed">{option.description}</div>
                 </div>
                 <div className={`w-6 h-6 border-2 rounded-full transition-colors ${
                   selectedOptionId === option.id
