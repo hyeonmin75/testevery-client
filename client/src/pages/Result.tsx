@@ -251,32 +251,89 @@ export default function Result() {
                 </div>
               </>
             ) : (
-              /* Tapping Test Results */
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">탭핑 실력 등급표</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">🚀 마스터급</span>
-                    <span className="text-sm font-semibold text-purple-500">300회 이상</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">⚡ 전문가급</span>
-                    <span className="text-sm font-semibold text-blue-500">250-299회</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">💪 숙련자급</span>
-                    <span className="text-sm font-semibold text-green-500">200-249회</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">👍 안정적</span>
-                    <span className="text-sm font-semibold text-yellow-500">150-199회</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">🌱 초보자</span>
-                    <span className="text-sm font-semibold text-gray-500">150회 미만</span>
+              /* Tapping Test Detailed Results */
+              <>
+                {/* Performance Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <motion.div
+                    className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.8, type: "spring" }}
+                  >
+                    <div className="text-3xl mb-2">⚡</div>
+                    <div className="font-semibold text-gray-800">총 탭핑 횟수</div>
+                    <div className="text-2xl font-bold text-blue-600">{result.scores?.tapCount || 0}회</div>
+                  </motion.div>
+
+                  <motion.div
+                    className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9, type: "spring" }}
+                  >
+                    <div className="text-3xl mb-2">🚀</div>
+                    <div className="font-semibold text-gray-800">초당 속도</div>
+                    <div className="text-2xl font-bold text-purple-600">{((result.scores?.tapCount || 0) / 60).toFixed(1)}회/초</div>
+                  </motion.div>
+
+                  <motion.div
+                    className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.0, type: "spring" }}
+                  >
+                    <div className="text-3xl mb-2">🎯</div>
+                    <div className="font-semibold text-gray-800">분당 속도</div>
+                    <div className="text-2xl font-bold text-green-600">{result.scores?.tapCount || 0}회/분</div>
+                  </motion.div>
+                </div>
+
+                {/* Performance Comparison */}
+                <div className="bg-gray-50 rounded-2xl p-6">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">탭핑 실력 등급표</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">🚀 마스터급</span>
+                      <span className="text-sm font-semibold text-purple-500">300회 이상 (5.0회/초)</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">⚡ 전문가급</span>
+                      <span className="text-sm font-semibold text-blue-500">250-299회 (4.2-5.0회/초)</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">💪 숙련자급</span>
+                      <span className="text-sm font-semibold text-green-500">200-249회 (3.3-4.1회/초)</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">👍 안정적</span>
+                      <span className="text-sm font-semibold text-yellow-500">150-199회 (2.5-3.2회/초)</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">🌱 초보자</span>
+                      <span className="text-sm font-semibold text-gray-500">150회 미만 (2.5회/초 미만)</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {/* Performance Tips */}
+                <div className="mt-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-3 text-center">성과 분석</h4>
+                  <div className="text-center text-gray-600">
+                    {(result.scores?.tapCount || 0) >= 300 ? (
+                      <p>놀라운 속도입니다! 당신은 타이핑과 반응속도에 뛰어난 재능을 가지고 있습니다. 게임이나 타이핑 관련 작업에서 큰 장점을 발휘할 수 있을 것입니다.</p>
+                    ) : (result.scores?.tapCount || 0) >= 250 ? (
+                      <p>매우 인상적인 결과입니다! 평균보다 훨씬 빠른 손목 움직임과 집중력을 보여주고 있습니다.</p>
+                    ) : (result.scores?.tapCount || 0) >= 200 ? (
+                      <p>훌륭한 성과입니다! 꾸준한 속도와 안정적인 리듬감을 유지하고 있습니다.</p>
+                    ) : (result.scores?.tapCount || 0) >= 150 ? (
+                      <p>안정적인 결과입니다. 조금 더 연습하면 더 빠른 속도를 낼 수 있을 것 같습니다.</p>
+                    ) : (
+                      <p>좋은 시작입니다! 손목 운동과 함께 꾸준히 연습하면 더 좋은 결과를 얻을 수 있습니다.</p>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
           </motion.div>
         ) : (

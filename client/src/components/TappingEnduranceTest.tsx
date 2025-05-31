@@ -135,7 +135,6 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
               ? 'bg-blue-600 scale-95 shadow-lg' 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
-          onClick={handleTap}
           onMouseDown={handleTap}
           onTouchStart={handleTap}
           whileTap={{ scale: 0.9 }}
