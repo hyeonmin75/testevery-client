@@ -228,10 +228,11 @@ export default function Result() {
           >
             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">전체 등급표</h3>
             
-            <div className="flex justify-center items-center space-x-16">
-              {/* Vertical Progress Bar */}
-              <div className="relative">
-                <div className="w-24 h-96 bg-gray-200 rounded-full relative overflow-hidden">
+            <div className="flex flex-col space-y-6">
+              {/* Vertical Progress Bar - Full Height */}
+              <div className="w-full">
+                <div className="relative w-16 mx-auto bg-gray-200 rounded-full overflow-hidden" style={{ height: `${allRanks.length * 80}px` }}>
+                  {/* Background gradient fill */}
                   <motion.div
                     className="absolute bottom-0 w-full bg-gradient-to-t from-blue-500 via-purple-500 to-pink-500 rounded-full"
                     initial={{ height: '0%' }}
@@ -239,6 +240,7 @@ export default function Result() {
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
                   />
                   
+                  {/* Current position indicator */}
                   <motion.div
                     className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
                     initial={{ bottom: '2%' }}
@@ -248,29 +250,31 @@ export default function Result() {
                 </div>
               </div>
 
-              {/* Rank Labels */}
-              <div className="space-y-4">
+              {/* Rank Labels - Full List */}
+              <div className="space-y-3">
                 {allRanks.map((rank, index) => {
                   const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < allRanks[index - 1]?.min);
                   
                   return (
                     <motion.div
                       key={rank.name}
-                      className={`flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 ${
+                      className={`flex items-center justify-between p-4 rounded-xl transition-all duration-300 ${
                         isCurrentRank 
-                          ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-110 border-2 border-yellow-400 shadow-lg' 
+                          ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-105 border-2 border-yellow-400 shadow-lg' 
                           : 'bg-gray-50 opacity-70'
                       }`}
                       initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: isCurrentRank ? 1 : 0.7, x: 0 }}
                       transition={{ delay: 1.8 + index * 0.1 }}
                     >
-                      <span className="text-3xl">{rank.emoji}</span>
-                      <div className="flex-1">
-                        <span className={`font-bold text-lg ${isCurrentRank ? 'text-yellow-800' : 'text-gray-700'}`}>
-                          {rank.name}
-                        </span>
-                        <div className="text-sm text-gray-500">{rank.min}회 이상</div>
+                      <div className="flex items-center space-x-4">
+                        <span className="text-3xl">{rank.emoji}</span>
+                        <div>
+                          <span className={`font-bold text-lg ${isCurrentRank ? 'text-yellow-800' : 'text-gray-700'}`}>
+                            {rank.name}
+                          </span>
+                          <div className="text-sm text-gray-500">{rank.min}회 이상</div>
+                        </div>
                       </div>
                       {isCurrentRank && (
                         <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">

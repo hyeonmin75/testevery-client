@@ -181,7 +181,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
         {/* 상단 정보 */}
         <div className="text-center mb-8">
-          <div className="flex justify-center items-center gap-8 mb-4">
+          <div className="flex justify-center items-center gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600">{timeLeft}</div>
               <div className="text-sm text-gray-600">초 남음</div>
@@ -191,17 +191,6 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
               <div className="text-sm text-gray-600">초당 속도</div>
             </div>
           </div>
-          
-          {motivationMessage && (
-            <motion.div
-              className="text-lg font-semibold text-orange-600 bg-orange-100 px-4 py-2 rounded-full"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-            >
-              {motivationMessage}
-            </motion.div>
-          )}
         </div>
 
         {/* 탭핑 영역 */}
@@ -221,7 +210,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
           </div>
         </motion.div>
 
-        {/* 하단 성과 메시지 */}
+        {/* 하단 성과 메시지 및 격려 문구 */}
         <div className="mt-8 text-center">
           <div className="text-lg font-semibold text-gray-700">
             {getPerformanceMessage()}
@@ -229,6 +218,17 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
           <div className="text-sm text-gray-500 mt-2">
             분당 속도: {tapCount}회/분
           </div>
+          
+          {motivationMessage && (
+            <motion.div
+              className="text-lg font-semibold text-orange-600 bg-orange-100 px-4 py-2 rounded-full mt-4"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+            >
+              {motivationMessage}
+            </motion.div>
+          )}
         </div>
       </div>
     );
