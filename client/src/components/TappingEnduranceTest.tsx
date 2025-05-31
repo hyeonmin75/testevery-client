@@ -40,13 +40,29 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
   }, [gameState, countdown]);
 
   useEffect(() => {
-    if (gameState === 'active' && timeLeft > 0) {
-      const timer = setTimeout(() => {
-        setTimeLeft(prev => prev - 1);
+    let timer: NodeJS.Timeout;
+    
+    if (gameState === 'active') {
+      timer = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            setGameState('finished');
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
-      return () => clearTimeout(timer);
-    } else if (gameState === 'active' && timeLeft === 0) {
-      setGameState('finished');
+    }
+    
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+  }, [gameState]);
+
+  useEffect(() => {
+    if (gameState === 'finished' && timeLeft <= 0) {
       onComplete(tapCount);
     }
   }, [gameState, timeLeft, tapCount, onComplete]);
