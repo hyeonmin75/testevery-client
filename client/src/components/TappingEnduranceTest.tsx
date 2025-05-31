@@ -18,7 +18,8 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
     setTapCount(0);
   };
 
-  const handleTap = useCallback(() => {
+  const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
     if (gameState === 'active') {
       setTapCount(prev => prev + 1);
       setIsPressed(true);
@@ -119,6 +120,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
           onClick={handleTap}
+          onMouseDown={handleTap}
           onTouchStart={handleTap}
           whileTap={{ scale: 0.9 }}
         >
