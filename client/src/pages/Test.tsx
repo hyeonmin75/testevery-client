@@ -138,6 +138,30 @@ export default function Test() {
     );
   }
 
+  // 탭핑 지구력 테스트 완료 핸들러
+  const handleTappingComplete = async (tapCount: number) => {
+    if (!testData) return;
+    
+    // 탭핑 횟수에 따라 결과 결정
+    let resultType = 'beginner';
+    if (tapCount >= 300) resultType = 'master';
+    else if (tapCount >= 250) resultType = 'expert';
+    else if (tapCount >= 200) resultType = 'advanced';
+    else if (tapCount >= 150) resultType = 'intermediate';
+
+    const result = {
+      resultId: resultType,
+      result: testData.results[resultType],
+      scores: { [resultType]: tapCount },
+      completedAt: Date.now(),
+      testId: testData.id,
+      tapCount: tapCount
+    };
+    
+    sessionStorage.setItem('currentTestResult', JSON.stringify(result));
+    setLocation(`/result/${testId}`);
+  };
+
   // 반응속도 테스트인 경우 특별한 렌더링
   if (testData.id === 'reaction_speed') {
     return (
@@ -173,6 +197,44 @@ export default function Test() {
           onComplete={handleReactionComplete}
           round={currentReactionRound}
           totalRounds={5}
+        />
+      </div>
+    );
+  }
+
+  // 탭핑 지구력 테스트인 경우 특별한 렌더링
+  if (testData.id === 'tapping_endurance') {
+    return (
+      <div className="min-h-screen bg-gradient-korean">
+        {/* Header */}
+        <motion.div 
+          className="bg-white shadow-lg p-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-4xl mx-auto flex items-center justify-between">
+            <motion.button
+              onClick={handleBack}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <i className="fas fa-arrow-left"></i>
+              <span>홈으로 돌아가기</span>
+            </motion.button>
+            <div className="text-lg font-semibold text-gray-800">
+              {testData.emoji} {testData.title}
+            </div>
+            <div className="text-sm text-gray-500">
+              1분간 탭핑 테스트
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Tapping Endurance Test Component */}
+        <TappingEnduranceTest
+          onComplete={handleTappingComplete}
         />
       </div>
     );
