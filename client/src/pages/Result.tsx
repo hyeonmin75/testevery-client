@@ -228,10 +228,10 @@ export default function Result() {
           >
             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">전체 등급표</h3>
             
-            <div className="flex flex-col space-y-6">
+            <div className="flex items-start justify-center space-x-12">
               {/* Vertical Progress Bar - Full Height */}
-              <div className="w-full">
-                <div className="relative w-16 mx-auto bg-gray-200 rounded-full overflow-hidden" style={{ height: `${allRanks.length * 80}px` }}>
+              <div className="flex-shrink-0">
+                <div className="relative w-16 bg-gray-200 rounded-full overflow-hidden" style={{ height: `${allRanks.length * 70}px` }}>
                   {/* Background gradient fill */}
                   <motion.div
                     className="absolute bottom-0 w-full bg-gradient-to-t from-blue-500 via-purple-500 to-pink-500 rounded-full"
@@ -250,40 +250,44 @@ export default function Result() {
                 </div>
               </div>
 
-              {/* Rank Labels - Full List */}
-              <div className="space-y-3">
-                {allRanks.map((rank, index) => {
-                  const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < allRanks[index - 1]?.min);
-                  
-                  return (
-                    <motion.div
-                      key={rank.name}
-                      className={`flex items-center justify-between p-4 rounded-xl transition-all duration-300 ${
-                        isCurrentRank 
-                          ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-105 border-2 border-yellow-400 shadow-lg' 
-                          : 'bg-gray-50 opacity-70'
-                      }`}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: isCurrentRank ? 1 : 0.7, x: 0 }}
-                      transition={{ delay: 1.8 + index * 0.1 }}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <span className="text-3xl">{rank.emoji}</span>
-                        <div>
-                          <span className={`font-bold text-lg ${isCurrentRank ? 'text-yellow-800' : 'text-gray-700'}`}>
-                            {rank.name}
-                          </span>
-                          <div className="text-sm text-gray-500">{rank.min}회 이상</div>
+              {/* Rank Labels - Positioned alongside progress bar */}
+              <div className="flex-1 max-w-md" style={{ height: `${allRanks.length * 70}px` }}>
+                <div className="relative h-full">
+                  {allRanks.map((rank, index) => {
+                    const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < allRanks[index - 1]?.min);
+                    const topPosition = (index / (allRanks.length - 1)) * 90;
+                    
+                    return (
+                      <motion.div
+                        key={rank.name}
+                        className={`absolute w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
+                          isCurrentRank 
+                            ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-105 border-2 border-yellow-400 shadow-lg' 
+                            : 'bg-gray-50 opacity-70'
+                        }`}
+                        style={{ top: `${topPosition}%`, transform: 'translateY(-50%)' }}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: isCurrentRank ? 1 : 0.7, x: 0 }}
+                        transition={{ delay: 1.8 + index * 0.1 }}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="text-2xl">{rank.emoji}</span>
+                          <div>
+                            <span className={`font-bold ${isCurrentRank ? 'text-yellow-800' : 'text-gray-700'}`}>
+                              {rank.name}
+                            </span>
+                            <div className="text-xs text-gray-500">{rank.min}회+</div>
+                          </div>
                         </div>
-                      </div>
-                      {isCurrentRank && (
-                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                          현재 등급
-                        </span>
-                      )}
-                    </motion.div>
-                  );
-                })}
+                        {isCurrentRank && (
+                          <span className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                            현재
+                          </span>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </motion.div>
