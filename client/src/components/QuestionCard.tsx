@@ -18,10 +18,10 @@ export function QuestionCard({
 }: QuestionCardProps) {
   const getOptionColor = (index: number) => {
     const colors = [
-      'from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 border-purple-300',
-      'from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 border-blue-300',
-      'from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 border-green-300',
-      'from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 border-yellow-300'
+      'from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 border-gray-200',
+      'from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 border-gray-200',
+      'from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 border-gray-200',
+      'from-rose-50 to-pink-50 hover:from-rose-100 hover:to-pink-100 border-gray-200'
     ];
     return colors[index % colors.length];
   };
