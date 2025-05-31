@@ -167,174 +167,259 @@ export default function Result() {
           </motion.p>
         </motion.div>
 
-        {/* Performance Test Results */}
-        {(testData.id === 'reaction_speed' || testData.id === 'tapping_endurance') && (testData.id === 'reaction_speed' ? result.averageReactionTime : result.scores?.tapCount) ? (
+        {/* Tapping Endurance Test Results */}
+        {testData.id === 'tapping_endurance' && result.scores?.tapCount ? (
+          <div className="space-y-8">
+            {/* Main Stats */}
+            <motion.div
+              className="bg-white rounded-3xl p-8 shadow-xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
+              <div className="text-center mb-8">
+                <div className="text-6xl mb-4">⚡</div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">탭핑 스피드 테스트 결과</h2>
+                <p className="text-gray-600">1분간의 집중력과 손목 지구력을 측정했습니다</p>
+              </div>
+
+              {/* Core Statistics */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <motion.div
+                  className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                >
+                  <div className="text-2xl mb-3">📊</div>
+                  <div className="text-sm font-semibold text-blue-700 mb-1">총 탭핑 횟수</div>
+                  <div className="text-3xl font-bold text-blue-800">{result.scores.tapCount}회</div>
+                </motion.div>
+
+                <motion.div
+                  className="text-center p-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.0, duration: 0.5 }}
+                >
+                  <div className="text-2xl mb-3">⚡</div>
+                  <div className="text-sm font-semibold text-purple-700 mb-1">초당 속도</div>
+                  <div className="text-3xl font-bold text-purple-800">{(result.scores.tapCount / 60).toFixed(1)}회/초</div>
+                </motion.div>
+
+                <motion.div
+                  className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.2, duration: 0.5 }}
+                >
+                  <div className="text-2xl mb-3">🎯</div>
+                  <div className="text-sm font-semibold text-green-700 mb-1">분당 속도</div>
+                  <div className="text-3xl font-bold text-green-800">{result.scores.tapCount}회/분</div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Ranking System */}
+            <motion.div
+              className="bg-white rounded-3xl p-8 shadow-xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">속도 등급 시스템</h3>
+              
+              {/* Vertical Progress Bar */}
+              <div className="flex justify-center mb-8">
+                <div className="relative w-16 h-96 bg-gray-200 rounded-full overflow-hidden">
+                  {/* Background levels */}
+                  {[
+                    { level: 10, color: 'from-purple-500 to-pink-500', min: 400, label: '전설' },
+                    { level: 9, color: 'from-red-500 to-purple-500', min: 350, label: '마스터' },
+                    { level: 8, color: 'from-orange-500 to-red-500', min: 300, label: '그랜드마스터' },
+                    { level: 7, color: 'from-yellow-500 to-orange-500', min: 270, label: '다이아몬드' },
+                    { level: 6, color: 'from-green-500 to-yellow-500', min: 240, label: '플래티넘' },
+                    { level: 5, color: 'from-blue-500 to-green-500', min: 210, label: '골드' },
+                    { level: 4, color: 'from-indigo-500 to-blue-500', min: 180, label: '실버' },
+                    { level: 3, color: 'from-gray-500 to-indigo-500', min: 150, label: '브론즈' },
+                    { level: 2, color: 'from-gray-400 to-gray-500', min: 120, label: '초보자' },
+                    { level: 1, color: 'from-gray-300 to-gray-400', min: 0, label: '입문자' }
+                  ].reverse().map((rank, index) => {
+                    const isCurrentRank = result.scores!.tapCount >= rank.min && 
+                      (index === 9 || result.scores!.tapCount < [400, 350, 300, 270, 240, 210, 180, 150, 120][index + 1]);
+                    const heightPercent = 10;
+                    const topPercent = index * 10;
+                    
+                    return (
+                      <div
+                        key={rank.level}
+                        className={`absolute w-full transition-all duration-1000 ${
+                          isCurrentRank ? `bg-gradient-to-b ${rank.color} opacity-100 scale-110` : 'bg-gray-300 opacity-40'
+                        }`}
+                        style={{ 
+                          height: `${heightPercent}%`,
+                          top: `${topPercent}%`
+                        }}
+                      />
+                    );
+                  })}
+                  
+                  {/* Current position indicator */}
+                  <motion.div
+                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-4 border-yellow-400 rounded-full shadow-lg"
+                    initial={{ top: '100%' }}
+                    animate={{ 
+                      top: `${Math.max(5, 100 - (Math.min(result.scores!.tapCount, 400) / 400) * 90)}%`
+                    }}
+                    transition={{ delay: 2, duration: 1.5, ease: "easeOut" }}
+                  />
+                </div>
+
+                {/* Level Labels */}
+                <div className="ml-8 space-y-4">
+                  {[
+                    { level: '전설', color: 'text-purple-600', min: 400, emoji: '👑' },
+                    { level: '마스터', color: 'text-red-600', min: 350, emoji: '🔥' },
+                    { level: '그랜드마스터', color: 'text-orange-600', min: 300, emoji: '⭐' },
+                    { level: '다이아몬드', color: 'text-yellow-600', min: 270, emoji: '💎' },
+                    { level: '플래티넘', color: 'text-green-600', min: 240, emoji: '🏆' },
+                    { level: '골드', color: 'text-blue-600', min: 210, emoji: '🥇' },
+                    { level: '실버', color: 'text-indigo-600', min: 180, emoji: '🥈' },
+                    { level: '브론즈', color: 'text-gray-600', min: 150, emoji: '🥉' },
+                    { level: '초보자', color: 'text-gray-500', min: 120, emoji: '📈' },
+                    { level: '입문자', color: 'text-gray-400', min: 0, emoji: '🌱' }
+                  ].map((rank, index) => {
+                    const isCurrentRank = result.scores!.tapCount >= rank.min && 
+                      (index === 0 || result.scores!.tapCount < [400, 350, 300, 270, 240, 210, 180, 150, 120][index]);
+                    
+                    return (
+                      <motion.div
+                        key={rank.level}
+                        className={`flex items-center space-x-3 p-2 rounded-lg transition-all ${
+                          isCurrentRank ? 'bg-yellow-100 scale-110 font-bold' : 'opacity-60'
+                        }`}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: isCurrentRank ? 1 : 0.6, x: 0 }}
+                        transition={{ delay: 2.5 + index * 0.1 }}
+                      >
+                        <span className="text-xl">{rank.emoji}</span>
+                        <span className={`${rank.color} ${isCurrentRank ? 'font-bold' : ''}`}>
+                          {rank.level}
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          {rank.min}회+
+                        </span>
+                        {isCurrentRank && (
+                          <span className="text-yellow-600 font-bold">← 현재 등급</span>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Challenge Message */}
+              <motion.div
+                className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 3.5, duration: 0.8 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3">
+                  {result.scores.tapCount >= 350 ? '🔥 절대 고수의 경지!' :
+                   result.scores.tapCount >= 300 ? '⚡ 놀라운 실력입니다!' :
+                   result.scores.tapCount >= 240 ? '💪 상위권 진입!' :
+                   result.scores.tapCount >= 180 ? '👍 평균 이상의 실력!' :
+                   result.scores.tapCount >= 120 ? '📈 꾸준한 성장 중!' : '🌱 시작이 반입니다!'}
+                </h4>
+                <p className="text-gray-600 mb-4">
+                  {result.scores.tapCount >= 350 ? '당신은 탭핑 마스터입니다! 반응속도와 지구력이 최상급 수준이에요.' :
+                   result.scores.tapCount >= 300 ? '프로 게이머 수준의 반응속도를 보여주고 있습니다!' :
+                   result.scores.tapCount >= 240 ? '상당한 집중력과 손목 지구력을 가지고 있습니다.' :
+                   result.scores.tapCount >= 180 ? '좋은 리듬감과 안정적인 속도를 유지하고 있어요.' :
+                   result.scores.tapCount >= 120 ? '연습을 통해 더 빠른 속도를 낼 수 있을 것 같습니다.' : '꾸준한 연습으로 실력을 향상시켜보세요!'}
+                </p>
+                
+                {result.scores.tapCount < 400 && (
+                  <div className="bg-white rounded-lg p-4 inline-block">
+                    <p className="text-sm text-gray-700">
+                      다음 등급까지 <span className="font-bold text-purple-600">
+                        {result.scores.tapCount >= 350 ? 400 - result.scores.tapCount :
+                         result.scores.tapCount >= 300 ? 350 - result.scores.tapCount :
+                         result.scores.tapCount >= 270 ? 300 - result.scores.tapCount :
+                         result.scores.tapCount >= 240 ? 270 - result.scores.tapCount :
+                         result.scores.tapCount >= 210 ? 240 - result.scores.tapCount :
+                         result.scores.tapCount >= 180 ? 210 - result.scores.tapCount :
+                         result.scores.tapCount >= 150 ? 180 - result.scores.tapCount :
+                         result.scores.tapCount >= 120 ? 150 - result.scores.tapCount : 120 - result.scores.tapCount}회
+                      </span> 더 필요해요!
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          </div>
+        ) : testData.id === 'reaction_speed' && result.averageReactionTime ? (
           <motion.div
             className="bg-white rounded-3xl p-8 shadow-xl mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">
-              {testData.id === 'reaction_speed' ? '반응속도 측정 결과' : '탭핑 지구력 측정 결과'}
-            </h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">반응속도 측정 결과</h3>
             
-            {/* Performance Results */}
+            {/* Average Reaction Time */}
             <div className="text-center mb-8">
-              <div className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl">
-                {testData.id === 'reaction_speed' ? (
-                  <>
-                    <div className="text-lg font-semibold mb-1">평균 반응속도</div>
-                    <div className="text-4xl font-bold">{result.averageReactionTime || 0}ms</div>
-                    <div className="text-sm opacity-90 mt-1">
-                      {(result.averageReactionTime || 0) < 250 ? '⚡ 매우 빠름!' :
-                       (result.averageReactionTime || 0) < 350 ? '🔥 빠름!' :
-                       (result.averageReactionTime || 0) < 450 ? '👍 좋음!' : '🐌 보통'}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-lg font-semibold mb-1">1분간 탭핑 횟수</div>
-                    <div className="text-4xl font-bold">{result.scores?.tapCount || 0}회</div>
-                    <div className="text-sm opacity-90 mt-1">
-                      {(result.scores?.tapCount || 0) >= 300 ? '⚡ 마스터급!' :
-                       (result.scores?.tapCount || 0) >= 250 ? '🔥 전문가급!' :
-                       (result.scores?.tapCount || 0) >= 200 ? '👍 숙련자급!' :
-                       (result.scores?.tapCount || 0) >= 150 ? '💪 안정적!' : '🌱 초보자'}
-                    </div>
-                  </>
-                )}
+              <div className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-2xl">
+                <div className="text-lg font-semibold mb-1">평균 반응속도</div>
+                <div className="text-4xl font-bold">{result.averageReactionTime || 0}ms</div>
+                <div className="text-sm opacity-90 mt-1">
+                  {(result.averageReactionTime || 0) < 250 ? '⚡ 매우 빠름!' :
+                   (result.averageReactionTime || 0) < 350 ? '🔥 빠름!' :
+                   (result.averageReactionTime || 0) < 450 ? '👍 좋음!' : '🐌 보통'}
+                </div>
               </div>
             </div>
 
-            {/* Detailed Results based on test type */}
-            {testData.id === 'reaction_speed' ? (
-              <>
-                {/* Individual Round Results */}
-                <div className="grid grid-cols-5 gap-4 mb-6">
-                  {result.allReactionTimes?.map((time, index) => (
-                    <motion.div
-                      key={index}
-                      className="text-center p-4 bg-gray-50 rounded-2xl"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
-                    >
-                      <div className="text-2xl mb-2">⚡</div>
-                      <div className="font-semibold text-gray-800">{index + 1}라운드</div>
-                      <div className="text-lg font-bold text-red-500">{time}ms</div>
-                    </motion.div>
-                  ))}
-                </div>
+            {/* Individual Round Results */}
+            <div className="grid grid-cols-5 gap-4 mb-6">
+              {result.allReactionTimes?.map((time, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-4 bg-gray-50 rounded-2xl"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
+                >
+                  <div className="text-2xl mb-2">⚡</div>
+                  <div className="font-semibold text-gray-800">{index + 1}라운드</div>
+                  <div className="text-lg font-bold text-red-500">{time}ms</div>
+                </motion.div>
+              ))}
+            </div>
 
-                {/* Performance Comparison */}
-                <div className="bg-gray-50 rounded-2xl p-6">
-                  <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">일반적인 반응속도와 비교</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">프로 게이머 수준</span>
-                      <span className="text-sm font-semibold text-green-500">150-200ms</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">매우 빠름</span>
-                      <span className="text-sm font-semibold text-blue-500">200-300ms</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">평균 수준</span>
-                      <span className="text-sm font-semibold text-yellow-500">300-500ms</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">느림</span>
-                      <span className="text-sm font-semibold text-red-500">500ms 이상</span>
-                    </div>
-                  </div>
+            {/* Performance Comparison */}
+            <div className="bg-gray-50 rounded-2xl p-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">일반적인 반응속도와 비교</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">프로 게이머 수준</span>
+                  <span className="text-sm font-semibold text-green-500">150-200ms</span>
                 </div>
-              </>
-            ) : (
-              /* Tapping Test Detailed Results */
-              <>
-                {/* Performance Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <motion.div
-                    className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, type: "spring" }}
-                  >
-                    <div className="text-3xl mb-2">⚡</div>
-                    <div className="font-semibold text-gray-800">총 탭핑 횟수</div>
-                    <div className="text-2xl font-bold text-blue-600">{result.scores?.tapCount || 0}회</div>
-                  </motion.div>
-
-                  <motion.div
-                    className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.9, type: "spring" }}
-                  >
-                    <div className="text-3xl mb-2">🚀</div>
-                    <div className="font-semibold text-gray-800">초당 속도</div>
-                    <div className="text-2xl font-bold text-purple-600">{((result.scores?.tapCount || 0) / 60).toFixed(1)}회/초</div>
-                  </motion.div>
-
-                  <motion.div
-                    className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.0, type: "spring" }}
-                  >
-                    <div className="text-3xl mb-2">🎯</div>
-                    <div className="font-semibold text-gray-800">분당 속도</div>
-                    <div className="text-2xl font-bold text-green-600">{result.scores?.tapCount || 0}회/분</div>
-                  </motion.div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">매우 빠름</span>
+                  <span className="text-sm font-semibold text-blue-500">200-300ms</span>
                 </div>
-
-                {/* Performance Comparison */}
-                <div className="bg-gray-50 rounded-2xl p-6">
-                  <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">탭핑 실력 등급표</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">🚀 마스터급</span>
-                      <span className="text-sm font-semibold text-purple-500">300회 이상 (5.0회/초)</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">⚡ 전문가급</span>
-                      <span className="text-sm font-semibold text-blue-500">250-299회 (4.2-5.0회/초)</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">💪 숙련자급</span>
-                      <span className="text-sm font-semibold text-green-500">200-249회 (3.3-4.1회/초)</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">👍 안정적</span>
-                      <span className="text-sm font-semibold text-yellow-500">150-199회 (2.5-3.2회/초)</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">🌱 초보자</span>
-                      <span className="text-sm font-semibold text-gray-500">150회 미만 (2.5회/초 미만)</span>
-                    </div>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">평균 수준</span>
+                  <span className="text-sm font-semibold text-yellow-500">300-500ms</span>
                 </div>
-
-                {/* Performance Tips */}
-                <div className="mt-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6">
-                  <h4 className="text-lg font-semibold text-gray-800 mb-3 text-center">성과 분석</h4>
-                  <div className="text-center text-gray-600">
-                    {(result.scores?.tapCount || 0) >= 300 ? (
-                      <p>놀라운 속도입니다! 당신은 타이핑과 반응속도에 뛰어난 재능을 가지고 있습니다. 게임이나 타이핑 관련 작업에서 큰 장점을 발휘할 수 있을 것입니다.</p>
-                    ) : (result.scores?.tapCount || 0) >= 250 ? (
-                      <p>매우 인상적인 결과입니다! 평균보다 훨씬 빠른 손목 움직임과 집중력을 보여주고 있습니다.</p>
-                    ) : (result.scores?.tapCount || 0) >= 200 ? (
-                      <p>훌륭한 성과입니다! 꾸준한 속도와 안정적인 리듬감을 유지하고 있습니다.</p>
-                    ) : (result.scores?.tapCount || 0) >= 150 ? (
-                      <p>안정적인 결과입니다. 조금 더 연습하면 더 빠른 속도를 낼 수 있을 것 같습니다.</p>
-                    ) : (
-                      <p>좋은 시작입니다! 손목 운동과 함께 꾸준히 연습하면 더 좋은 결과를 얻을 수 있습니다.</p>
-                    )}
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">느림</span>
+                  <span className="text-sm font-semibold text-red-500">500ms 이상</span>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </motion.div>
         ) : (
           <motion.div
