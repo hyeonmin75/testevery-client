@@ -292,6 +292,38 @@ export default function Result() {
             </div>
           </motion.div>
 
+          {/* Recommended Tests */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">추천 테스트</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { id: 'reaction_speed', title: '반응속도 테스트', emoji: '⚡', description: '빠른 반응속도를 측정해보세요' },
+                { id: 'animal', title: '동물 성격 테스트', emoji: '🐾', description: '당신과 닮은 동물을 찾아보세요' },
+                { id: 'color', title: '컬러 성격 테스트', emoji: '🎨', description: '색깔로 알아보는 성격 분석' }
+              ].map((test, index) => (
+                <motion.div
+                  key={test.id}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 cursor-pointer hover:scale-105 transition-transform shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.0 + index * 0.1 }}
+                  onClick={() => setLocation(`/test/${test.id}`)}
+                >
+                  <div className="text-center">
+                    <div className="text-4xl mb-3">{test.emoji}</div>
+                    <h4 className="font-bold text-gray-800 mb-2">{test.title}</h4>
+                    <p className="text-sm text-gray-600">{test.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
           {/* Action Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-6 justify-center"
