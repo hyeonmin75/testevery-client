@@ -111,6 +111,235 @@ export default function Result() {
     );
   }
 
+  // 탭핑 테스트인 경우 완전히 다른 결과 페이지 렌더링
+  if (testData.id === 'tapping_endurance' && result.scores?.tapCount) {
+    const tapCount = result.scores.tapCount;
+    const tapsPerSecond = (tapCount / 60).toFixed(1);
+    
+    // 등급 계산
+    const getRank = (count: number) => {
+      if (count >= 400) return { name: '전설', emoji: '👑', color: 'from-purple-500 to-pink-500', textColor: 'text-purple-600' };
+      if (count >= 350) return { name: '마스터', emoji: '🔥', color: 'from-red-500 to-purple-500', textColor: 'text-red-600' };
+      if (count >= 300) return { name: '그랜드마스터', emoji: '⭐', color: 'from-orange-500 to-red-500', textColor: 'text-orange-600' };
+      if (count >= 270) return { name: '다이아몬드', emoji: '💎', color: 'from-yellow-500 to-orange-500', textColor: 'text-yellow-600' };
+      if (count >= 240) return { name: '플래티넘', emoji: '🏆', color: 'from-green-500 to-yellow-500', textColor: 'text-green-600' };
+      if (count >= 210) return { name: '골드', emoji: '🥇', color: 'from-blue-500 to-green-500', textColor: 'text-blue-600' };
+      if (count >= 180) return { name: '실버', emoji: '🥈', color: 'from-indigo-500 to-blue-500', textColor: 'text-indigo-600' };
+      if (count >= 150) return { name: '브론즈', emoji: '🥉', color: 'from-gray-500 to-indigo-500', textColor: 'text-gray-600' };
+      if (count >= 120) return { name: '초보자', emoji: '📈', color: 'from-gray-400 to-gray-500', textColor: 'text-gray-500' };
+      return { name: '입문자', emoji: '🌱', color: 'from-gray-300 to-gray-400', textColor: 'text-gray-400' };
+    };
+
+    const currentRank = getRank(tapCount);
+    const rankThresholds = [400, 350, 300, 270, 240, 210, 180, 150, 120, 0];
+    const nextThreshold = rankThresholds.find(threshold => tapCount < threshold);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="max-w-4xl mx-auto p-4 py-8">
+          {/* Header */}
+          <motion.div
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="text-6xl mb-4">⚡</div>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">탭핑 스피드 테스트</h1>
+            <p className="text-gray-600">결과 분석 완료</p>
+          </motion.div>
+
+          {/* Main Stats Card */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl">
+                <div className="text-3xl mb-3">📊</div>
+                <div className="text-sm font-semibold text-blue-700 mb-1">총 탭핑 횟수</div>
+                <div className="text-4xl font-bold text-blue-800">{tapCount}회</div>
+              </div>
+
+              <div className="text-center p-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl">
+                <div className="text-3xl mb-3">⚡</div>
+                <div className="text-sm font-semibold text-purple-700 mb-1">초당 속도</div>
+                <div className="text-4xl font-bold text-purple-800">{tapsPerSecond}회/초</div>
+              </div>
+
+              <div className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl">
+                <div className="text-3xl mb-3">🎯</div>
+                <div className="text-sm font-semibold text-green-700 mb-1">분당 속도</div>
+                <div className="text-4xl font-bold text-green-800">{tapCount}회/분</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Ranking System */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">속도 등급 시스템</h3>
+            
+            <div className="flex justify-center items-center space-x-12">
+              {/* Vertical Progress Bar */}
+              <div className="relative">
+                <div className="w-20 h-80 bg-gray-200 rounded-full overflow-hidden relative">
+                  {[
+                    { min: 400, color: 'bg-gradient-to-t from-purple-500 to-pink-500' },
+                    { min: 350, color: 'bg-gradient-to-t from-red-500 to-purple-400' },
+                    { min: 300, color: 'bg-gradient-to-t from-orange-500 to-red-400' },
+                    { min: 270, color: 'bg-gradient-to-t from-yellow-500 to-orange-400' },
+                    { min: 240, color: 'bg-gradient-to-t from-green-500 to-yellow-400' },
+                    { min: 210, color: 'bg-gradient-to-t from-blue-500 to-green-400' },
+                    { min: 180, color: 'bg-gradient-to-t from-indigo-500 to-blue-400' },
+                    { min: 150, color: 'bg-gradient-to-t from-gray-500 to-indigo-400' },
+                    { min: 120, color: 'bg-gradient-to-t from-gray-400 to-gray-500' },
+                    { min: 0, color: 'bg-gradient-to-t from-gray-300 to-gray-400' }
+                  ].reverse().map((level, index) => {
+                    const isActive = tapCount >= level.min;
+                    return (
+                      <div
+                        key={level.min}
+                        className={`absolute w-full h-8 ${isActive ? level.color : 'bg-gray-200'} opacity-${isActive ? '100' : '30'}`}
+                        style={{ bottom: `${index * 8}%` }}
+                      />
+                    );
+                  })}
+                  
+                  {/* Current Position Indicator */}
+                  <motion.div
+                    className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full shadow-lg"
+                    initial={{ bottom: '0%' }}
+                    animate={{ 
+                      bottom: `${Math.min(90, (Math.min(tapCount, 400) / 400) * 90)}%`
+                    }}
+                    transition={{ delay: 1, duration: 2, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
+
+              {/* Level Labels */}
+              <div className="space-y-3">
+                {[
+                  { name: '전설', emoji: '👑', min: 400, color: 'text-purple-600' },
+                  { name: '마스터', emoji: '🔥', min: 350, color: 'text-red-600' },
+                  { name: '그랜드마스터', emoji: '⭐', min: 300, color: 'text-orange-600' },
+                  { name: '다이아몬드', emoji: '💎', min: 270, color: 'text-yellow-600' },
+                  { name: '플래티넘', emoji: '🏆', min: 240, color: 'text-green-600' },
+                  { name: '골드', emoji: '🥇', min: 210, color: 'text-blue-600' },
+                  { name: '실버', emoji: '🥈', min: 180, color: 'text-indigo-600' },
+                  { name: '브론즈', emoji: '🥉', min: 150, color: 'text-gray-600' },
+                  { name: '초보자', emoji: '📈', min: 120, color: 'text-gray-500' },
+                  { name: '입문자', emoji: '🌱', min: 0, color: 'text-gray-400' }
+                ].map((rank) => {
+                  const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < rankThresholds[rankThresholds.indexOf(rank.min) - 1]);
+                  
+                  return (
+                    <motion.div
+                      key={rank.name}
+                      className={`flex items-center space-x-3 p-3 rounded-lg transition-all ${
+                        isCurrentRank ? 'bg-yellow-100 scale-110 border-2 border-yellow-300' : 'opacity-60'
+                      }`}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: isCurrentRank ? 1 : 0.6, x: 0 }}
+                      transition={{ delay: 1.5 + rankThresholds.indexOf(rank.min) * 0.1 }}
+                    >
+                      <span className="text-2xl">{rank.emoji}</span>
+                      <div>
+                        <span className={`font-semibold ${rank.color} ${isCurrentRank ? 'text-lg' : ''}`}>
+                          {rank.name}
+                        </span>
+                        <div className="text-sm text-gray-500">{rank.min}회+</div>
+                      </div>
+                      {isCurrentRank && (
+                        <span className="text-yellow-600 font-bold text-sm">← 현재 등급</span>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Performance Analysis */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <div className="text-center">
+              <div className={`text-6xl mb-4`}>{currentRank.emoji}</div>
+              <h3 className={`text-3xl font-bold mb-4 ${currentRank.textColor}`}>
+                당신은 {currentRank.name}급 입니다!
+              </h3>
+              
+              <div className="bg-gray-50 rounded-2xl p-6 mb-6">
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  {tapCount >= 350 ? '🔥 절대 고수의 경지! 당신은 탭핑 마스터입니다!' :
+                   tapCount >= 300 ? '⚡ 놀라운 실력! 프로 게이머 수준의 반응속도입니다!' :
+                   tapCount >= 240 ? '💪 상위권 진입! 상당한 집중력과 지구력을 보여주고 있습니다!' :
+                   tapCount >= 180 ? '👍 평균 이상의 실력! 좋은 리듬감을 유지하고 있어요!' :
+                   tapCount >= 120 ? '📈 꾸준한 성장 중! 연습으로 더 빠른 속도를 낼 수 있습니다!' : '🌱 좋은 시작! 꾸준한 연습으로 실력을 향상시켜보세요!'}
+                </p>
+              </div>
+
+              {nextThreshold && (
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6">
+                  <h4 className="font-bold text-gray-800 mb-2">다음 등급까지</h4>
+                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                    {nextThreshold - tapCount}회
+                  </div>
+                  <p className="text-gray-600">더 탭핑하면 한 단계 승급!</p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
+            >
+              결과 공유하기
+            </button>
+            <button
+              onClick={() => setLocation('/test/tapping_endurance')}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
+            >
+              다시 도전하기
+            </button>
+            <button
+              onClick={handleGoHome}
+              className="bg-white text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg border-2 border-gray-200"
+            >
+              다른 테스트 하기
+            </button>
+          </motion.div>
+        </div>
+
+        {/* Share Modal */}
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          result={result}
+        />
+      </div>
+    );
+  }
+
   const getColorClasses = (color: string) => {
     const colorMap = {
       orange: 'from-orange-100 to-red-100',
