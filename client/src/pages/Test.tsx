@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuestionCard } from '../components/QuestionCard';
@@ -12,42 +12,30 @@ import { useTest } from '../hooks/useTest';
 export default function Test() {
   const { testId } = useParams<{ testId: string }>();
   const [, setLocation] = useLocation();
-  const [selectedOptionId, setSelectedOptionId] = useState<string>('');
+  const [selectedOptionId, setSelectedOptionId] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [reactionTimes, setReactionTimes] = useState<number[]>([]);
   const [currentReactionRound, setCurrentReactionRound] = useState(1);
 
-  const {
-    session,
-    isLoading,
-    startTest,
-    answerQuestion,
-    finishTest,
-    getCurrentQuestion,
-    getProgress,
-    isTestComplete
-  } = useTest();
-
   const testData = testId ? tests[testId] : null;
+  const { session, startTest, answerQuestion, finishTest, getCurrentQuestion, isTestComplete } = useTest();
+
   const currentQuestion = testData ? getCurrentQuestion(testData) : null;
-  const progress = testData ? getProgress(testData) : 0;
 
   useEffect(() => {
-    if (!testData) {
-      setLocation('/');
-      return;
-    }
-
-    if (!session) {
+    if (testData && !session) {
       startTest(testData);
     }
-  }, [testData, session, startTest, setLocation]);
+  }, [testData, session, startTest]);
 
   useEffect(() => {
-    if (testData && isTestComplete(testData) && !isLoading) {
-      // 테스트 완료 시 결과 계산 및 페이지 이동
+    if (testData && session && isTestComplete(testData) && !isLoading) {
+      setIsLoading(true);
+      
       const processResult = async () => {
         await finishTest(testData);
+        
         // 결과 계산 완료 후 페이지 이동
         setTimeout(() => {
           setLocation(`/result/${testId}`);
@@ -82,9 +70,9 @@ export default function Test() {
       const result = {
         resultId: resultType,
         result: testData!.results[resultType],
-        scores: { [resultType]: 100 },
+        scores: {},
         completedAt: Date.now(),
-        testId: testId!,
+        testId: testData!.id,
         averageReactionTime: Math.round(averageTime),
         allReactionTimes: newReactionTimes
       };
@@ -94,7 +82,43 @@ export default function Test() {
     }
   };
 
+  const handleTappingComplete = (tapCount: number) => {
+    if (!testData) return;
+    
+    // 탭핑 횟수에 따른 결과 등급 결정
+    let resultType = 'starter';
+    if (tapCount >= 400) {
+      resultType = 'legendary';
+    } else if (tapCount >= 350) {
+      resultType = 'master';
+    } else if (tapCount >= 300) {
+      resultType = 'grandmaster';
+    } else if (tapCount >= 270) {
+      resultType = 'diamond';
+    } else if (tapCount >= 240) {
+      resultType = 'platinum';
+    } else if (tapCount >= 210) {
+      resultType = 'gold';
+    } else if (tapCount >= 180) {
+      resultType = 'silver';
+    } else if (tapCount >= 150) {
+      resultType = 'bronze';
+    } else if (tapCount >= 120) {
+      resultType = 'beginner';
+    }
 
+    // 세션 스토리지에 탭핑 결과 저장
+    const result = {
+      resultId: resultType,
+      result: testData.results[resultType],
+      scores: { tapCount },
+      completedAt: Date.now(),
+      testId: testData.id
+    };
+
+    sessionStorage.setItem('currentTestResult', JSON.stringify(result));
+    setLocation(`/result/${testId}`);
+  };
 
   const handleSelectOption = async (optionId: string) => {
     if (isAnimating || !testData || !session) return;
@@ -129,8 +153,21 @@ export default function Test() {
       <div className="min-h-screen bg-gradient-korean flex items-center justify-center">
         <div className="text-center">
           <motion.div
+            className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-8"
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <p className="text-purple-600 font-semibold">테스트를 준비하고 있습니다...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-korean flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
             className="text-4xl sm:text-5xl lg:text-6xl mb-4"
           >
             🧠
@@ -140,30 +177,6 @@ export default function Test() {
       </div>
     );
   }
-
-  // 탭핑 지구력 테스트 완료 핸들러
-  const handleTappingComplete = async (tapCount: number) => {
-    if (!testData) return;
-    
-    // 탭핑 횟수에 따라 결과 결정
-    let resultType = 'beginner';
-    if (tapCount >= 300) resultType = 'master';
-    else if (tapCount >= 250) resultType = 'expert';
-    else if (tapCount >= 200) resultType = 'advanced';
-    else if (tapCount >= 150) resultType = 'intermediate';
-
-    const result = {
-      resultId: resultType,
-      result: testData.results[resultType],
-      scores: { [resultType]: tapCount },
-      completedAt: Date.now(),
-      testId: testData.id,
-      tapCount: tapCount
-    };
-    
-    sessionStorage.setItem('currentTestResult', JSON.stringify(result));
-    setLocation(`/result/${testId}`);
-  };
 
   // 반응속도 테스트인 경우 특별한 렌더링
   if (testData.id === 'reaction_speed') {
@@ -243,8 +256,6 @@ export default function Test() {
     );
   }
 
-
-
   return (
     <div className="min-h-screen bg-gradient-korean">
       <div className="max-w-4xl mx-auto p-2 sm:p-4 py-2 sm:py-4">
@@ -255,7 +266,7 @@ export default function Test() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between">
             <motion.button
               onClick={handleBack}
               className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm sm:text-base"
@@ -266,67 +277,41 @@ export default function Test() {
               <span className="hidden sm:inline">홈으로 돌아가기</span>
               <span className="sm:hidden">홈</span>
             </motion.button>
-            <div className="text-xs sm:text-sm text-gray-500 break-keep">
+            <div className="text-sm sm:text-lg font-semibold text-gray-800 text-center px-2">
               {testData.emoji} {testData.title}
             </div>
+            <div className="text-xs sm:text-sm text-gray-500">
+              {session.currentQuestionIndex + 1}/{testData.questions.length}
+            </div>
           </div>
-          
-          <ProgressBar
-            progress={progress}
-            currentQuestion={session.currentQuestionIndex + 1}
-            totalQuestions={testData.questions.length}
-            testTitle={testData.title}
-          />
         </motion.div>
 
-        {/* Question */}
-        <QuestionCard
-          question={currentQuestion}
-          questionNumber={session.currentQuestionIndex + 1}
+        {/* Progress Bar */}
+        <ProgressBar 
+          progress={(session.currentQuestionIndex + 1) / testData.questions.length * 100}
+          currentQuestion={session.currentQuestionIndex + 1}
           totalQuestions={testData.questions.length}
-          onSelectOption={handleSelectOption}
-          selectedOptionId={selectedOptionId}
+          testTitle={testData.title}
         />
 
-        {/* Navigation */}
-        <motion.div 
-          className="flex justify-between items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <motion.button
-            onClick={handleBack}
-            className="flex items-center gap-2 px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-2xl transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+        {/* Question Card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={session.currentQuestionIndex}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.3 }}
           >
-            <i className="fas fa-home"></i>
-            <span>처음으로</span>
-          </motion.button>
-          
-          <div className="text-center">
-            <div className="text-sm text-gray-500 mb-2">
-              {session.currentQuestionIndex + 1} / {testData.questions.length}
-            </div>
-            <div className="text-xs text-gray-400">
-              남은 시간: 약 {Math.ceil((testData.questions.length - session.currentQuestionIndex) * 0.5)}분
-            </div>
-          </div>
-          
-          <div className="w-24"> {/* Spacer for symmetry */}
-            {selectedOptionId && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center text-purple-600 font-semibold"
-              >
-                <i className="fas fa-spinner fa-spin mr-2"></i>
-                처리중...
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
+            <QuestionCard
+              question={currentQuestion}
+              questionNumber={session.currentQuestionIndex + 1}
+              totalQuestions={testData.questions.length}
+              onSelectOption={handleSelectOption}
+              selectedOptionId={selectedOptionId}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
