@@ -21,62 +21,53 @@ export default function Result() {
       return;
     }
 
-    // 세션 스토리지에서 현재 테스트 결과 가져오기
     const timer = setTimeout(() => {
       const savedResult = sessionStorage.getItem('currentTestResult');
       
       if (savedResult) {
         try {
           const parsedResult = JSON.parse(savedResult);
-          // 테스트 ID가 일치하는지 확인
-          if (parsedResult.testId === testId) {
-            setResult(parsedResult);
-            setIsLoading(false);
+          setResult(parsedResult);
+        } catch (error) {
+          console.error('Failed to parse result:', error);
+          const history = getTestHistory();
+          const latestResult = history.find(r => r.testId === testId);
+          if (latestResult) {
+            setResult(latestResult);
+          } else {
+            setLocation('/');
             return;
           }
-        } catch (error) {
-          console.error('결과 파싱 오류:', error);
+        }
+      } else {
+        const history = getTestHistory();
+        const latestResult = history.find(r => r.testId === testId);
+        if (latestResult) {
+          setResult(latestResult);
+        } else {
+          setLocation('/');
+          return;
         }
       }
-      
-      // 결과를 찾을 수 없으면 홈으로 이동
-      setLocation('/');
-    }, 1000);
+      setIsLoading(false);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [testData, testId, setLocation]);
-
-  const handleShare = () => {
-    setShowShareModal(true);
-  };
-
-  const handleRetakeTest = () => {
-    setLocation(`/test/${testId}`);
-  };
 
   const handleGoHome = () => {
     setLocation('/');
   };
 
-  const handleStartOtherTest = (otherTestId: string) => {
-    setLocation(`/test/${otherTestId}`);
-  };
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-korean flex items-center justify-center">
-        <div className="text-center animate-fade-in">
+        <div className="text-center">
           <motion.div
-            className="text-8xl mb-8"
+            className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-8"
             animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          >
-            🧠
-          </motion.div>
-          <h2 className="text-3xl font-bold text-purple-600 mb-4">결과를 분석하고 있습니다...</h2>
-          <p className="text-gray-600 mb-8 max-w-md mx-auto">
-            당신의 답변을 바탕으로<br />최적의 성격 유형을 찾고 있어요
-          </p>
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
           
           <div className="bg-white rounded-full p-2 w-80 mx-auto">
             <div className="bg-gray-200 rounded-full h-4">
@@ -111,154 +102,180 @@ export default function Result() {
     );
   }
 
-  // 탭핑 테스트인 경우 완전히 다른 결과 페이지 렌더링
+  // 탭핑 테스트 전용 결과 페이지
   if (testData.id === 'tapping_endurance' && result.scores?.tapCount) {
     const tapCount = result.scores.tapCount;
     const tapsPerSecond = (tapCount / 60).toFixed(1);
     
-    // 등급 계산
-    const getRank = (count: number) => {
-      if (count >= 400) return { name: '전설', emoji: '👑', color: 'from-purple-500 to-pink-500', textColor: 'text-purple-600' };
-      if (count >= 350) return { name: '마스터', emoji: '🔥', color: 'from-red-500 to-purple-500', textColor: 'text-red-600' };
-      if (count >= 300) return { name: '그랜드마스터', emoji: '⭐', color: 'from-orange-500 to-red-500', textColor: 'text-orange-600' };
-      if (count >= 270) return { name: '다이아몬드', emoji: '💎', color: 'from-yellow-500 to-orange-500', textColor: 'text-yellow-600' };
-      if (count >= 240) return { name: '플래티넘', emoji: '🏆', color: 'from-green-500 to-yellow-500', textColor: 'text-green-600' };
-      if (count >= 210) return { name: '골드', emoji: '🥇', color: 'from-blue-500 to-green-500', textColor: 'text-blue-600' };
-      if (count >= 180) return { name: '실버', emoji: '🥈', color: 'from-indigo-500 to-blue-500', textColor: 'text-indigo-600' };
-      if (count >= 150) return { name: '브론즈', emoji: '🥉', color: 'from-gray-500 to-indigo-500', textColor: 'text-gray-600' };
-      if (count >= 120) return { name: '초보자', emoji: '📈', color: 'from-gray-400 to-gray-500', textColor: 'text-gray-500' };
-      return { name: '입문자', emoji: '🌱', color: 'from-gray-300 to-gray-400', textColor: 'text-gray-400' };
+    const getRankInfo = (count: number) => {
+      if (count >= 400) return { name: '전설', emoji: '👑', color: 'purple', next: null };
+      if (count >= 350) return { name: '마스터', emoji: '🔥', color: 'red', next: 400 };
+      if (count >= 300) return { name: '그랜드마스터', emoji: '⭐', color: 'orange', next: 350 };
+      if (count >= 270) return { name: '다이아몬드', emoji: '💎', color: 'yellow', next: 300 };
+      if (count >= 240) return { name: '플래티넘', emoji: '🏆', color: 'green', next: 270 };
+      if (count >= 210) return { name: '골드', emoji: '🥇', color: 'blue', next: 240 };
+      if (count >= 180) return { name: '실버', emoji: '🥈', color: 'indigo', next: 210 };
+      if (count >= 150) return { name: '브론즈', emoji: '🥉', color: 'gray', next: 180 };
+      if (count >= 120) return { name: '초보자', emoji: '📈', color: 'gray', next: 150 };
+      return { name: '입문자', emoji: '🌱', color: 'gray', next: 120 };
     };
 
-    const currentRank = getRank(tapCount);
-    const rankThresholds = [400, 350, 300, 270, 240, 210, 180, 150, 120, 0];
-    const nextThreshold = rankThresholds.find(threshold => tapCount < threshold);
+    const rankInfo = getRankInfo(tapCount);
+    const allRanks = [
+      { name: '전설', emoji: '👑', min: 400 },
+      { name: '마스터', emoji: '🔥', min: 350 },
+      { name: '그랜드마스터', emoji: '⭐', min: 300 },
+      { name: '다이아몬드', emoji: '💎', min: 270 },
+      { name: '플래티넘', emoji: '🏆', min: 240 },
+      { name: '골드', emoji: '🥇', min: 210 },
+      { name: '실버', emoji: '🥈', min: 180 },
+      { name: '브론즈', emoji: '🥉', min: 150 },
+      { name: '초보자', emoji: '📈', min: 120 },
+      { name: '입문자', emoji: '🌱', min: 0 }
+    ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="max-w-4xl mx-auto p-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+        <div className="max-w-5xl mx-auto p-4 py-8">
           {/* Header */}
           <motion.div
-            className="text-center mb-8"
-            initial={{ opacity: 0, y: -20 }}
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="text-6xl mb-4">⚡</div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">탭핑 스피드 테스트</h1>
-            <p className="text-gray-600">결과 분석 완료</p>
+            <div className="text-7xl mb-6">⚡</div>
+            <h1 className="text-5xl font-black text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              탭핑 스피드 결과
+            </h1>
+            <p className="text-xl text-gray-600">1분간의 집중력과 손목 지구력을 측정했습니다</p>
           </motion.div>
 
-          {/* Main Stats Card */}
+          {/* Main Performance Stats */}
           <motion.div
-            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl">
-                <div className="text-3xl mb-3">📊</div>
-                <div className="text-sm font-semibold text-blue-700 mb-1">총 탭핑 횟수</div>
-                <div className="text-4xl font-bold text-blue-800">{tapCount}회</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center p-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl">
+                <div className="text-4xl mb-4">📊</div>
+                <div className="text-lg font-bold text-blue-700 mb-2">총 탭핑 횟수</div>
+                <div className="text-5xl font-black text-blue-800 mb-2">{tapCount}</div>
+                <div className="text-blue-600">회</div>
               </div>
 
-              <div className="text-center p-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl">
-                <div className="text-3xl mb-3">⚡</div>
-                <div className="text-sm font-semibold text-purple-700 mb-1">초당 속도</div>
-                <div className="text-4xl font-bold text-purple-800">{tapsPerSecond}회/초</div>
+              <div className="text-center p-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl">
+                <div className="text-4xl mb-4">⚡</div>
+                <div className="text-lg font-bold text-purple-700 mb-2">초당 속도</div>
+                <div className="text-5xl font-black text-purple-800 mb-2">{tapsPerSecond}</div>
+                <div className="text-purple-600">회/초</div>
               </div>
 
-              <div className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl">
-                <div className="text-3xl mb-3">🎯</div>
-                <div className="text-sm font-semibold text-green-700 mb-1">분당 속도</div>
-                <div className="text-4xl font-bold text-green-800">{tapCount}회/분</div>
+              <div className="text-center p-8 bg-gradient-to-br from-green-100 to-green-200 rounded-3xl">
+                <div className="text-4xl mb-4">🎯</div>
+                <div className="text-lg font-bold text-green-700 mb-2">분당 속도</div>
+                <div className="text-5xl font-black text-green-800 mb-2">{tapCount}</div>
+                <div className="text-green-600">회/분</div>
               </div>
             </div>
           </motion.div>
 
-          {/* Ranking System */}
+          {/* Current Rank Display */}
           <motion.div
-            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-            initial={{ opacity: 0, y: 20 }}
+            className="bg-white rounded-3xl p-10 shadow-2xl mb-10"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">속도 등급 시스템</h3>
+            <div className="text-center">
+              <div className="text-8xl mb-6">{rankInfo.emoji}</div>
+              <h2 className="text-4xl font-black text-gray-800 mb-4">
+                당신은 <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  {rankInfo.name}급
+                </span> 입니다!
+              </h2>
+              
+              <div className="bg-gray-50 rounded-2xl p-8 mb-8">
+                <p className="text-xl text-gray-700 leading-relaxed">
+                  {tapCount >= 350 ? '절대 고수의 경지! 당신은 탭핑 마스터입니다! 반응속도와 지구력이 최상급 수준이에요.' :
+                   tapCount >= 300 ? '놀라운 실력입니다! 프로 게이머 수준의 반응속도를 보여주고 있습니다!' :
+                   tapCount >= 240 ? '상위권 진입! 상당한 집중력과 손목 지구력을 가지고 있습니다!' :
+                   tapCount >= 180 ? '평균 이상의 실력! 좋은 리듬감과 안정적인 속도를 유지하고 있어요!' :
+                   tapCount >= 120 ? '꾸준한 성장 중! 연습을 통해 더 빠른 속도를 낼 수 있을 것 같습니다!' : '좋은 시작입니다! 꾸준한 연습으로 실력을 향상시켜보세요!'}
+                </p>
+              </div>
+
+              {rankInfo.next && (
+                <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">다음 등급까지</h3>
+                  <div className="text-4xl font-black text-purple-600 mb-2">
+                    {rankInfo.next - tapCount}회
+                  </div>
+                  <p className="text-gray-600">더 탭핑하면 한 단계 승급!</p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Ranking Ladder */}
+          <motion.div
+            className="bg-white rounded-3xl p-10 shadow-2xl mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">전체 등급표</h3>
             
-            <div className="flex justify-center items-center space-x-12">
+            <div className="flex justify-center items-center space-x-16">
               {/* Vertical Progress Bar */}
               <div className="relative">
-                <div className="w-20 h-80 bg-gray-200 rounded-full overflow-hidden relative">
-                  {[
-                    { min: 400, color: 'bg-gradient-to-t from-purple-500 to-pink-500' },
-                    { min: 350, color: 'bg-gradient-to-t from-red-500 to-purple-400' },
-                    { min: 300, color: 'bg-gradient-to-t from-orange-500 to-red-400' },
-                    { min: 270, color: 'bg-gradient-to-t from-yellow-500 to-orange-400' },
-                    { min: 240, color: 'bg-gradient-to-t from-green-500 to-yellow-400' },
-                    { min: 210, color: 'bg-gradient-to-t from-blue-500 to-green-400' },
-                    { min: 180, color: 'bg-gradient-to-t from-indigo-500 to-blue-400' },
-                    { min: 150, color: 'bg-gradient-to-t from-gray-500 to-indigo-400' },
-                    { min: 120, color: 'bg-gradient-to-t from-gray-400 to-gray-500' },
-                    { min: 0, color: 'bg-gradient-to-t from-gray-300 to-gray-400' }
-                  ].reverse().map((level, index) => {
-                    const isActive = tapCount >= level.min;
-                    return (
-                      <div
-                        key={level.min}
-                        className={`absolute w-full h-8 ${isActive ? level.color : 'bg-gray-200'} opacity-${isActive ? '100' : '30'}`}
-                        style={{ bottom: `${index * 8}%` }}
-                      />
-                    );
-                  })}
-                  
-                  {/* Current Position Indicator */}
+                <div className="w-24 h-96 bg-gray-200 rounded-full relative overflow-hidden">
                   <motion.div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full shadow-lg"
-                    initial={{ bottom: '0%' }}
-                    animate={{ 
-                      bottom: `${Math.min(90, (Math.min(tapCount, 400) / 400) * 90)}%`
-                    }}
-                    transition={{ delay: 1, duration: 2, ease: "easeOut" }}
+                    className="absolute bottom-0 w-full bg-gradient-to-t from-blue-500 via-purple-500 to-pink-500 rounded-full"
+                    initial={{ height: '0%' }}
+                    animate={{ height: `${Math.min(95, (tapCount / 400) * 95)}%` }}
+                    transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
+                  />
+                  
+                  <motion.div
+                    className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
+                    initial={{ bottom: '2%' }}
+                    animate={{ bottom: `${Math.min(92, (tapCount / 400) * 92)}%` }}
+                    transition={{ delay: 2, duration: 2, ease: "easeOut" }}
                   />
                 </div>
               </div>
 
-              {/* Level Labels */}
-              <div className="space-y-3">
-                {[
-                  { name: '전설', emoji: '👑', min: 400, color: 'text-purple-600' },
-                  { name: '마스터', emoji: '🔥', min: 350, color: 'text-red-600' },
-                  { name: '그랜드마스터', emoji: '⭐', min: 300, color: 'text-orange-600' },
-                  { name: '다이아몬드', emoji: '💎', min: 270, color: 'text-yellow-600' },
-                  { name: '플래티넘', emoji: '🏆', min: 240, color: 'text-green-600' },
-                  { name: '골드', emoji: '🥇', min: 210, color: 'text-blue-600' },
-                  { name: '실버', emoji: '🥈', min: 180, color: 'text-indigo-600' },
-                  { name: '브론즈', emoji: '🥉', min: 150, color: 'text-gray-600' },
-                  { name: '초보자', emoji: '📈', min: 120, color: 'text-gray-500' },
-                  { name: '입문자', emoji: '🌱', min: 0, color: 'text-gray-400' }
-                ].map((rank) => {
-                  const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < rankThresholds[rankThresholds.indexOf(rank.min) - 1]);
+              {/* Rank Labels */}
+              <div className="space-y-4">
+                {allRanks.map((rank, index) => {
+                  const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < allRanks[index - 1]?.min);
                   
                   return (
                     <motion.div
                       key={rank.name}
-                      className={`flex items-center space-x-3 p-3 rounded-lg transition-all ${
-                        isCurrentRank ? 'bg-yellow-100 scale-110 border-2 border-yellow-300' : 'opacity-60'
+                      className={`flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 ${
+                        isCurrentRank 
+                          ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-110 border-2 border-yellow-400 shadow-lg' 
+                          : 'bg-gray-50 opacity-70'
                       }`}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: isCurrentRank ? 1 : 0.6, x: 0 }}
-                      transition={{ delay: 1.5 + rankThresholds.indexOf(rank.min) * 0.1 }}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: isCurrentRank ? 1 : 0.7, x: 0 }}
+                      transition={{ delay: 1.8 + index * 0.1 }}
                     >
-                      <span className="text-2xl">{rank.emoji}</span>
-                      <div>
-                        <span className={`font-semibold ${rank.color} ${isCurrentRank ? 'text-lg' : ''}`}>
+                      <span className="text-3xl">{rank.emoji}</span>
+                      <div className="flex-1">
+                        <span className={`font-bold text-lg ${isCurrentRank ? 'text-yellow-800' : 'text-gray-700'}`}>
                           {rank.name}
                         </span>
-                        <div className="text-sm text-gray-500">{rank.min}회+</div>
+                        <div className="text-sm text-gray-500">{rank.min}회 이상</div>
                       </div>
                       {isCurrentRank && (
-                        <span className="text-yellow-600 font-bold text-sm">← 현재 등급</span>
+                        <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                          현재 등급
+                        </span>
                       )}
                     </motion.div>
                   );
@@ -267,70 +284,34 @@ export default function Result() {
             </div>
           </motion.div>
 
-          {/* Performance Analysis */}
-          <motion.div
-            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
-            <div className="text-center">
-              <div className={`text-6xl mb-4`}>{currentRank.emoji}</div>
-              <h3 className={`text-3xl font-bold mb-4 ${currentRank.textColor}`}>
-                당신은 {currentRank.name}급 입니다!
-              </h3>
-              
-              <div className="bg-gray-50 rounded-2xl p-6 mb-6">
-                <p className="text-gray-700 text-lg leading-relaxed">
-                  {tapCount >= 350 ? '🔥 절대 고수의 경지! 당신은 탭핑 마스터입니다!' :
-                   tapCount >= 300 ? '⚡ 놀라운 실력! 프로 게이머 수준의 반응속도입니다!' :
-                   tapCount >= 240 ? '💪 상위권 진입! 상당한 집중력과 지구력을 보여주고 있습니다!' :
-                   tapCount >= 180 ? '👍 평균 이상의 실력! 좋은 리듬감을 유지하고 있어요!' :
-                   tapCount >= 120 ? '📈 꾸준한 성장 중! 연습으로 더 빠른 속도를 낼 수 있습니다!' : '🌱 좋은 시작! 꾸준한 연습으로 실력을 향상시켜보세요!'}
-                </p>
-              </div>
-
-              {nextThreshold && (
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6">
-                  <h4 className="font-bold text-gray-800 mb-2">다음 등급까지</h4>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
-                    {nextThreshold - tapCount}회
-                  </div>
-                  <p className="text-gray-600">더 탭핑하면 한 단계 승급!</p>
-                </div>
-              )}
-            </div>
-          </motion.div>
-
           {/* Action Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.6 }}
           >
             <button
               onClick={() => setShowShareModal(true)}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
             >
               결과 공유하기
             </button>
             <button
               onClick={() => setLocation('/test/tapping_endurance')}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
             >
               다시 도전하기
             </button>
             <button
               onClick={handleGoHome}
-              className="bg-white text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg border-2 border-gray-200"
+              className="bg-white text-gray-700 px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl border-2 border-gray-300"
             >
               다른 테스트 하기
             </button>
           </motion.div>
         </div>
 
-        {/* Share Modal */}
         <ShareModal
           isOpen={showShareModal}
           onClose={() => setShowShareModal(false)}
@@ -340,6 +321,7 @@ export default function Result() {
     );
   }
 
+  // 기존 일반 테스트 결과 페이지
   const getColorClasses = (color: string) => {
     const colorMap = {
       orange: 'from-orange-100 to-red-100',
@@ -347,9 +329,10 @@ export default function Result() {
       blue: 'from-blue-100 to-cyan-100',
       purple: 'from-purple-100 to-indigo-100',
       red: 'from-red-100 to-orange-100',
-      green: 'from-emerald-100 to-cyan-100'
-    };
-    return colorMap[color as keyof typeof colorMap] || colorMap.purple;
+      green: 'from-green-100 to-teal-100',
+      yellow: 'from-yellow-100 to-orange-100',
+    } as const;
+    return colorMap[color as keyof typeof colorMap] || 'from-gray-100 to-blue-100';
   };
 
   const bgGradient = getColorClasses(testData.color);
@@ -396,343 +379,88 @@ export default function Result() {
           </motion.p>
         </motion.div>
 
-        {/* Tapping Endurance Test Results */}
-        {testData.id === 'tapping_endurance' && result.scores?.tapCount ? (
-          <div className="space-y-8">
-            {/* Main Stats */}
-            <motion.div
-              className="bg-white rounded-3xl p-8 shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
-              <div className="text-center mb-8">
-                <div className="text-6xl mb-4">⚡</div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">탭핑 스피드 테스트 결과</h2>
-                <p className="text-gray-600">1분간의 집중력과 손목 지구력을 측정했습니다</p>
-              </div>
-
-              {/* Core Statistics */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <motion.div
-                  className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
-                >
-                  <div className="text-2xl mb-3">📊</div>
-                  <div className="text-sm font-semibold text-blue-700 mb-1">총 탭핑 횟수</div>
-                  <div className="text-3xl font-bold text-blue-800">{result.scores.tapCount}회</div>
-                </motion.div>
-
-                <motion.div
-                  className="text-center p-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.0, duration: 0.5 }}
-                >
-                  <div className="text-2xl mb-3">⚡</div>
-                  <div className="text-sm font-semibold text-purple-700 mb-1">초당 속도</div>
-                  <div className="text-3xl font-bold text-purple-800">{(result.scores.tapCount / 60).toFixed(1)}회/초</div>
-                </motion.div>
-
-                <motion.div
-                  className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.2, duration: 0.5 }}
-                >
-                  <div className="text-2xl mb-3">🎯</div>
-                  <div className="text-sm font-semibold text-green-700 mb-1">분당 속도</div>
-                  <div className="text-3xl font-bold text-green-800">{result.scores.tapCount}회/분</div>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Ranking System */}
-            <motion.div
-              className="bg-white rounded-3xl p-8 shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 0.6 }}
-            >
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">속도 등급 시스템</h3>
-              
-              {/* Vertical Progress Bar */}
-              <div className="flex justify-center mb-8">
-                <div className="relative w-16 h-96 bg-gray-200 rounded-full overflow-hidden">
-                  {/* Background levels */}
-                  {[
-                    { level: 10, color: 'from-purple-500 to-pink-500', min: 400, label: '전설' },
-                    { level: 9, color: 'from-red-500 to-purple-500', min: 350, label: '마스터' },
-                    { level: 8, color: 'from-orange-500 to-red-500', min: 300, label: '그랜드마스터' },
-                    { level: 7, color: 'from-yellow-500 to-orange-500', min: 270, label: '다이아몬드' },
-                    { level: 6, color: 'from-green-500 to-yellow-500', min: 240, label: '플래티넘' },
-                    { level: 5, color: 'from-blue-500 to-green-500', min: 210, label: '골드' },
-                    { level: 4, color: 'from-indigo-500 to-blue-500', min: 180, label: '실버' },
-                    { level: 3, color: 'from-gray-500 to-indigo-500', min: 150, label: '브론즈' },
-                    { level: 2, color: 'from-gray-400 to-gray-500', min: 120, label: '초보자' },
-                    { level: 1, color: 'from-gray-300 to-gray-400', min: 0, label: '입문자' }
-                  ].reverse().map((rank, index) => {
-                    const isCurrentRank = result.scores!.tapCount >= rank.min && 
-                      (index === 9 || result.scores!.tapCount < [400, 350, 300, 270, 240, 210, 180, 150, 120][index + 1]);
-                    const heightPercent = 10;
-                    const topPercent = index * 10;
-                    
-                    return (
-                      <div
-                        key={rank.level}
-                        className={`absolute w-full transition-all duration-1000 ${
-                          isCurrentRank ? `bg-gradient-to-b ${rank.color} opacity-100 scale-110` : 'bg-gray-300 opacity-40'
-                        }`}
-                        style={{ 
-                          height: `${heightPercent}%`,
-                          top: `${topPercent}%`
-                        }}
-                      />
-                    );
-                  })}
-                  
-                  {/* Current position indicator */}
-                  <motion.div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-4 border-yellow-400 rounded-full shadow-lg"
-                    initial={{ top: '100%' }}
-                    animate={{ 
-                      top: `${Math.max(5, 100 - (Math.min(result.scores!.tapCount, 400) / 400) * 90)}%`
-                    }}
-                    transition={{ delay: 2, duration: 1.5, ease: "easeOut" }}
-                  />
-                </div>
-
-                {/* Level Labels */}
-                <div className="ml-8 space-y-4">
-                  {[
-                    { level: '전설', color: 'text-purple-600', min: 400, emoji: '👑' },
-                    { level: '마스터', color: 'text-red-600', min: 350, emoji: '🔥' },
-                    { level: '그랜드마스터', color: 'text-orange-600', min: 300, emoji: '⭐' },
-                    { level: '다이아몬드', color: 'text-yellow-600', min: 270, emoji: '💎' },
-                    { level: '플래티넘', color: 'text-green-600', min: 240, emoji: '🏆' },
-                    { level: '골드', color: 'text-blue-600', min: 210, emoji: '🥇' },
-                    { level: '실버', color: 'text-indigo-600', min: 180, emoji: '🥈' },
-                    { level: '브론즈', color: 'text-gray-600', min: 150, emoji: '🥉' },
-                    { level: '초보자', color: 'text-gray-500', min: 120, emoji: '📈' },
-                    { level: '입문자', color: 'text-gray-400', min: 0, emoji: '🌱' }
-                  ].map((rank, index) => {
-                    const isCurrentRank = result.scores!.tapCount >= rank.min && 
-                      (index === 0 || result.scores!.tapCount < [400, 350, 300, 270, 240, 210, 180, 150, 120][index]);
-                    
-                    return (
-                      <motion.div
-                        key={rank.level}
-                        className={`flex items-center space-x-3 p-2 rounded-lg transition-all ${
-                          isCurrentRank ? 'bg-yellow-100 scale-110 font-bold' : 'opacity-60'
-                        }`}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: isCurrentRank ? 1 : 0.6, x: 0 }}
-                        transition={{ delay: 2.5 + index * 0.1 }}
-                      >
-                        <span className="text-xl">{rank.emoji}</span>
-                        <span className={`${rank.color} ${isCurrentRank ? 'font-bold' : ''}`}>
-                          {rank.level}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          {rank.min}회+
-                        </span>
-                        {isCurrentRank && (
-                          <span className="text-yellow-600 font-bold">← 현재 등급</span>
-                        )}
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Challenge Message */}
+        {/* Regular Test Results */}
+        <motion.div
+          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+        >
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {result.result.traits.map((trait, index) => (
               <motion.div
-                className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 3.5, duration: 0.8 }}
+                key={trait.name}
+                className="text-center p-4 bg-gray-50 rounded-2xl"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3">
-                  {result.scores.tapCount >= 350 ? '🔥 절대 고수의 경지!' :
-                   result.scores.tapCount >= 300 ? '⚡ 놀라운 실력입니다!' :
-                   result.scores.tapCount >= 240 ? '💪 상위권 진입!' :
-                   result.scores.tapCount >= 180 ? '👍 평균 이상의 실력!' :
-                   result.scores.tapCount >= 120 ? '📈 꾸준한 성장 중!' : '🌱 시작이 반입니다!'}
-                </h4>
-                <p className="text-gray-600 mb-4">
-                  {result.scores.tapCount >= 350 ? '당신은 탭핑 마스터입니다! 반응속도와 지구력이 최상급 수준이에요.' :
-                   result.scores.tapCount >= 300 ? '프로 게이머 수준의 반응속도를 보여주고 있습니다!' :
-                   result.scores.tapCount >= 240 ? '상당한 집중력과 손목 지구력을 가지고 있습니다.' :
-                   result.scores.tapCount >= 180 ? '좋은 리듬감과 안정적인 속도를 유지하고 있어요.' :
-                   result.scores.tapCount >= 120 ? '연습을 통해 더 빠른 속도를 낼 수 있을 것 같습니다.' : '꾸준한 연습으로 실력을 향상시켜보세요!'}
-                </p>
-                
-                {result.scores.tapCount < 400 && (
-                  <div className="bg-white rounded-lg p-4 inline-block">
-                    <p className="text-sm text-gray-700">
-                      다음 등급까지 <span className="font-bold text-purple-600">
-                        {result.scores.tapCount >= 350 ? 400 - result.scores.tapCount :
-                         result.scores.tapCount >= 300 ? 350 - result.scores.tapCount :
-                         result.scores.tapCount >= 270 ? 300 - result.scores.tapCount :
-                         result.scores.tapCount >= 240 ? 270 - result.scores.tapCount :
-                         result.scores.tapCount >= 210 ? 240 - result.scores.tapCount :
-                         result.scores.tapCount >= 180 ? 210 - result.scores.tapCount :
-                         result.scores.tapCount >= 150 ? 180 - result.scores.tapCount :
-                         result.scores.tapCount >= 120 ? 150 - result.scores.tapCount : 120 - result.scores.tapCount}회
-                      </span> 더 필요해요!
-                    </p>
-                  </div>
-                )}
+                <div className="text-3xl mb-2">{trait.emoji}</div>
+                <div className="font-semibold text-gray-800 text-sm md:text-base break-keep">{trait.name}</div>
+                <div className="text-2xl font-bold text-purple-600 mt-2">{trait.percentage}%</div>
               </motion.div>
-            </motion.div>
+            ))}
           </div>
-        ) : testData.id === 'reaction_speed' && result.averageReactionTime ? (
-          <motion.div
-            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">반응속도 측정 결과</h3>
-            
-            {/* Average Reaction Time */}
-            <div className="text-center mb-8">
-              <div className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-2xl">
-                <div className="text-lg font-semibold mb-1">평균 반응속도</div>
-                <div className="text-4xl font-bold">{result.averageReactionTime || 0}ms</div>
-                <div className="text-sm opacity-90 mt-1">
-                  {(result.averageReactionTime || 0) < 250 ? '⚡ 매우 빠름!' :
-                   (result.averageReactionTime || 0) < 350 ? '🔥 빠름!' :
-                   (result.averageReactionTime || 0) < 450 ? '👍 좋음!' : '🐌 보통'}
-                </div>
-              </div>
-            </div>
+        </motion.div>
 
-            {/* Individual Round Results */}
-            <div className="grid grid-cols-5 gap-4 mb-6">
-              {result.allReactionTimes?.map((time, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center p-4 bg-gray-50 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
-                >
-                  <div className="text-2xl mb-2">⚡</div>
-                  <div className="font-semibold text-gray-800">{index + 1}라운드</div>
-                  <div className="text-lg font-bold text-red-500">{time}ms</div>
-                </motion.div>
-              ))}
-            </div>
+        {/* Detailed Description */}
+        <motion.div
+          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+        >
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">상세 분석</h3>
+          <p className="text-lg text-gray-600 leading-relaxed text-center break-keep hyphens-auto">
+            {result.result.detailedDescription}
+          </p>
+        </motion.div>
 
-            {/* Performance Comparison */}
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">일반적인 반응속도와 비교</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">프로 게이머 수준</span>
-                  <span className="text-sm font-semibold text-green-500">150-200ms</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">매우 빠름</span>
-                  <span className="text-sm font-semibold text-blue-500">200-300ms</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">평균 수준</span>
-                  <span className="text-sm font-semibold text-yellow-500">300-500ms</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">느림</span>
-                  <span className="text-sm font-semibold text-red-500">500ms 이상</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ) : (
+        {/* Strengths and Improvements */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mb-8">
           <motion.div
-            className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {result.result.traits.map((trait, index) => (
-                <motion.div
-                  key={trait.name}
-                  className="text-center p-4 bg-gray-50 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
-                >
-                  <div className="text-3xl mb-2">{trait.emoji}</div>
-                  <div className="font-semibold text-gray-800 break-keep">{trait.name}</div>
-                  <div className="text-sm text-gray-600">{trait.percentage}%</div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                    <motion.div
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${trait.percentage}%` }}
-                      transition={{ delay: 1 + index * 0.1, duration: 0.8 }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Details */}
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <motion.div
-            className="bg-white rounded-2xl p-6 shadow-lg"
+            className="bg-white rounded-3xl p-8 shadow-xl"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2 break-keep">
-              <i className="fas fa-star text-yellow-500"></i>
-              당신의 강점
-            </h3>
-            <ul className="space-y-3 text-gray-600">
+            <h3 className="text-2xl font-bold text-green-600 mb-6 text-center break-keep">당신의 강점</h3>
+            <ul className="space-y-3">
               {result.result.strengths.map((strength, index) => (
                 <motion.li
                   key={index}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-gray-700 break-keep hyphens-auto"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.2 + index * 0.1 }}
+                  transition={{ delay: 1.4 + index * 0.1 }}
                 >
-                  <i className="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>
-                  <span className="break-keep hyphens-auto">{strength}</span>
+                  <span className="text-green-500 text-lg flex-shrink-0">✓</span>
+                  {strength}
                 </motion.li>
               ))}
             </ul>
           </motion.div>
 
           <motion.div
-            className="bg-white rounded-2xl p-6 shadow-lg"
+            className="bg-white rounded-3xl p-8 shadow-xl"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2 break-keep">
-              <i className="fas fa-lightbulb text-yellow-500"></i>
-              성장 포인트
-            </h3>
-            <ul className="space-y-3 text-gray-600">
+            <h3 className="text-2xl font-bold text-blue-600 mb-6 text-center break-keep">성장 포인트</h3>
+            <ul className="space-y-3">
               {result.result.improvements.map((improvement, index) => (
                 <motion.li
                   key={index}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-gray-700 break-keep hyphens-auto"
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.2 + index * 0.1 }}
+                  transition={{ delay: 1.4 + index * 0.1 }}
                 >
-                  <i className="fas fa-arrow-up text-blue-500 mt-1 flex-shrink-0"></i>
-                  <span className="break-keep hyphens-auto">{improvement}</span>
+                  <span className="text-blue-500 text-lg flex-shrink-0">→</span>
+                  {improvement}
                 </motion.li>
               ))}
             </ul>
@@ -741,178 +469,62 @@ export default function Result() {
 
         {/* Compatible Types */}
         <motion.div
-          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
+          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.6 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
         >
-          <h3 className="text-xl font-bold text-gray-800 mb-6 text-center break-keep">나와 잘 맞는 타입들</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">궁합이 좋은 유형</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {result.result.compatibleTypes.map((type, index) => (
               <motion.div
                 key={type.id}
-                className="text-center p-4 bg-gray-50 rounded-2xl"
-                initial={{ opacity: 0, scale: 0 }}
+                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.6 + index * 0.1, type: "spring" }}
+                transition={{ delay: 1.8 + index * 0.1, type: "spring" }}
               >
-                <div className="text-4xl mb-2">{type.emoji}</div>
-                <div className="font-semibold text-gray-800 break-keep">{type.title}</div>
-                <div className="text-xs text-green-600 font-semibold break-keep">{type.compatibility}% 궁합</div>
+                <div className="text-3xl mb-3">{type.emoji}</div>
+                <div className="font-bold text-gray-800 mb-2 break-keep">{type.title}</div>
+                <div className="text-purple-600 font-semibold">{type.compatibility}% 궁합</div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Quick Share Buttons */}
-        <motion.div
-          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
-        >
-          <h3 className="text-lg font-bold text-gray-800 mb-4 text-center break-keep">빠른 공유</h3>
-          <div className="flex justify-center gap-4">
-            <motion.button
-              onClick={() => {
-                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
-                const url = window.location.href;
-                if (navigator.share) {
-                  navigator.share({ title: '심리테스트 결과', text: text, url: url });
-                } else {
-                  const kakaoUrl = `kakaotalk://share?text=${encodeURIComponent(text + ' ' + url)}`;
-                  window.location.href = kakaoUrl;
-                }
-              }}
-              className="w-12 h-12 bg-yellow-400 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fas fa-comment text-white"></i>
-            </motion.button>
-            
-            <motion.button
-              onClick={() => {
-                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
-              }}
-              className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fab fa-facebook-f text-white"></i>
-            </motion.button>
-            
-            <motion.button
-              onClick={() => {
-                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
-                const url = encodeURIComponent(window.location.href);
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank', 'width=600,height=400');
-              }}
-              className="w-12 h-12 bg-gray-800 hover:bg-gray-900 rounded-full flex items-center justify-center transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fab fa-twitter text-white"></i>
-            </motion.button>
-            
-            <motion.button
-              onClick={async () => {
-                const text = `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
-                const fullText = `${text}\n${window.location.href}`;
-                try {
-                  await navigator.clipboard.writeText(fullText);
-                  alert('결과 텍스트와 링크가 복사되었습니다!');
-                } catch (err) {
-                  prompt('다음 텍스트를 복사해주세요:', fullText);
-                }
-              }}
-              className="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fas fa-link text-white"></i>
-            </motion.button>
-          </div>
-        </motion.div>
-
         {/* Action Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0, duration: 0.6 }}
         >
-          <motion.button
-            onClick={handleShare}
-            className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg flex items-center justify-center gap-3 break-keep"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            onClick={() => setShowShareModal(true)}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
           >
-            <i className="fas fa-share-alt"></i>
-            <span className="break-keep">더 많은 공유 옵션</span>
-          </motion.button>
-          
-          <motion.button
-            onClick={handleRetakeTest}
-            className="flex-1 bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:border-gray-300 transition-all flex items-center justify-center gap-3 break-keep"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            결과 공유하기
+          </button>
+          <button
+            onClick={() => setLocation(`/test/${testId}`)}
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
           >
-            <i className="fas fa-redo"></i>
-            <span className="break-keep">다시 테스트하기</span>
-          </motion.button>
-          
-          <motion.button
+            다시 테스트하기
+          </button>
+          <button
             onClick={handleGoHome}
-            className="flex-1 bg-purple-100 text-purple-700 px-8 py-4 rounded-2xl font-semibold hover:bg-purple-200 transition-all flex items-center justify-center gap-3 break-keep"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-white text-gray-700 px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg border-2 border-gray-200"
           >
-            <i className="fas fa-home"></i>
-            <span className="break-keep">다른 테스트 해보기</span>
-          </motion.button>
+            다른 테스트 하기
+          </button>
         </motion.div>
-
-        {/* Recommended Tests */}
-        <motion.div
-          className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-8 text-white text-center shadow-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.6 }}
-        >
-          <h3 className="text-2xl font-bold mb-4">🎯 추천 테스트</h3>
-          <p className="text-purple-100 mb-6">비슷한 성향의 사람들이 많이 한 테스트예요!</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {Object.values(tests)
-              .filter(test => test.id !== testId)
-              .slice(0, 3)
-              .map((test, index) => (
-                <motion.button
-                  key={test.id}
-                  onClick={() => handleStartOtherTest(test.id)}
-                  className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/30 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2.2 + index * 0.1 }}
-                >
-                  <div className="text-3xl mb-2">{test.emoji}</div>
-                  <div className="font-semibold">{test.title.replace(' 테스트', '')}</div>
-                  <div className="text-sm text-purple-100">추천도 {90 - index * 5}%</div>
-                </motion.button>
-              ))}
-          </div>
-        </motion.div>
-
-        {/* Share Modal */}
-        <ShareModal
-          isOpen={showShareModal}
-          onClose={() => setShowShareModal(false)}
-          result={result}
-        />
       </div>
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        result={result}
+      />
     </div>
   );
 }
