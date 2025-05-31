@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { QuestionCard } from '../components/QuestionCard';
 import { ProgressBar } from '../components/ProgressBar';
 import { ReactionTest } from '../components/ReactionTest';
+import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
 

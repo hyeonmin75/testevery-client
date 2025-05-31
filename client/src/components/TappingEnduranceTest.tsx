@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
-interface TappingTestProps {
+interface TappingEnduranceTestProps {
   onComplete: (tapCount: number) => void;
 }
 
-export function TappingTest({ onComplete }: TappingTestProps) {
+export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) {
   const [gameState, setGameState] = useState<'ready' | 'countdown' | 'active' | 'finished'>('ready');
   const [countdown, setCountdown] = useState(3);
   const [timeLeft, setTimeLeft] = useState(60);
@@ -15,6 +15,7 @@ export function TappingTest({ onComplete }: TappingTestProps) {
   const startTest = () => {
     setGameState('countdown');
     setCountdown(3);
+    setTapCount(0);
   };
 
   const handleTap = useCallback(() => {
@@ -54,7 +55,8 @@ export function TappingTest({ onComplete }: TappingTestProps) {
     if (tapCount < 100) return "좋아요! 더 빠르게!";
     if (tapCount < 150) return "훌륭해요! 집중!";
     if (tapCount < 200) return "대단해요! 계속!";
-    return "놀라워요! 최고속도!";
+    if (tapCount < 250) return "놀라워요! 최고속도!";
+    return "마스터급 실력!";
   };
 
   if (gameState === 'ready') {
@@ -66,7 +68,7 @@ export function TappingTest({ onComplete }: TappingTestProps) {
           animate={{ opacity: 1, y: 0 }}
         >
           <div className="text-6xl mb-6">👆</div>
-          <h2 className="text-2xl font-bold mb-4">1분 탭핑 테스트</h2>
+          <h2 className="text-2xl font-bold mb-4">1분 탭핑 지구력 테스트</h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
             60초 동안 화면을 최대한 빠르게 탭해보세요!<br/>
             집중력과 지구력을 동시에 테스트합니다.
@@ -113,14 +115,14 @@ export function TappingTest({ onComplete }: TappingTestProps) {
         <motion.div
           className={`w-64 h-64 rounded-full flex items-center justify-center cursor-pointer transition-all duration-100 select-none ${
             isPressed 
-              ? 'bg-blue-600 scale-95' 
-              : 'bg-blue-500 scale-100 hover:bg-blue-600'
+              ? 'bg-blue-600 scale-95 shadow-lg' 
+              : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
           onClick={handleTap}
           onTouchStart={handleTap}
           whileTap={{ scale: 0.9 }}
         >
-          <div className="text-white text-center">
+          <div className="text-white text-center pointer-events-none">
             <div className="text-4xl font-bold">{tapCount}</div>
             <div className="text-lg">탭</div>
           </div>

@@ -15,7 +15,8 @@ import { healingStyleTest } from './healing-style';
 import { fairytaleTest } from './fairytale';
 import { petTest } from './pet';
 import { friendshipTest } from './friendship';
-import { tappingSpeedTest } from './tapping-speed';
+import { tappingEnduranceTest } from './tapping-endurance';
+
 
 export const tests: Record<string, TestData> = {
   animal: animalTest,
@@ -34,7 +35,7 @@ export const tests: Record<string, TestData> = {
   fairytale: fairytaleTest,
   pet: petTest,
   friendship: friendshipTest,
-  tapping_speed: tappingSpeedTest
+  tapping_endurance: tappingEnduranceTest
 };
 
 export default tests;

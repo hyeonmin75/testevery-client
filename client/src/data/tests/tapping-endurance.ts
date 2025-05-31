@@ -1,84 +1,27 @@
 import { TestData } from '../../types/test';
 
-export const tappingSpeedTest: TestData = {
-  id: 'tapping_speed',
-  title: '탭핑 스피드 테스트',
+export const tappingEnduranceTest: TestData = {
+  id: 'tapping_endurance',
+  title: '탭핑 지구력 테스트',
   description: '1분 안에 몇 번 탭하나요?',
   emoji: '👆',
   color: 'blue',
   duration: '1-2분',
-  questionCount: 2,
-  participants: 1892,
+  questionCount: 1,
+  participants: 2156,
   questions: [
     {
       id: 1,
-      text: '평소 게임이나 앱을 사용할 때 어떤 스타일인가요?',
-      subtitle: '가장 어울리는 스타일을 선택해주세요',
-      emoji: '📱',
+      text: '1분간 탭핑 지구력 테스트',
+      subtitle: '60초 동안 최대한 빠르게 화면을 탭해보세요!',
+      emoji: '⚡',
       options: [
         {
-          id: 'a',
-          text: '신중하고 정확하게',
-          description: '실수하지 않도록 천천히 정확하게 조작',
-          emoji: '🎯',
-          scores: { beginner: 3, intermediate: 2, advanced: 1, expert: 1, master: 0 }
-        },
-        {
-          id: 'b',
-          text: '꾸준하고 안정적으로',
-          description: '일정한 속도로 꾸준히 지속',
-          emoji: '⚖️',
-          scores: { beginner: 2, intermediate: 3, advanced: 2, expert: 1, master: 1 }
-        },
-        {
-          id: 'c',
-          text: '빠르고 민첩하게',
-          description: '빠른 반응과 순발력으로 조작',
-          emoji: '⚡',
-          scores: { beginner: 1, intermediate: 2, advanced: 3, expert: 2, master: 1 }
-        },
-        {
-          id: 'd',
-          text: '최고 속도로 완벽하게',
-          description: '최대한 빠르면서도 정확하게 조작',
+          id: 'start',
+          text: '테스트 시작하기',
+          description: '준비가 되면 클릭하여 1분 탭핑 테스트를 시작하세요',
           emoji: '🚀',
-          scores: { beginner: 0, intermediate: 1, advanced: 2, expert: 3, master: 3 }
-        }
-      ]
-    },
-    {
-      id: 2,
-      text: '집중력이 필요한 작업을 할 때 당신의 모습은?',
-      subtitle: '가장 어울리는 방식을 선택해주세요',
-      emoji: '🧠',
-      options: [
-        {
-          id: 'a',
-          text: '충분한 시간을 두고 차근차근',
-          description: '서두르지 않고 자신만의 페이스 유지',
-          emoji: '🐌',
-          scores: { beginner: 3, intermediate: 2, advanced: 1, expert: 0, master: 0 }
-        },
-        {
-          id: 'b',
-          text: '일정한 리듬으로 꾸준히',
-          description: '안정적인 속도로 끝까지 지속',
-          emoji: '🥁',
-          scores: { beginner: 1, intermediate: 3, advanced: 2, expert: 1, master: 1 }
-        },
-        {
-          id: 'c',
-          text: '빠른 속도로 집중해서',
-          description: '단시간에 집중력을 발휘해 빠르게 처리',
-          emoji: '💨',
-          scores: { beginner: 0, intermediate: 1, advanced: 3, expert: 2, master: 1 }
-        },
-        {
-          id: 'd',
-          text: '최고 집중력으로 완벽하게',
-          description: '극도의 집중력으로 최고 성과 달성',
-          emoji: '🔥',
-          scores: { beginner: 0, intermediate: 0, advanced: 1, expert: 3, master: 3 }
+          scores: {}
         }
       ]
     }
