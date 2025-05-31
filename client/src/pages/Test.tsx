@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { QuestionCard } from '../components/QuestionCard';
 import { ProgressBar } from '../components/ProgressBar';
 import { ReactionTest } from '../components/ReactionTest';
-import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
+
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
 
@@ -202,43 +202,7 @@ export default function Test() {
     );
   }
 
-  // 탭핑 지구력 테스트인 경우 특별한 렌더링
-  if (testData.id === 'tapping_endurance') {
-    return (
-      <div className="min-h-screen bg-gradient-korean">
-        {/* Header */}
-        <motion.div 
-          className="bg-white shadow-lg p-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <motion.button
-              onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <i className="fas fa-arrow-left"></i>
-              <span>홈으로 돌아가기</span>
-            </motion.button>
-            <div className="text-lg font-semibold text-gray-800">
-              {testData.emoji} {testData.title}
-            </div>
-            <div className="text-sm text-gray-500">
-              1분간 탭핑 테스트
-            </div>
-          </div>
-        </motion.div>
 
-        {/* Tapping Endurance Test Component */}
-        <TappingEnduranceTest
-          onComplete={handleTappingComplete}
-        />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-korean">
