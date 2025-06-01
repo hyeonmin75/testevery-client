@@ -82,33 +82,38 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // 여백 설정
+      const margin = 80;
+      const contentWidth = canvas.width - (margin * 2);
+      const centerX = canvas.width / 2;
+      
       ctx.fillStyle = '#1f2937';
       ctx.textAlign = 'center';
-      let y = 120;
+      let y = margin + 60;
 
       // 헤더
-      ctx.font = 'bold 48px "Malgun Gothic", Arial, sans-serif';
-      ctx.fillText('눈치력 테스트 결과', canvas.width / 2, y);
+      ctx.font = 'bold 40px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText('눈치력 테스트 결과', centerX, y);
       y += 80;
 
       // 이모지
-      ctx.font = '120px Arial';
-      ctx.fillText(result.result.emoji, canvas.width / 2, y);
-      y += 150;
+      ctx.font = '100px Arial';
+      ctx.fillText(result.result.emoji, centerX, y);
+      y += 120;
 
       // 제목
-      ctx.font = 'bold 56px "Malgun Gothic", Arial, sans-serif';
-      ctx.fillText(result.result.title, canvas.width / 2, y);
-      y += 100;
+      ctx.font = 'bold 48px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(result.result.title, centerX, y);
+      y += 80;
 
       // 점수 표시
       const scores = result.scores;
       const score = Math.round(scores?.score || 0);
       
-      ctx.font = 'bold 72px "Malgun Gothic", Arial, sans-serif';
+      ctx.font = 'bold 60px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#059669';
-      ctx.fillText(`점수: ${score}/10`, canvas.width / 2, y);
-      y += 100;
+      ctx.fillText(`점수: ${score}/10`, centerX, y);
+      y += 90;
 
       // 등급 정보
       const gradeInfo = [
@@ -124,17 +129,17 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         score >= grade.min && (grade.min === 10 || score < gradeInfo[gradeInfo.indexOf(grade) - 1]?.min)
       ) || gradeInfo[gradeInfo.length - 1];
 
-      ctx.font = 'bold 44px "Malgun Gothic", Arial, sans-serif';
+      ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#7c3aed';
-      ctx.fillText(`등급: ${currentGrade.name}`, canvas.width / 2, y);
+      ctx.fillText(`등급: ${currentGrade.name}`, centerX, y);
       y += 80;
 
-      // 설명
-      ctx.font = '32px "Malgun Gothic", Arial, sans-serif';
+      // 설명 (여러 줄 처리)
+      ctx.font = '28px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#374151';
       const words = result.result.description.split(' ');
       let line = '';
-      const maxWidth = 800;
+      const maxWidth = contentWidth - 100;
       
       for (let i = 0; i < words.length; i++) {
         const testLine = line + words[i] + ' ';
@@ -142,44 +147,46 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         const testWidth = metrics.width;
         
         if (testWidth > maxWidth && i > 0) {
-          ctx.fillText(line, canvas.width / 2, y);
+          ctx.fillText(line, centerX, y);
           line = words[i] + ' ';
-          y += 50;
+          y += 40;
         } else {
           line = testLine;
         }
       }
-      ctx.fillText(line, canvas.width / 2, y);
-      y += 80;
+      if (line) {
+        ctx.fillText(line, centerX, y);
+        y += 60;
+      }
 
       // 반응속도 분석
       if (result.averageReactionTime) {
-        ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
+        ctx.font = 'bold 30px "Malgun Gothic", Arial, sans-serif';
         ctx.fillStyle = '#dc2626';
-        ctx.fillText('반응속도 분석', canvas.width / 2, y);
-        y += 60;
-        
-        ctx.font = '28px "Malgun Gothic", Arial, sans-serif';
-        ctx.fillStyle = '#374151';
-        ctx.fillText(`평균 반응속도: ${result.averageReactionTime.toFixed(0)}ms`, canvas.width / 2, y);
+        ctx.fillText('반응속도 분석', centerX, y);
         y += 50;
+        
+        ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillStyle = '#374151';
+        ctx.fillText(`평균 반응속도: ${result.averageReactionTime.toFixed(0)}ms`, centerX, y);
+        y += 40;
         
         const speedGrade = result.averageReactionTime < 500 ? '매우 빠름' :
                           result.averageReactionTime < 700 ? '빠름' :
                           result.averageReactionTime < 900 ? '보통' : '느림';
-        ctx.fillText(`반응속도 등급: ${speedGrade}`, canvas.width / 2, y);
-        y += 80;
+        ctx.fillText(`반응속도 등급: ${speedGrade}`, centerX, y);
+        y += 60;
       }
 
       // 등급표 시각화
-      ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
+      ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#1f2937';
-      ctx.fillText('눈치력 등급표', canvas.width / 2, y);
-      y += 60;
+      ctx.fillText('눈치력 등급표', centerX, y);
+      y += 50;
 
       // 등급표 막대 그래프
-      const barWidth = 500;
-      const barHeight = 200;
+      const barWidth = Math.min(450, contentWidth - 100);
+      const barHeight = 40;
       const barX = (canvas.width - barWidth) / 2;
       
       // 배경 막대
@@ -198,25 +205,25 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       // 점수 마커
       ctx.fillStyle = '#fbbf24';
       ctx.beginPath();
-      ctx.arc(barX + scoreWidth, y + barHeight / 2, 20, 0, Math.PI * 2);
+      ctx.arc(barX + scoreWidth, y + barHeight / 2, 15, 0, Math.PI * 2);
       ctx.fill();
       
-      y += barHeight + 60;
+      y += barHeight + 50;
 
-      // 등급 라벨들
-      ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+      // 등급 라벨들 (간격 조정)
+      ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#374151';
       gradeInfo.forEach((grade, index) => {
         const isCurrentGrade = grade === currentGrade;
         if (isCurrentGrade) {
           ctx.fillStyle = '#dc2626';
-          ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+          ctx.font = 'bold 22px "Malgun Gothic", Arial, sans-serif';
         } else {
           ctx.fillStyle = '#6b7280';
-          ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+          ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
         }
-        ctx.fillText(`${grade.emoji} ${grade.name} (${grade.min}점 이상)`, canvas.width / 2, y);
-        y += 40;
+        ctx.fillText(`${grade.emoji} ${grade.name} (${grade.min}점 이상)`, centerX, y);
+        y += 35;
       });
 
     } else {

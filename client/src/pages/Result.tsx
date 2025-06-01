@@ -1086,12 +1086,7 @@ export default function Result() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.0, duration: 0.6 }}
         >
-          <button
-            onClick={() => setShowShareModal(true)}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
-          >
-            결과 공유하기
-          </button>
+
           <button
             onClick={() => setLocation(`/test/${testId}`)}
             className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
@@ -1107,11 +1102,7 @@ export default function Result() {
         </motion.div>
       </div>
 
-      <ShareModal
-        isOpen={showShareModal}
-        onClose={() => setShowShareModal(false)}
-        result={result}
-      />
+
       <Toaster />
     </div>
   );
