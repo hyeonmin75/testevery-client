@@ -361,6 +361,232 @@ export default function Result() {
     );
   }
 
+  // 눈치 테스트 전용 결과 페이지
+  if (testData.id === 'intuition_test' && result.scores?.score !== undefined) {
+    const score = result.scores.score;
+    const maxScore = 10;
+    const percentage = (score / maxScore) * 100;
+    
+    const gradeInfo = [
+      { name: '눈치 핵고수', min: 10, emoji: '🧠', color: 'purple' },
+      { name: '눈치 만렙 근접', min: 8, emoji: '🎯', color: 'blue' },
+      { name: '눈치 50%', min: 6, emoji: '👁️', color: 'green' },
+      { name: '사회성 훈련 필요', min: 3, emoji: '📚', color: 'yellow' },
+      { name: '멍때리는 타입', min: 0, emoji: '😴', color: 'gray' }
+    ];
+
+    const currentGrade = gradeInfo.find(grade => score >= grade.min) || gradeInfo[gradeInfo.length - 1];
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+        <div className="max-w-4xl mx-auto p-4 py-8">
+          {/* Header */}
+          <motion.div
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="text-7xl mb-6">👀</div>
+            <h1 className="text-4xl font-black text-gray-800 mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              눈치력 테스트 결과
+            </h1>
+            <p className="text-xl text-gray-600">10라운드 눈치력 측정 완료</p>
+          </motion.div>
+
+          {/* Score Display */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <div className="text-center">
+              <div className="text-8xl mb-6">{currentGrade.emoji}</div>
+              <h2 className="text-3xl font-black text-gray-800 mb-4">
+                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                  {currentGrade.name}
+                </span>
+              </h2>
+              
+              <div className="bg-gray-50 rounded-2xl p-8 mb-6">
+                <div className="text-6xl font-black text-green-600 mb-2">{score}</div>
+                <div className="text-2xl text-gray-600">/ 10점</div>
+                <div className="text-lg text-gray-500 mt-2">정답률: {percentage}%</div>
+              </div>
+
+              <p className="text-xl text-gray-700 leading-relaxed">
+                {result.result.detailedDescription}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Grade Chart */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">눈치력 등급표</h3>
+            
+            <div className="flex items-start justify-center space-x-12">
+              {/* Vertical Progress Bar */}
+              <div className="flex-shrink-0">
+                <div className="relative w-16 bg-gray-200 rounded-full overflow-hidden" style={{ height: `${gradeInfo.length * 80}px` }}>
+                  <motion.div
+                    className="absolute bottom-0 w-full bg-gradient-to-t from-green-500 via-blue-500 to-purple-500 rounded-full"
+                    initial={{ height: '0%' }}
+                    animate={{ height: `${Math.min(95, (score / 10) * 95)}%` }}
+                    transition={{ delay: 1.2, duration: 2, ease: "easeOut" }}
+                  />
+                  
+                  <motion.div
+                    className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
+                    initial={{ bottom: '2%' }}
+                    animate={{ bottom: `${Math.min(92, (score / 10) * 92)}%` }}
+                    transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
+
+              {/* Grade Labels */}
+              <div className="flex-1 max-w-md" style={{ height: `${gradeInfo.length * 80}px` }}>
+                <div className="relative h-full">
+                  {gradeInfo.map((grade, index) => {
+                    const isCurrentGrade = score >= grade.min && (grade.min === 10 || score < gradeInfo[index - 1]?.min);
+                    const topPosition = (index / (gradeInfo.length - 1)) * 90;
+                    
+                    return (
+                      <motion.div
+                        key={grade.name}
+                        className={`absolute w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
+                          isCurrentGrade 
+                            ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-105 border-2 border-yellow-400 shadow-lg' 
+                            : 'bg-gray-50 opacity-70'
+                        }`}
+                        style={{ top: `${topPosition}%`, transform: 'translateY(-50%)' }}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: isCurrentGrade ? 1 : 0.7, x: 0 }}
+                        transition={{ delay: 1.8 + index * 0.1 }}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="text-2xl">{grade.emoji}</span>
+                          <div>
+                            <span className={`font-bold ${isCurrentGrade ? 'text-yellow-800' : 'text-gray-700'}`}>
+                              {grade.name}
+                            </span>
+                            <div className="text-xs text-gray-500">{grade.min}점+</div>
+                          </div>
+                        </div>
+                        {isCurrentGrade && (
+                          <span className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                            현재
+                          </span>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Performance Stats */}
+          {result.reactionTimes && (
+            <motion.div
+              className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">반응속도 분석</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl">
+                  <div className="text-3xl mb-3">⚡</div>
+                  <div className="text-lg font-bold text-blue-700 mb-1">평균 반응속도</div>
+                  <div className="text-3xl font-bold text-blue-800">{result.scores.averageReactionTime}ms</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl">
+                  <div className="text-3xl mb-3">🎯</div>
+                  <div className="text-lg font-bold text-green-700 mb-1">정답률</div>
+                  <div className="text-3xl font-bold text-green-800">{percentage}%</div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Recommended Tests */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">추천 테스트</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { id: 'reaction_speed', title: '반응속도 테스트', emoji: '⚡', description: '빠른 반응속도를 측정해보세요' },
+                { id: 'tapping_endurance', title: '탭핑 지구력 테스트', emoji: '💪', description: '1분간 탭핑 지구력 테스트' },
+                { id: 'animal', title: '동물 성격 테스트', emoji: '🐾', description: '당신과 닮은 동물을 찾아보세요' }
+              ].map((test, index) => (
+                <motion.div
+                  key={test.id}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 cursor-pointer hover:scale-105 transition-transform shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 + index * 0.1 }}
+                  onClick={() => setLocation(`/test/${test.id}`)}
+                >
+                  <div className="text-center">
+                    <div className="text-4xl mb-3">{test.emoji}</div>
+                    <h4 className="font-bold text-gray-800 mb-2">{test.title}</h4>
+                    <p className="text-sm text-gray-600">{test.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.0, duration: 0.6 }}
+          >
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              결과 공유하기
+            </button>
+            <button
+              onClick={() => setLocation('/test/intuition_test')}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              다시 도전하기
+            </button>
+            <button
+              onClick={handleGoHome}
+              className="bg-white text-gray-700 px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl border-2 border-gray-300"
+            >
+              다른 테스트 하기
+            </button>
+          </motion.div>
+        </div>
+
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          result={result}
+        />
+      </div>
+    );
+  }
+
   // 기존 일반 테스트 결과 페이지
   const getColorClasses = (color: string) => {
     const colorMap = {

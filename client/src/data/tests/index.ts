@@ -16,6 +16,7 @@ import { fairytaleTest } from './fairytale';
 import { petTest } from './pet';
 import { friendshipTest } from './friendship';
 import { tappingEnduranceTest } from './tapping-endurance';
+import { intuitionTest } from './intuition-test';
 
 
 
@@ -36,7 +37,8 @@ export const tests: Record<string, TestData> = {
   fairytale: fairytaleTest,
   pet: petTest,
   friendship: friendshipTest,
-  tapping_endurance: tappingEnduranceTest
+  tapping_endurance: tappingEnduranceTest,
+  intuition_test: intuitionTest
 };
 
 export default tests;
