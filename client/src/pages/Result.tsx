@@ -164,7 +164,7 @@ export default function Result() {
                   />
                   <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
                     <span className="text-white drop-shadow-md">E {result.scores.E || 50}%</span>
-                    <span className="text-gray-700">I {result.scores.I || 50}%</span>
+                    <span className="text-gray-700">I {100 - (result.scores.E || 50)}%</span>
                   </div>
                 </div>
               </div>
@@ -181,7 +181,7 @@ export default function Result() {
                   />
                   <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
                     <span className="text-white drop-shadow-md">S {result.scores.S || 50}%</span>
-                    <span className="text-gray-700">N {result.scores.N || 50}%</span>
+                    <span className="text-gray-700">N {100 - (result.scores.S || 50)}%</span>
                   </div>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default function Result() {
                   />
                   <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
                     <span className="text-white drop-shadow-md">T {result.scores.T || 50}%</span>
-                    <span className="text-gray-700">F {result.scores.F || 50}%</span>
+                    <span className="text-gray-700">F {100 - (result.scores.T || 50)}%</span>
                   </div>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function Result() {
                   />
                   <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
                     <span className="text-white drop-shadow-md">J {result.scores.J || 50}%</span>
-                    <span className="text-gray-700">P {result.scores.P || 50}%</span>
+                    <span className="text-gray-700">P {100 - (result.scores.J || 50)}%</span>
                   </div>
                 </div>
               </div>
