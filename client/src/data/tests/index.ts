@@ -22,6 +22,9 @@ import { mbtiTest } from './mbti';
 
 
 export const tests: Record<string, TestData> = {
+  mbti: mbtiTest,
+  tapping_endurance: tappingEnduranceTest,
+  intuition_test: intuitionTest,
   animal: animalTest,
   love: loveTest,
   travel: travelTest,
@@ -37,10 +40,7 @@ export const tests: Record<string, TestData> = {
   healing_style: healingStyleTest,
   fairytale: fairytaleTest,
   pet: petTest,
-  friendship: friendshipTest,
-  tapping_endurance: tappingEnduranceTest,
-  intuition_test: intuitionTest,
-  mbti: mbtiTest
+  friendship: friendshipTest
 };
 
 export default tests;
