@@ -24,23 +24,48 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
   const [selectedSide, setSelectedSide] = useState<'left' | 'right' | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-  // 라운드 데이터 생성
-  const generateRound = useCallback(() => {
-    const rounds: Round[] = [
-      { leftImage: '🐶', rightImage: '🐱', correctSide: 'right', difference: '오른쪽이 고양이 (다른 동물)' },
-      { leftImage: '🔴', rightImage: '🔵', correctSide: 'right', difference: '오른쪽이 파란색 (다른 색상)' },
-      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '오른쪽이 반짝이는 별' },
-      { leftImage: '🏠', rightImage: '🏡', correctSide: 'right', difference: '오른쪽 지붕이 빨간색' },
-      { leftImage: '😀', rightImage: '😢', correctSide: 'right', difference: '오른쪽이 슬픈 표정' },
-      { leftImage: '🌸', rightImage: '🌺', correctSide: 'right', difference: '오른쪽이 하이비스커스' },
-      { leftImage: '☀️', rightImage: '🌤️', correctSide: 'right', difference: '오른쪽에 구름이 있음' },
-      { leftImage: '👆', rightImage: '👇', correctSide: 'right', difference: '오른쪽이 아래를 가리킴' },
-      { leftImage: '🎈', rightImage: '🎀', correctSide: 'right', difference: '오른쪽이 리본' },
-      { leftImage: '🟢', rightImage: '🟡', correctSide: 'right', difference: '오른쪽이 노란색 원' }
+  // 라운드 데이터 생성 (20개 문항 중 랜덤 10개 선택)
+  const [selectedRounds, setSelectedRounds] = useState<Round[]>([]);
+
+  const generateRandomRounds = useCallback(() => {
+    const allRounds: Round[] = [
+      { leftImage: '🔴', rightImage: '🔵', correctSide: 'right', difference: '파란색이 더 차가운 색상' },
+      { leftImage: '⬆️', rightImage: '⬇️', correctSide: 'left', difference: '위쪽 화살표가 더 높은 위치' },
+      { leftImage: '🟩', rightImage: '🟨', correctSide: 'right', difference: '노란색이 더 밝은 색상' },
+      { leftImage: '🌕', rightImage: '🌑', correctSide: 'left', difference: '보름달이 더 밝음' },
+      { leftImage: '❄️', rightImage: '🔥', correctSide: 'right', difference: '불이 더 뜨거움' },
+      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '반짝이는 별이 더 밝음' },
+      { leftImage: '🔺', rightImage: '🔻', correctSide: 'left', difference: '위쪽 삼각형이 더 높은 방향' },
+      { leftImage: '🌞', rightImage: '🌙', correctSide: 'left', difference: '태양이 더 밝음' },
+      { leftImage: '📈', rightImage: '📉', correctSide: 'left', difference: '상승 그래프가 더 긍정적' },
+      { leftImage: '🟫', rightImage: '⬜', correctSide: 'right', difference: '흰색이 더 밝은 색상' },
+      { leftImage: '🔊', rightImage: '🔇', correctSide: 'left', difference: '스피커가 더 큰 소리' },
+      { leftImage: '🌊', rightImage: '🏔️', correctSide: 'right', difference: '산이 더 높음' },
+      { leftImage: '⚡', rightImage: '🌈', correctSide: 'left', difference: '번개가 더 강한 에너지' },
+      { leftImage: '🔥', rightImage: '💧', correctSide: 'left', difference: '불이 더 뜨거움' },
+      { leftImage: '🌻', rightImage: '🌹', correctSide: 'left', difference: '해바라기가 더 큰 꽃' },
+      { leftImage: '🎯', rightImage: '⚪', correctSide: 'left', difference: '과녁이 더 복잡한 패턴' },
+      { leftImage: '📱', rightImage: '📞', correctSide: 'left', difference: '스마트폰이 더 현대적' },
+      { leftImage: '🚀', rightImage: '✈️', correctSide: 'left', difference: '로켓이 더 빠름' },
+      { leftImage: '💎', rightImage: '🪨', correctSide: 'left', difference: '다이아몬드가 더 귀중함' },
+      { leftImage: '🏆', rightImage: '🥉', correctSide: 'left', difference: '금컵이 더 높은 등급' }
     ];
     
-    return rounds[currentRound - 1];
-  }, [currentRound]);
+    // 20개 중 랜덤하게 10개 선택
+    const shuffled = [...allRounds].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 10);
+  }, []);
+
+  // 게임 시작 시 랜덤 라운드 생성
+  useEffect(() => {
+    if (gameState === 'countdown' && selectedRounds.length === 0) {
+      setSelectedRounds(generateRandomRounds());
+    }
+  }, [gameState, selectedRounds.length, generateRandomRounds]);
+
+  const getCurrentRoundData = () => {
+    return selectedRounds[currentRound - 1];
+  };
 
   const startGame = () => {
     setGameState('countdown');
@@ -48,10 +73,11 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
     setScore(0);
     setCurrentRound(1);
     setReactionTimes([]);
+    setSelectedRounds([]); // 새 게임 시작 시 라운드 초기화
   };
 
   const startRound = () => {
-    const roundData = generateRound();
+    const roundData = getCurrentRoundData();
     setCurrentRoundData(roundData);
     setGameState('showing');
     setRoundStartTime(Date.now());
@@ -129,8 +155,8 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <h2 className="text-3xl font-bold text-gray-800 mb-4">좌우 선택 눈치 테스트</h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
             빠르게 스쳐가는 이미지에서<br/>
-            <strong className="text-blue-600">더 특별하거나 다른 쪽</strong>을 선택하세요!<br/>
-            (다른 색상, 다른 모양, 다른 방향 등)<br/>
+            <strong className="text-blue-600">더 강하거나 높거나 밝은 쪽</strong>을 선택하세요!<br/>
+            (더 뜨거운 것, 더 밝은 것, 더 높은 것, 더 큰 것)<br/>
             총 10라운드가 진행됩니다.
           </p>
           
@@ -176,7 +202,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-sm text-blue-600 font-semibold">더 특별하거나 다른 쪽을 기억하세요!</div>
+          <div className="text-sm text-blue-600 font-semibold">더 강하거나 높거나 밝은 쪽을 기억하세요!</div>
         </div>
 
         <motion.div
@@ -211,7 +237,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-red-600 font-bold text-xl mb-4">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold">어느 쪽이 더 특별하거나 달랐나요?</div>
+          <div className="text-blue-600 font-semibold">어느 쪽이 더 강하거나 높거나 밝았나요?</div>
         </div>
 
         <div className="flex items-center justify-center space-x-8">

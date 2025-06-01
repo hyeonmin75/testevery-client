@@ -447,12 +447,19 @@ export default function Result() {
                     initial={{ bottom: '2%' }}
                     animate={{ 
                       bottom: (() => {
-                        // 각 등급의 위치 계산
-                        if (score === 10) return '92%'; // 최상위
-                        if (score >= 8) return '74%';   // 눈치 만렙 근접
-                        if (score >= 6) return '56%';   // 눈치 50%
-                        if (score >= 3) return '38%';   // 사회성 훈련 필요
-                        return '20%';                   // 멍때리는 타입
+                        // 등급에 따른 정확한 위치 계산 (각 등급이 차지하는 영역의 중앙)
+                        const currentGradeIndex = gradeInfo.findIndex(grade => 
+                          score >= grade.min && (grade.min === 10 || score < gradeInfo[gradeInfo.findIndex(g => g.min > grade.min)]?.min || true)
+                        );
+                        
+                        if (currentGradeIndex === -1) return '10%'; // 기본값
+                        
+                        // 각 등급이 전체 높이의 20%씩 차지 (5개 등급)
+                        const sectionHeight = 90 / gradeInfo.length; // 90%를 5등급으로 나눔
+                        const gradePosition = (gradeInfo.length - 1 - currentGradeIndex) * sectionHeight; // 아래서부터 계산
+                        const centerOffset = sectionHeight / 2; // 각 구간의 중앙
+                        
+                        return `${Math.max(5, Math.min(95, gradePosition + centerOffset + 5))}%`;
                       })()
                     }}
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
