@@ -346,9 +346,9 @@ export default function Result() {
                 전체 통계
               </h4>
               <div className="text-center">
-                <div className="inline-flex items-center bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full px-6 py-3">
-                  <span className="text-2xl font-bold text-indigo-600 mr-2">{result.result.percentage}%</span>
-                  <span className="text-gray-700">전체 중 {result.result.rarity}</span>
+                <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-xl px-8 py-6">
+                  <div className="text-4xl font-bold text-indigo-600 mb-2">{result.result.percentage}%</div>
+                  <div className="text-lg text-gray-700">{result.result.rarity}</div>
                 </div>
               </div>
             </motion.div>

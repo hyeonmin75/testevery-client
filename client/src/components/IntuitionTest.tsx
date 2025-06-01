@@ -293,16 +293,16 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <div className={`text-6xl mb-4 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+          <div className={`text-8xl sm:text-9xl md:text-[10rem] mb-6 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
             {isCorrect ? '✅' : '❌'}
           </div>
-          <div className="text-2xl font-bold mb-2">
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             {isCorrect ? '정답!' : '틀렸습니다!'}
           </div>
-          <div className="text-gray-600 mb-4">
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-600 mb-6">
             정답: {currentRoundData.correctSide === 'left' ? '좌' : '우'}측
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-500 px-4">
             차이점: {currentRoundData.difference}
           </div>
         </motion.div>
