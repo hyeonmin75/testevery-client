@@ -416,7 +416,7 @@ export default function Result() {
             <div className="text-center">
               <div className="text-8xl mb-6">{currentGrade.emoji}</div>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-800 mb-4 px-4">
-                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block">
+                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block whitespace-nowrap">
                   {currentGrade.name}
                 </span>
               </h2>
@@ -427,7 +427,7 @@ export default function Result() {
                 <div className="text-lg text-gray-500 mt-2">정답률: {percentage}%</div>
               </div>
 
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto px-4">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto px-4 break-keep">
                 {result.result.detailedDescription}
               </p>
             </div>
@@ -502,7 +502,7 @@ export default function Result() {
                         <div className="flex items-center space-x-3">
                           <span className="text-2xl">{grade.emoji}</span>
                           <div>
-                            <span className={`font-bold ${isCurrentGrade ? 'text-yellow-800' : 'text-gray-700'}`}>
+                            <span className={`font-bold text-sm sm:text-base whitespace-nowrap ${isCurrentGrade ? 'text-yellow-800' : 'text-gray-700'}`}>
                               {grade.name}
                             </span>
                             <div className="text-xs text-gray-500">{grade.min}점+</div>
