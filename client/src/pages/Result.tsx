@@ -236,7 +236,7 @@ export default function Result() {
                   <span className="text-xl mr-2">📖</span>
                   성격 설명
                 </h4>
-                <p className="text-blue-800 leading-relaxed text-sm sm:text-base">
+                <p className="text-blue-800 leading-relaxed text-sm sm:text-base whitespace-pre-line">
                   {result.result.personalityStory}
                 </p>
               </motion.div>
