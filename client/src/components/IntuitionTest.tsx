@@ -233,15 +233,15 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           exit={{ opacity: 0 }}
         >
           <div className="text-center flex-1 max-w-[30%]">
-            <div className="text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] xl:text-[9rem] mb-2 sm:mb-3 leading-none">{currentRoundData.leftImage}</div>
-            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700">좌</div>
+            <div className="text-[10rem] sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem] mb-3 sm:mb-4 leading-none">{currentRoundData.leftImage}</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700">좌</div>
           </div>
           
-          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-400 font-bold flex-shrink-0">VS</div>
+          <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gray-400 font-bold flex-shrink-0">VS</div>
           
           <div className="text-center flex-1 max-w-[30%]">
-            <div className="text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] xl:text-[9rem] mb-2 sm:mb-3 leading-none">{currentRoundData.rightImage}</div>
-            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700">우</div>
+            <div className="text-[10rem] sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem] mb-3 sm:mb-4 leading-none">{currentRoundData.rightImage}</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700">우</div>
           </div>
         </motion.div>
       </div>
@@ -255,16 +255,16 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-base sm:text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-red-600 font-bold text-lg sm:text-xl mb-3 sm:mb-4">
+          <div className="text-red-600 font-bold text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold text-sm sm:text-base px-2">{currentRoundData?.criterion}</div>
+          <div className="text-blue-600 font-semibold text-base sm:text-lg md:text-xl lg:text-2xl px-2">{currentRoundData?.criterion}</div>
         </div>
 
-        <div className="flex items-center justify-center space-x-4 sm:space-x-8">
+        <div className="flex items-center justify-center space-x-6 sm:space-x-12">
           <motion.button
             onClick={() => handleChoice('left')}
-            className="bg-blue-500 hover:bg-blue-600 text-white w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl flex items-center justify-center"
+            className="bg-blue-500 hover:bg-blue-600 text-white w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-3xl font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl transition-colors shadow-xl flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -273,7 +273,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           
           <motion.button
             onClick={() => handleChoice('right')}
-            className="bg-red-500 hover:bg-red-600 text-white w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl flex items-center justify-center"
+            className="bg-red-500 hover:bg-red-600 text-white w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-3xl font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl transition-colors shadow-xl flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
