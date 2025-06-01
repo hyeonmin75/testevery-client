@@ -223,7 +223,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-600 font-semibold px-2">{currentRoundData?.criterion}</div>
+          <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 font-semibold px-2">{currentRoundData?.criterion}</div>
         </div>
 
         <motion.div
@@ -258,7 +258,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-red-600 font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl px-2">{currentRoundData?.criterion}</div>
+          <div className="text-blue-600 font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl px-2">{currentRoundData?.criterion}</div>
         </div>
 
         <div className="flex items-center justify-center space-x-6 sm:space-x-12">
