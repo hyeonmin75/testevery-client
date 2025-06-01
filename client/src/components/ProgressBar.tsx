@@ -24,12 +24,12 @@ export function ProgressBar({ progress, currentQuestion, totalQuestions, testTit
         />
       </div>
       
-      <div className="flex justify-center mt-4">
-        <div className="flex gap-2">
+      <div className="flex justify-center mt-4 px-2">
+        <div className="flex gap-1.5 flex-wrap justify-center max-w-full">
           {Array.from({ length: totalQuestions }).map((_, index) => (
             <motion.div
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+              className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
                 index < currentQuestion
                   ? 'bg-purple-500'
                   : index === currentQuestion
