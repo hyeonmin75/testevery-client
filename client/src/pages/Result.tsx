@@ -441,10 +441,20 @@ export default function Result() {
                     transition={{ delay: 1.2, duration: 2, ease: "easeOut" }}
                   />
                   
+                  {/* 사용자 위치 표시 점 */}
                   <motion.div
                     className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
                     initial={{ bottom: '2%' }}
-                    animate={{ bottom: `${Math.min(92, (score / 10) * 92)}%` }}
+                    animate={{ 
+                      bottom: (() => {
+                        // 각 등급의 위치 계산
+                        if (score === 10) return '92%'; // 최상위
+                        if (score >= 8) return '74%';   // 눈치 만렙 근접
+                        if (score >= 6) return '56%';   // 눈치 50%
+                        if (score >= 3) return '38%';   // 사회성 훈련 필요
+                        return '20%';                   // 멍때리는 타입
+                      })()
+                    }}
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
                   />
                 </div>

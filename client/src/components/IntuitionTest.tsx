@@ -129,7 +129,8 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <h2 className="text-3xl font-bold text-gray-800 mb-4">좌우 선택 눈치 테스트</h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
             빠르게 스쳐가는 이미지에서<br/>
-            이상한 부분을 찾아보세요!<br/>
+            <strong className="text-blue-600">더 특별하거나 다른 쪽</strong>을 선택하세요!<br/>
+            (다른 색상, 다른 모양, 다른 방향 등)<br/>
             총 10라운드가 진행됩니다.
           </p>
           
@@ -175,7 +176,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-sm text-gray-600">이미지를 잘 보세요!</div>
+          <div className="text-sm text-blue-600 font-semibold">더 특별하거나 다른 쪽을 기억하세요!</div>
         </div>
 
         <motion.div
@@ -210,7 +211,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-red-600 font-bold text-xl mb-4">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-gray-600">어느 쪽이 이상했나요?</div>
+          <div className="text-blue-600 font-semibold">어느 쪽이 더 특별하거나 달랐나요?</div>
         </div>
 
         <div className="flex items-center justify-center space-x-8">
