@@ -146,14 +146,35 @@ export default function Home() {
               </div>
             </motion.div>
             
-            {/* Contact Button */}
+            {/* Update Notice */}
             <motion.div
-              className="mt-8 flex justify-center"
+              className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 border border-purple-200 rounded-xl p-6 text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <ContactButton />
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <motion.span
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  className="text-purple-500"
+                >
+                  ⚡
+                </motion.span>
+                <span className="text-purple-600 font-semibold">새로운 테스트 업데이트</span>
+                <motion.span
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  className="text-purple-500"
+                >
+                  ⚡
+                </motion.span>
+              </div>
+              <p className="text-gray-600 text-sm">
+                재미있는 새로운 테스트들이 주기적으로 추가됩니다! 
+                <br className="sm:hidden" />
+                <span className="text-purple-600 font-medium"> 놓치지 마세요 🎯</span>
+              </p>
             </motion.div>
           </motion.div>
 
@@ -239,21 +260,26 @@ export default function Home() {
             </p>
             <p className="mb-6">결과를 친구들과 공유하고 함께 즐겨보세요! ✨</p>
             
-            {/* Legal Links */}
-            <div className="flex justify-center gap-4 text-sm text-gray-400">
-              <a 
-                href="/privacy" 
-                className="hover:text-gray-600 transition-colors"
-              >
-                개인정보처리방침
-              </a>
-              <span>|</span>
-              <a 
-                href="/terms" 
-                className="hover:text-gray-600 transition-colors"
-              >
-                이용약관
-              </a>
+            {/* Legal Links & Contact */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-400">
+              <div className="flex gap-4">
+                <a 
+                  href="/privacy" 
+                  className="hover:text-gray-600 transition-colors"
+                >
+                  개인정보처리방침
+                </a>
+                <span>|</span>
+                <a 
+                  href="/terms" 
+                  className="hover:text-gray-600 transition-colors"
+                >
+                  이용약관
+                </a>
+              </div>
+              <div className="sm:ml-4">
+                <ContactButton className="text-xs px-4 py-2" />
+              </div>
             </div>
           </motion.div>
         </div>
