@@ -197,13 +197,19 @@ export default function Result() {
                 </span> 입니다!
               </h2>
               
-              <div className="bg-gray-50 rounded-2xl p-8 mb-8">
-                <p className="text-xl text-gray-700 leading-relaxed">
-                  {tapCount >= 350 ? '절대 고수의 경지! 당신은 탭핑 마스터입니다! 반응속도와 지구력이 최상급 수준이에요.' :
-                   tapCount >= 300 ? '놀라운 실력입니다! 프로 게이머 수준의 반응속도를 보여주고 있습니다!' :
-                   tapCount >= 240 ? '상위권 진입! 상당한 집중력과 손목 지구력을 가지고 있습니다!' :
-                   tapCount >= 180 ? '평균 이상의 실력! 좋은 리듬감과 안정적인 속도를 유지하고 있어요!' :
-                   tapCount >= 120 ? '꾸준한 성장 중! 연습을 통해 더 빠른 속도를 낼 수 있을 것 같습니다!' : '좋은 시작입니다! 꾸준한 연습으로 실력을 향상시켜보세요!'}
+              <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8">
+                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto whitespace-pre-line">
+                  {tapCount >= 350 ? 
+                    '절대 고수의 경지!\n당신은 탭핑 마스터입니다!\n\n반응속도와 지구력이\n최상급 수준이에요.' :
+                   tapCount >= 300 ? 
+                    '놀라운 실력입니다!\n\n프로 게이머 수준의\n반응속도를 보여주고 있습니다!' :
+                   tapCount >= 240 ? 
+                    '상위권 진입!\n\n상당한 집중력과 손목 지구력을\n가지고 있습니다!' :
+                   tapCount >= 180 ? 
+                    '평균 이상의 실력!\n\n좋은 리듬감과 안정적인 속도를\n유지하고 있어요!' :
+                   tapCount >= 120 ? 
+                    '꾸준한 성장 중!\n\n연습을 통해 더 빠른 속도를\n낼 수 있을 것 같습니다!' : 
+                    '좋은 시작입니다!\n\n꾸준한 연습으로\n실력을 향상시켜보세요!'}
                 </p>
               </div>
 
@@ -415,7 +421,7 @@ export default function Result() {
                 <div className="text-lg text-gray-500 mt-2">정답률: {percentage}%</div>
               </div>
 
-              <p className="text-xl text-gray-700 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto px-4">
                 {result.result.detailedDescription}
               </p>
             </div>

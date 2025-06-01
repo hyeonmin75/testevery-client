@@ -193,7 +193,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
 
         {/* 탭핑 영역 */}
         <div
-          className={`w-48 h-48 xs:w-56 xs:h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
+          className={`w-60 h-60 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[32rem] xl:h-[32rem] rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
             isPressed 
               ? 'bg-blue-600 scale-95 shadow-lg' 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
@@ -202,8 +202,8 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
           style={{ touchAction: 'manipulation', userSelect: 'none' }}
         >
           <div className="text-white text-center pointer-events-none">
-            <div className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 sm:mb-2">{tapCount}</div>
-            <div className="text-sm xs:text-base sm:text-lg md:text-xl">탭</div>
+            <div className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-1 sm:mb-2">{tapCount}</div>
+            <div className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">탭</div>
           </div>
         </div>
 
