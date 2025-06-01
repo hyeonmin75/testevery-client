@@ -16,21 +16,33 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     return `나는 ${result.result.title}입니다! ${result.result.description} 🎯 심리테스트에서 확인해보세요!`;
   };
 
-  const shareToKakao = () => {
+  const shareToKakao = async () => {
     const text = getShareText();
     const url = getShareUrl();
     
-    // 카카오톡 공유를 위한 웹 공유 API 또는 URL 스키마 사용
+    // 웹 공유 API 먼저 시도
     if (navigator.share) {
-      navigator.share({
-        title: '심리테스트 결과',
-        text: text,
-        url: url
-      }).catch(err => console.log('카카오톡 공유 실패:', err));
-    } else {
-      // 모바일에서 카카오톡 앱으로 공유
-      const kakaoUrl = `kakaotalk://share?text=${encodeURIComponent(text + ' ' + url)}`;
-      window.location.href = kakaoUrl;
+      try {
+        await navigator.share({
+          title: '심리테스트 결과',
+          text: text,
+          url: url
+        });
+        return;
+      } catch (err) {
+        console.log('웹 공유 API 실패:', err);
+      }
+    }
+    
+    // 클립보드에 복사 후 알림
+    try {
+      const fullText = `${text}\n${url}`;
+      await navigator.clipboard.writeText(fullText);
+      alert('텍스트와 링크가 복사되었습니다!\n카카오톡에서 붙여넣기 해주세요.');
+    } catch (err) {
+      // 폴백: 프롬프트로 텍스트 표시
+      const fullText = `${text}\n${url}`;
+      prompt('다음 텍스트를 복사해주세요:', fullText);
     }
   };
 
@@ -48,16 +60,16 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     window.open(twitterUrl, '_blank', 'width=600,height=400');
   };
 
-  const shareToInstagram = () => {
+  const shareToInstagram = async () => {
     // 인스타그램은 직접 URL 공유가 제한적이므로 텍스트 복사 후 안내
     const text = getShareText();
-    navigator.clipboard.writeText(text).then(() => {
-      alert('텍스트가 복사되었습니다! 인스타그램 앱에서 붙여넣기 해주세요.');
-      // 인스타그램 앱 열기 시도
-      window.open('instagram://app', '_blank');
-    }).catch(() => {
-      alert('복사에 실패했습니다. 수동으로 텍스트를 복사해주세요.');
-    });
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('텍스트가 복사되었습니다!\n인스타그램 스토리나 게시물에 붙여넣기 해주세요.');
+    } catch (err) {
+      // 폴백: 프롬프트로 텍스트 표시
+      prompt('다음 텍스트를 복사해주세요:', text);
+    }
   };
 
   const copyLink = async () => {
