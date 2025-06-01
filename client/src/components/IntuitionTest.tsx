@@ -227,21 +227,21 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
         </div>
 
         <motion.div
-          className="flex items-center justify-center space-x-4 sm:space-x-8 md:space-x-12 max-w-full px-4"
+          className="flex items-center justify-between w-full max-w-4xl mx-auto px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="text-center flex-1 max-w-[30%]">
-            <div className="text-[10rem] sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem] mb-3 sm:mb-4 leading-none">{currentRoundData.leftImage}</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700">좌</div>
+          <div className="text-center flex-1 max-w-[35%]">
+            <div className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] mb-3 sm:mb-4 leading-none">{currentRoundData.leftImage}</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-700">좌</div>
           </div>
           
-          <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gray-400 font-bold flex-shrink-0">VS</div>
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-400 font-bold flex-shrink-0 mx-4 sm:mx-6 md:mx-8">VS</div>
           
-          <div className="text-center flex-1 max-w-[30%]">
-            <div className="text-[10rem] sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem] mb-3 sm:mb-4 leading-none">{currentRoundData.rightImage}</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700">우</div>
+          <div className="text-center flex-1 max-w-[35%]">
+            <div className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] mb-3 sm:mb-4 leading-none">{currentRoundData.rightImage}</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-700">우</div>
           </div>
         </motion.div>
       </div>
