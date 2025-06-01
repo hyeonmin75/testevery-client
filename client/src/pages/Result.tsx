@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
-import { ShareModal } from '../components/ShareModal';
+
 import { TestCard } from '../components/TestCard';
 import { Toaster } from '../components/ui/toaster';
 import { tests } from '../data/tests';
@@ -11,7 +11,7 @@ import { CalculatedResult } from '../types/test';
 export default function Result() {
   const { testId } = useParams<{ testId: string }>();
   const [, setLocation] = useLocation();
-  const [showShareModal, setShowShareModal] = useState(false);
+
   const [result, setResult] = useState<CalculatedResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -667,11 +667,6 @@ export default function Result() {
           </motion.div>
         </div>
 
-        <ShareModal
-          isOpen={showShareModal}
-          onClose={() => setShowShareModal(false)}
-          result={result}
-        />
         <Toaster />
       </div>
     );
@@ -845,12 +840,7 @@ export default function Result() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.6 }}
           >
-            <button
-              onClick={() => setShowShareModal(true)}
-              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
-            >
-              결과 공유하기
-            </button>
+
             <button
               onClick={() => setLocation('/test/intuition_test')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
