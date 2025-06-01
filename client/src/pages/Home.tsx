@@ -5,6 +5,7 @@ import { TestCard } from "../components/TestCard";
 import { ContactButton } from "../components/ContactButton";
 import { tests } from "../data/tests";
 import { TestData } from "../types/test";
+import { getAndUpdateParticipantCount } from "../utils/participantCounter";
 
 // TopTestCard 컴포넌트 정의
 function TopTestCard({
@@ -56,6 +57,22 @@ function TopTestCard({
 
 export default function Home() {
   const [, setLocation] = useLocation();
+  const [updatedTests, setUpdatedTests] = useState<Record<string, TestData>>({});
+
+  useEffect(() => {
+    // 컴포넌트 마운트 시 모든 테스트의 참여자 수 업데이트
+    const updated: Record<string, TestData> = {};
+    
+    Object.entries(tests).forEach(([key, test]) => {
+      const updatedParticipants = getAndUpdateParticipantCount(test.id, test.participants);
+      updated[key] = {
+        ...test,
+        participants: updatedParticipants
+      };
+    });
+    
+    setUpdatedTests(updated);
+  }, []);
 
   const handleStartTest = (testId: string) => {
     setLocation(`/test/${testId}`);
@@ -193,17 +210,29 @@ export default function Home() {
                 가장 많이 참여한 테스트들을 확인해보세요!
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-                {Object.values(tests)
-                  .sort((a, b) => b.participants - a.participants)
-                  .slice(0, 3)
-                  .map((test, index) => (
-                    <TopTestCard
-                      key={test.id}
-                      test={test}
-                      rank={index + 1}
-                      onStartTest={handleStartTest}
-                    />
-                  ))}
+                {Object.values(updatedTests).length > 0 
+                  ? Object.values(updatedTests)
+                      .sort((a, b) => b.participants - a.participants)
+                      .slice(0, 3)
+                      .map((test, index) => (
+                        <TopTestCard
+                          key={test.id}
+                          test={test}
+                          rank={index + 1}
+                          onStartTest={handleStartTest}
+                        />
+                      ))
+                  : Object.values(tests)
+                      .sort((a, b) => b.participants - a.participants)
+                      .slice(0, 3)
+                      .map((test, index) => (
+                        <TopTestCard
+                          key={test.id}
+                          test={test}
+                          rank={index + 1}
+                          onStartTest={handleStartTest}
+                        />
+                      ))}
               </div>
             </div>
           </motion.div>
@@ -215,7 +244,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
           >
-            {Object.values(tests).map((test) => {
+            {(Object.values(updatedTests).length > 0 ? Object.values(updatedTests) : Object.values(tests)).map((test) => {
               return (
                 <motion.div key={test.id} variants={itemVariants}>
                   <TestCard test={test} onStartTest={handleStartTest} />
