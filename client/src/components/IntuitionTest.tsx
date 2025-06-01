@@ -49,10 +49,30 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
       { leftImage: '📱', rightImage: '📞', correctSide: 'left', difference: '스마트폰이 더 현대적', criterion: '더 현대적인 것을 선택하세요' },
       { leftImage: '🚀', rightImage: '✈️', correctSide: 'left', difference: '로켓이 더 빠름', criterion: '더 빠른 것을 선택하세요' },
       { leftImage: '💎', rightImage: '🪨', correctSide: 'left', difference: '다이아몬드가 더 귀중함', criterion: '더 귀중한 것을 선택하세요' },
-      { leftImage: '🏆', rightImage: '🥉', correctSide: 'left', difference: '금컵이 더 높은 등급', criterion: '더 높은 등급을 선택하세요' }
+      { leftImage: '🏆', rightImage: '🥉', correctSide: 'left', difference: '금컵이 더 높은 등급', criterion: '더 높은 등급을 선택하세요' },
+      { leftImage: '🟡', rightImage: '🟣', correctSide: 'left', difference: '노란색이 더 따뜻한 색상', criterion: '더 따뜻한 색상을 선택하세요' },
+      { leftImage: '🏃‍♂️', rightImage: '🚶‍♂️', correctSide: 'left', difference: '달리기가 더 빠름', criterion: '더 빠른 것을 선택하세요' },
+      { leftImage: '🌶️', rightImage: '🥒', correctSide: 'left', difference: '고추가 더 매움', criterion: '더 매운 것을 선택하세요' },
+      { leftImage: '🦁', rightImage: '🐱', correctSide: 'left', difference: '사자가 더 강함', criterion: '더 강한 것을 선택하세요' },
+      { leftImage: '🏠', rightImage: '🏰', correctSide: 'right', difference: '성이 더 큼', criterion: '더 큰 것을 선택하세요' },
+      { leftImage: '⚪', rightImage: '⚫', correctSide: 'left', difference: '흰색이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '🌡️', rightImage: '🧊', correctSide: 'right', difference: '얼음이 더 차가움', criterion: '더 차가운 것을 선택하세요' },
+      { leftImage: '🌅', rightImage: '🌆', correctSide: 'left', difference: '일출이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '🦅', rightImage: '🐦', correctSide: 'left', difference: '독수리가 더 큼', criterion: '더 큰 것을 선택하세요' },
+      { leftImage: '🏔️', rightImage: '🌋', correctSide: 'right', difference: '화산이 더 뜨거움', criterion: '더 뜨거운 것을 선택하세요' },
+      { leftImage: '💪', rightImage: '🤏', correctSide: 'left', difference: '근육이 더 강함', criterion: '더 강한 것을 선택하세요' },
+      { leftImage: '🚄', rightImage: '🚲', correctSide: 'left', difference: '기차가 더 빠름', criterion: '더 빠른 것을 선택하세요' },
+      { leftImage: '🎨', rightImage: '📏', correctSide: 'left', difference: '팔레트가 더 화려함', criterion: '더 화려한 것을 선택하세요' },
+      { leftImage: '🌳', rightImage: '🌱', correctSide: 'left', difference: '나무가 더 큼', criterion: '더 큰 것을 선택하세요' },
+      { leftImage: '⚖️', rightImage: '🪶', correctSide: 'right', difference: '깃털이 더 가벼움', criterion: '더 가벼운 것을 선택하세요' },
+      { leftImage: '🌟', rightImage: '🌫️', correctSide: 'left', difference: '별이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '🎼', rightImage: '🔇', correctSide: 'left', difference: '음표가 더 큰 소리', criterion: '더 큰 소리를 선택하세요' },
+      { leftImage: '🌺', rightImage: '🥀', correctSide: 'left', difference: '활짝 핀 꽃이 더 생기 있음', criterion: '더 생기 있는 것을 선택하세요' },
+      { leftImage: '🧗‍♀️', rightImage: '🛌', correctSide: 'left', difference: '등반이 더 활동적', criterion: '더 활동적인 것을 선택하세요' },
+      { leftImage: '💡', rightImage: '🕯️', correctSide: 'left', difference: '전구가 더 밝음', criterion: '더 밝은 것을 선택하세요' }
     ];
     
-    // 20개 중 랜덤하게 10개 선택
+    // 40개 중 랜덤하게 10개 선택
     const shuffled = [...allRounds].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 10);
   }, []);
