@@ -1240,7 +1240,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 85 },
         { name: '사고력', emoji: '🧠', percentage: 85 },
         { name: '인식력', emoji: '🔍', percentage: 80 }
-      ]
+      ],
+      personalityStory: '당신은 실용적이고 현실적인 문제 해결사입니다. 복잡한 이론보다는 직접 만지고 경험하면서 배우는 것을 선호하며, 어떤 상황에서도 차분하게 대처하는 능력이 뛰어납니다. 독립적이고 자유로운 환경에서 최고의 능력을 발휘하며, 필요할 때 빠르게 행동에 옮기는 결단력을 가지고 있습니다.',
+      bestMatch: 'ESFJ 유형과 서로 다른 강점으로 완벽한 조화를 이뤄요!',
+      loveStyle: '자유롭고 부담스럽지 않은 관계를 선호하며, 행동으로 사랑을 표현해요',
+      celebrities: ['클린트 이스트우드', '브루스 리', '톰 크루즈'],
+      careers: ['기계공', '엔지니어', '파일럿', '외과의사', '프로그래머'],
+      animalMetaphor: '당신은 독립적이고 민첩한 표범 같은 존재예요!',
+      percentage: 5,
+      rarity: '상위 5% 희귀 유형'
     },
     'ISFJ': {
       id: 'ISFJ',
@@ -1259,7 +1267,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 85 },
         { name: '감정력', emoji: '❤️', percentage: 90 },
         { name: '판단력', emoji: '⚖️', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 조용하지만 강한 힘을 가진 보호자입니다. 주변 사람들의 필요를 민감하게 감지하고 도움을 주는 것에서 큰 만족을 느낍니다. 전통적인 가치를 소중히 여기며, 안정적이고 조화로운 환경을 만들기 위해 헌신합니다. 때로는 자신의 필요보다 타인을 우선시하는 경향이 있지만, 그것이 바로 세상을 더 따뜻하게 만드는 당신의 특별한 힘입니다.',
+      bestMatch: 'ESFP 유형과 서로를 보완하는 완벽한 파트너십을 형성해요!',
+      loveStyle: '헌신적이고 안정적인 사랑을 추구하며, 상대방을 세심하게 돌보는 것을 좋아해요',
+      celebrities: ['비욘세', '케이트 미들턴', '마더 테레사'],
+      careers: ['간호사', '초등교사', '도서관사서', '사회복지사', '카운셀러'],
+      animalMetaphor: '당신은 충성스럽고 보호본능이 강한 양치기 개 같은 존재예요!',
+      percentage: 14,
+      rarity: '전체 중 14%의 따뜻한 유형'
     },
     'ISFP': {
       id: 'ISFP',
@@ -1278,7 +1294,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 80 },
         { name: '감정력', emoji: '❤️', percentage: 85 },
         { name: '인식력', emoji: '🔍', percentage: 88 }
-      ]
+      ],
+      personalityStory: '당신은 자유로운 영혼을 가진 예술가 타입입니다. 아름다운 것들에 민감하고 자신만의 독특한 방식으로 세상을 바라봅니다. 다른 사람들을 있는 그대로 받아들이며, 갈등을 피하고 평화로운 환경을 추구합니다. 때로는 자신의 의견을 표현하는 데 어려움을 느낄 수 있지만, 그것은 타인과의 조화를 중시하는 당신의 따뜻한 마음 때문입니다.',
+      bestMatch: 'ESFJ 유형과 서로를 이해하고 배려하는 완벽한 조화를 이뤄요!',
+      loveStyle: '진실하고 깊이 있는 관계를 추구하며, 서로의 개성을 존중하는 사랑을 선호해요',
+      celebrities: ['레이디 가가', '마이클 잭슨', '프리다 칼로'],
+      careers: ['예술가', '디자이너', '음악가', '사진작가', '치료사'],
+      animalMetaphor: '당신은 우아하고 자유로운 사슴 같은 존재예요!',
+      percentage: 9,
+      rarity: '전체 중 9%의 예술적 유형'
     }
   }
 };
