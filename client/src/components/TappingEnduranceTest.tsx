@@ -15,8 +15,6 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
   const [lastTapTime, setLastTapTime] = useState(0);
   const [recentTaps, setRecentTaps] = useState<number[]>([]);
   const [motivationMessage, setMotivationMessage] = useState('');
-  const [isHandlingTap, setIsHandlingTap] = useState(false);
-
   const startGame = () => {
     setGameState('countdown');
     setCountdown(3);
@@ -26,14 +24,8 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
     setMotivationMessage('');
   };
 
-  const handleTap = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
-    if (gameState === 'active' && !isHandlingTap) {
-      setIsHandlingTap(true);
+  const handleTap = useCallback(() => {
+    if (gameState === 'active') {
       const now = Date.now();
       setTapCount(prev => prev + 1);
       setIsPressed(true);
@@ -47,12 +39,9 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
         return newTaps;
       });
       
-      setTimeout(() => {
-        setIsPressed(false);
-        setIsHandlingTap(false);
-      }, 150);
+      setTimeout(() => setIsPressed(false), 100);
     }
-  }, [gameState, isHandlingTap]);
+  }, [gameState]);
 
   // 카운트다운 및 게임 시작 로직
   useEffect(() => {
@@ -203,22 +192,20 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
         </div>
 
         {/* 탭핑 영역 */}
-        <motion.div
+        <div
           className={`w-48 h-48 xs:w-56 xs:h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
             isPressed 
               ? 'bg-blue-600 scale-95 shadow-lg' 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
-          onMouseDown={handleTap}
-          onTouchStart={handleTap}
-          style={{ touchAction: 'none', userSelect: 'none' }}
-          whileTap={{ scale: 0.9 }}
+          onClick={handleTap}
+          style={{ touchAction: 'manipulation', userSelect: 'none' }}
         >
           <div className="text-white text-center pointer-events-none">
             <div className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 sm:mb-2">{tapCount}</div>
             <div className="text-sm xs:text-base sm:text-lg md:text-xl">탭</div>
           </div>
-        </motion.div>
+        </div>
 
         {/* 하단 성과 메시지 및 격려 문구 */}
         <div className="mt-4 sm:mt-8 text-center px-4">

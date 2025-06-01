@@ -261,10 +261,10 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-blue-600 font-semibold text-sm sm:text-base px-2">{currentRoundData?.criterion}</div>
         </div>
 
-        <div className="flex items-center justify-center space-x-3 sm:space-x-6 md:space-x-8">
+        <div className="flex items-center justify-center space-x-4 sm:space-x-8">
           <motion.button
             onClick={() => handleChoice('left')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 md:px-12 py-4 sm:py-6 md:py-8 rounded-2xl font-bold text-lg sm:text-xl md:text-2xl transition-colors shadow-lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-12 sm:px-16 sm:py-16 md:px-20 md:py-20 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl min-w-24 min-h-24 sm:min-w-32 sm:min-h-32"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -273,7 +273,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           
           <motion.button
             onClick={() => handleChoice('right')}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 sm:px-10 md:px-12 py-4 sm:py-6 md:py-8 rounded-2xl font-bold text-lg sm:text-xl md:text-2xl transition-colors shadow-lg"
+            className="bg-red-500 hover:bg-red-600 text-white px-12 py-12 sm:px-16 sm:py-16 md:px-20 md:py-20 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl min-w-24 min-h-24 sm:min-w-32 sm:min-h-32"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

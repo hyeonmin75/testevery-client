@@ -257,26 +257,52 @@ export default function Test() {
       <div className="min-h-screen bg-gradient-korean">
         {/* Header */}
         <motion.div 
-          className="bg-white shadow-lg p-4"
+          className="bg-white shadow-lg p-2 sm:p-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <motion.button
-              onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <i className="fas fa-arrow-left"></i>
-              <span>홈으로 돌아가기</span>
-            </motion.button>
-            <div className="text-lg font-semibold text-gray-800">
-              {testData.emoji} {testData.title}
+          <div className="max-w-4xl mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center justify-between">
+              <motion.button
+                onClick={handleBack}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm md:text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <i className="fas fa-arrow-left"></i>
+                <span>홈으로 돌아가기</span>
+              </motion.button>
+              <div className="text-base md:text-lg font-semibold text-gray-800 text-center">
+                {testData.emoji} {testData.title}
+              </div>
+              <div className="text-xs md:text-sm text-gray-500">
+                1분간 탭핑 테스트
+              </div>
             </div>
-            <div className="text-sm text-gray-500">
-              1분간 탭핑 테스트
+
+            {/* Mobile Layout */}
+            <div className="sm:hidden">
+              <div className="flex items-center justify-between mb-2">
+                <motion.button
+                  onClick={handleBack}
+                  className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <i className="fas fa-arrow-left text-xs"></i>
+                  <span>홈</span>
+                </motion.button>
+                <div className="text-xs text-gray-500">
+                  1분간 탭핑 테스트
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-gray-800">
+                  {testData.emoji} {testData.title}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -295,26 +321,52 @@ export default function Test() {
       <div className="min-h-screen bg-gradient-korean">
         {/* Header */}
         <motion.div 
-          className="bg-white shadow-lg p-4"
+          className="bg-white shadow-lg p-2 sm:p-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <motion.button
-              onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <i className="fas fa-arrow-left"></i>
-              <span>홈으로 돌아가기</span>
-            </motion.button>
-            <div className="text-lg font-semibold text-gray-800">
-              {testData.emoji} {testData.title}
+          <div className="max-w-4xl mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center justify-between">
+              <motion.button
+                onClick={handleBack}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm md:text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <i className="fas fa-arrow-left"></i>
+                <span>홈으로 돌아가기</span>
+              </motion.button>
+              <div className="text-base md:text-lg font-semibold text-gray-800 text-center">
+                {testData.emoji} {testData.title}
+              </div>
+              <div className="text-xs md:text-sm text-gray-500">
+                10라운드 눈치 테스트
+              </div>
             </div>
-            <div className="text-sm text-gray-500">
-              10라운드 눈치 테스트
+
+            {/* Mobile Layout */}
+            <div className="sm:hidden">
+              <div className="flex items-center justify-between mb-2">
+                <motion.button
+                  onClick={handleBack}
+                  className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <i className="fas fa-arrow-left text-xs"></i>
+                  <span>홈</span>
+                </motion.button>
+                <div className="text-xs text-gray-500">
+                  10라운드 눈치 테스트
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-gray-800">
+                  {testData.emoji} {testData.title}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
