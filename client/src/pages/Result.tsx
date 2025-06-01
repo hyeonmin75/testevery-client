@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
-
+import { ShareModal } from '../components/ShareModal';
 import { TestCard } from '../components/TestCard';
 import { Toaster } from '../components/ui/toaster';
 import { tests } from '../data/tests';
@@ -11,7 +11,7 @@ import { CalculatedResult } from '../types/test';
 export default function Result() {
   const { testId } = useParams<{ testId: string }>();
   const [, setLocation] = useLocation();
-
+  const [showShareModal, setShowShareModal] = useState(false);
   const [result, setResult] = useState<CalculatedResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -1061,7 +1061,12 @@ export default function Result() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.0, duration: 0.6 }}
         >
-
+          <button
+            onClick={() => setShowShareModal(true)}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
+          >
+            결과 공유하기
+          </button>
           <button
             onClick={() => setLocation(`/test/${testId}`)}
             className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-transform shadow-lg"
@@ -1077,7 +1082,11 @@ export default function Result() {
         </motion.div>
       </div>
 
-
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        result={result}
+      />
       <Toaster />
     </div>
   );
