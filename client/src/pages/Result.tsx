@@ -104,8 +104,8 @@ export default function Result() {
     );
   }
 
-  // MBTI 테스트 전용 결과 페이지
-  if (testData.id === 'mbti') {
+  // MBTI 테스트 전용 결과 페이지  
+  if (testData?.id === 'mbti' && result?.result) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
         <div className="max-w-4xl mx-auto p-4 py-8">
