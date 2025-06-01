@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
 import { TestCard } from '../components/TestCard';
+import { Toaster } from '../components/ui/toaster';
 import { tests } from '../data/tests';
 import { getTestHistory } from '../utils/testLogic';
 import { CalculatedResult } from '../types/test';
@@ -1124,6 +1125,7 @@ export default function Result() {
         onClose={() => setShowShareModal(false)}
         result={result}
       />
+      <Toaster />
     </div>
   );
 }

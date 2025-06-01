@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { CalculatedResult } from '../types/test';
+import { useToast } from '../hooks/use-toast';
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface ShareModalProps {
 }
 
 export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
+  const { toast } = useToast();
+  
   const getShareUrl = () => {
     return window.location.href;
   };
@@ -38,7 +41,10 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     try {
       const fullText = `${text}\n${url}`;
       await navigator.clipboard.writeText(fullText);
-      alert('텍스트와 링크가 복사되었습니다!\n카카오톡에서 붙여넣기 해주세요.');
+      toast({
+        title: "복사 완료!",
+        description: "텍스트와 링크가 복사되었습니다. 카카오톡에서 붙여넣기 해주세요.",
+      });
     } catch (err) {
       // 폴백: 프롬프트로 텍스트 표시
       const fullText = `${text}\n${url}`;
@@ -65,7 +71,10 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     const text = getShareText();
     try {
       await navigator.clipboard.writeText(text);
-      alert('텍스트가 복사되었습니다!\n인스타그램 스토리나 게시물에 붙여넣기 해주세요.');
+      toast({
+        title: "복사 완료!",
+        description: "텍스트가 복사되었습니다. 인스타그램에서 붙여넣기 해주세요.",
+      });
     } catch (err) {
       // 폴백: 프롬프트로 텍스트 표시
       prompt('다음 텍스트를 복사해주세요:', text);
@@ -76,7 +85,10 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     try {
       const fullText = `${getShareText()}\n${getShareUrl()}`;
       await navigator.clipboard.writeText(fullText);
-      alert('결과 텍스트와 링크가 복사되었습니다!');
+      toast({
+        title: "복사 완료!",
+        description: "결과 텍스트와 링크가 복사되었습니다.",
+      });
     } catch (err) {
       console.error('링크 복사 실패:', err);
       // 폴백: 프롬프트로 링크 표시
