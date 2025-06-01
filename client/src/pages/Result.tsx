@@ -781,12 +781,11 @@ export default function Result() {
                     return (
                       <motion.div
                         key={grade.name}
-                        className={`absolute w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
+                        className={`flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
                           isCurrentGrade 
                             ? 'bg-gradient-to-r from-yellow-100 to-yellow-200 scale-105 border-2 border-yellow-400 shadow-lg' 
                             : 'bg-gray-50 opacity-70'
                         }`}
-                        style={{ top: `${topPosition}%`, transform: 'translateY(-50%)' }}
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: isCurrentGrade ? 1 : 0.7, x: 0 }}
                         transition={{ delay: 1.8 + index * 0.1 }}
