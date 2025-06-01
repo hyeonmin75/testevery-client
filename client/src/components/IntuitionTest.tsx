@@ -227,21 +227,21 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
         </div>
 
         <motion.div
-          className="flex items-center justify-center space-x-6 sm:space-x-12"
+          className="flex items-center justify-center space-x-4 sm:space-x-8 md:space-x-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="text-center">
-            <div className="text-5xl sm:text-6xl md:text-8xl mb-2 sm:mb-4">{currentRoundData.leftImage}</div>
-            <div className="text-sm sm:text-lg font-semibold text-gray-700">좌</div>
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-1 sm:mb-2 md:mb-4">{currentRoundData.leftImage}</div>
+            <div className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700">좌</div>
           </div>
           
-          <div className="text-3xl sm:text-4xl md:text-6xl text-gray-400">VS</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-gray-400">VS</div>
           
           <div className="text-center">
-            <div className="text-5xl sm:text-6xl md:text-8xl mb-2 sm:mb-4">{currentRoundData.rightImage}</div>
-            <div className="text-sm sm:text-lg font-semibold text-gray-700">우</div>
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-1 sm:mb-2 md:mb-4">{currentRoundData.rightImage}</div>
+            <div className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700">우</div>
           </div>
         </motion.div>
       </div>
@@ -261,10 +261,10 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-blue-600 font-semibold text-sm sm:text-base px-2">{currentRoundData?.criterion}</div>
         </div>
 
-        <div className="flex items-center justify-center space-x-4 sm:space-x-8">
+        <div className="flex items-center justify-center space-x-3 sm:space-x-6 md:space-x-8">
           <motion.button
             onClick={() => handleChoice('left')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-8 sm:px-12 py-6 sm:py-8 rounded-2xl font-bold text-xl sm:text-2xl transition-colors shadow-lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 md:px-12 py-4 sm:py-6 md:py-8 rounded-2xl font-bold text-lg sm:text-xl md:text-2xl transition-colors shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -273,7 +273,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           
           <motion.button
             onClick={() => handleChoice('right')}
-            className="bg-red-500 hover:bg-red-600 text-white px-8 sm:px-12 py-6 sm:py-8 rounded-2xl font-bold text-xl sm:text-2xl transition-colors shadow-lg"
+            className="bg-red-500 hover:bg-red-600 text-white px-6 sm:px-10 md:px-12 py-4 sm:py-6 md:py-8 rounded-2xl font-bold text-lg sm:text-xl md:text-2xl transition-colors shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

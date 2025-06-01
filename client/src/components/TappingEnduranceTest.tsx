@@ -15,6 +15,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
   const [lastTapTime, setLastTapTime] = useState(0);
   const [recentTaps, setRecentTaps] = useState<number[]>([]);
   const [motivationMessage, setMotivationMessage] = useState('');
+  const [isHandlingTap, setIsHandlingTap] = useState(false);
 
   const startGame = () => {
     setGameState('countdown');
@@ -25,8 +26,14 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
     setMotivationMessage('');
   };
 
-  const handleTap = useCallback(() => {
-    if (gameState === 'active') {
+  const handleTap = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    if (gameState === 'active' && !isHandlingTap) {
+      setIsHandlingTap(true);
       const now = Date.now();
       setTapCount(prev => prev + 1);
       setIsPressed(true);
@@ -40,9 +47,12 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
         return newTaps;
       });
       
-      setTimeout(() => setIsPressed(false), 100);
+      setTimeout(() => {
+        setIsPressed(false);
+        setIsHandlingTap(false);
+      }, 150);
     }
-  }, [gameState]);
+  }, [gameState, isHandlingTap]);
 
   // 카운트다운 및 게임 시작 로직
   useEffect(() => {
@@ -179,34 +189,34 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
         {/* 상단 정보 */}
-        <div className="text-center mb-4 sm:mb-8">
-          <div className="flex justify-center items-center gap-4 sm:gap-8">
+        <div className="text-center mb-3 sm:mb-6 md:mb-8">
+          <div className="flex justify-center items-center gap-3 sm:gap-6 md:gap-8">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600">{timeLeft}</div>
-              <div className="text-xs sm:text-sm text-gray-600">초 남음</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-red-600">{timeLeft}</div>
+              <div className="text-xs sm:text-sm md:text-base text-gray-600">초 남음</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-purple-600">{currentTapsPerSecond}</div>
-              <div className="text-xs sm:text-sm text-gray-600">초당 속도</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600">{currentTapsPerSecond}</div>
+              <div className="text-xs sm:text-sm md:text-base text-gray-600">초당 속도</div>
             </div>
           </div>
         </div>
 
         {/* 탭핑 영역 */}
         <motion.div
-          className={`w-64 h-64 sm:w-80 sm:h-80 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
+          className={`w-48 h-48 xs:w-56 xs:h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
             isPressed 
               ? 'bg-blue-600 scale-95 shadow-lg' 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
           onMouseDown={handleTap}
-          onTouchEnd={handleTap}
-          style={{ touchAction: 'manipulation' }}
+          onTouchStart={handleTap}
+          style={{ touchAction: 'none', userSelect: 'none' }}
           whileTap={{ scale: 0.9 }}
         >
           <div className="text-white text-center pointer-events-none">
-            <div className="text-4xl sm:text-6xl font-bold mb-2">{tapCount}</div>
-            <div className="text-base sm:text-lg">탭</div>
+            <div className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 sm:mb-2">{tapCount}</div>
+            <div className="text-sm xs:text-base sm:text-lg md:text-xl">탭</div>
           </div>
         </motion.div>
 
