@@ -136,7 +136,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
         // 왼쪽 값 (E, S, T, J)
-        const leftValue = index === 0 ? trait.eValue : index === 1 ? trait.sValue : index === 2 ? trait.tValue : trait.jValue;
+        const leftValue = index === 0 ? (trait.eValue || 50) : index === 1 ? (trait.sValue || 50) : index === 2 ? (trait.tValue || 50) : (trait.jValue || 50);
         const leftWidth = (leftValue / 100) * barWidth;
         
         ctx.fillStyle = colors[index];
@@ -166,10 +166,10 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       ctx.fillText('성격 설명', centerX, y + 40);
       
       // 상세 설명 텍스트 (여러 줄)
-      ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
+      ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#374151';
       const detailedText = result.result.detailedDescription || result.result.personalityStory || '';
-      const maxWidth = canvas.width - margin * 2 - 40;
+      const maxLineWidth = canvas.width - margin * 2 - 80; // 프레임 안에 여백 확보
       const lines = detailedText.split('\n\n').slice(0, 3);
       let textY = y + 80;
       
@@ -181,17 +181,17 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
           const testLine = currentLine + words[i] + ' ';
           const metrics = ctx.measureText(testLine);
           
-          if (metrics.width > maxWidth && i > 0) {
+          if (metrics.width > maxLineWidth && i > 0) {
             ctx.fillText(currentLine, centerX, textY);
             currentLine = words[i] + ' ';
-            textY += 28;
+            textY += 26;
           } else {
             currentLine = testLine;
           }
         }
-        if (currentLine) {
+        if (currentLine && textY < y + 170) { // 프레임 높이 제한
           ctx.fillText(currentLine, centerX, textY);
-          textY += 35;
+          textY += 30;
         }
       });
 
@@ -200,42 +200,73 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       // 잘 맞는 사람 섹션
       if (result.result.compatibleTypes && result.result.compatibleTypes.length > 0) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.fillRect(margin, y, canvas.width - margin * 2, 120);
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 160);
         
         ctx.fillStyle = '#dc2626';
         ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
         ctx.fillText('💕 이런 사람과 잘 맞아요', centerX, y + 40);
         
         ctx.fillStyle = '#374151';
-        ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
-        const compatibleText = result.result.compatibleTypes.map(type => `${type.emoji} ${type.title}`).join(', ');
-        ctx.fillText(compatibleText, centerX, y + 80);
+        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
         
-        y += 140;
+        // 상세한 궁합 정보 표시
+        let compatY = y + 80;
+        result.result.compatibleTypes.slice(0, 2).forEach((type, index) => {
+          const compatText = `${type.emoji} ${type.title} (궁합 ${type.compatibility}%)`;
+          ctx.fillText(compatText, centerX, compatY);
+          compatY += 30;
+        });
+        
+        // bestMatch 정보가 있다면 표시
+        if (result.result.bestMatch) {
+          ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+          ctx.fillStyle = '#6b7280';
+          const bestMatchLines = result.result.bestMatch.split('\n').slice(0, 1);
+          if (bestMatchLines[0]) {
+            const shortMatch = bestMatchLines[0].length > 40 ? bestMatchLines[0].substring(0, 40) + '...' : bestMatchLines[0];
+            ctx.fillText(shortMatch, centerX, compatY);
+          }
+        }
+        
+        y += 180;
       }
 
       // 연애 스타일
       if (result.result.loveStyle) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.fillRect(margin, y, canvas.width - margin * 2, 140);
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 160);
         
         ctx.fillStyle = '#ec4899';
         ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
         ctx.fillText('💝 연애 스타일', centerX, y + 40);
         
         ctx.fillStyle = '#374151';
-        ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
-        const loveLines = result.result.loveStyle.split('.').slice(0, 2);
+        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
+        
+        // 텍스트를 프레임 안에 맞게 줄바꿈
+        const loveText = result.result.loveStyle;
+        const maxLoveWidth = canvas.width - margin * 2 - 80;
+        const words = loveText.split(' ');
+        let currentLine = '';
         let loveY = y + 80;
         
-        loveLines.forEach(line => {
-          if (line.trim()) {
-            ctx.fillText(line.trim() + '.', centerX, loveY);
-            loveY += 30;
+        for (let i = 0; i < words.length && loveY < y + 140; i++) {
+          const testLine = currentLine + words[i] + ' ';
+          const metrics = ctx.measureText(testLine);
+          
+          if (metrics.width > maxLoveWidth && i > 0) {
+            ctx.fillText(currentLine, centerX, loveY);
+            currentLine = words[i] + ' ';
+            loveY += 26;
+          } else {
+            currentLine = testLine;
           }
-        });
+        }
+        if (currentLine && loveY < y + 140) {
+          ctx.fillText(currentLine, centerX, loveY);
+        }
         
-        y += 160;
+        y += 180;
       }
 
       // 유명인물
@@ -275,25 +306,39 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       // 동물 비유
       if (result.result.animalMetaphor) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.fillRect(margin, y, canvas.width - margin * 2, 140);
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 160);
         
         ctx.fillStyle = '#10b981';
         ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
         ctx.fillText('🐾 동물에 비유하면', centerX, y + 40);
         
         ctx.fillStyle = '#374151';
-        ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
-        const animalLines = result.result.animalMetaphor.split('.').slice(0, 2);
+        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
+        
+        // 텍스트를 프레임 안에 맞게 줄바꿈
+        const animalText = result.result.animalMetaphor;
+        const maxAnimalWidth = canvas.width - margin * 2 - 80;
+        const words = animalText.split(' ');
+        let currentLine = '';
         let animalY = y + 80;
         
-        animalLines.forEach(line => {
-          if (line.trim()) {
-            ctx.fillText(line.trim() + '.', centerX, animalY);
-            animalY += 30;
+        for (let i = 0; i < words.length && animalY < y + 140; i++) {
+          const testLine = currentLine + words[i] + ' ';
+          const metrics = ctx.measureText(testLine);
+          
+          if (metrics.width > maxAnimalWidth && i > 0) {
+            ctx.fillText(currentLine, centerX, animalY);
+            currentLine = words[i] + ' ';
+            animalY += 26;
+          } else {
+            currentLine = testLine;
           }
-        });
+        }
+        if (currentLine && animalY < y + 140) {
+          ctx.fillText(currentLine, centerX, animalY);
+        }
         
-        y += 160;
+        y += 180;
       }
 
       // 전체 통계
