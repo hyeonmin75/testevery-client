@@ -161,7 +161,7 @@ export default function Home() {
                 >
                   ⚡
                 </motion.span>
-                <span className="text-purple-600 font-semibold">새로운 테스트 업데이트</span>
+                <span className="text-purple-600 font-semibold">새로운 컨텐츠 소식</span>
                 <motion.span
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -262,7 +262,7 @@ export default function Home() {
             
             {/* Legal Links & Contact */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-400">
-              <div className="flex gap-4">
+              <div className="flex gap-4 items-center">
                 <a 
                   href="/privacy" 
                   className="hover:text-gray-600 transition-colors"
@@ -276,9 +276,13 @@ export default function Home() {
                 >
                   이용약관
                 </a>
-              </div>
-              <div className="sm:ml-4">
-                <ContactButton className="text-xs px-4 py-2" />
+                <span>|</span>
+                <button
+                  onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfaqVaA-uJd0IhJe2tN4Dfh7i8A5m4KAa7B6F11Q9UBKT4Nzg/viewform?usp=sharing", "_blank", "noopener,noreferrer")}
+                  className="hover:text-gray-600 transition-colors"
+                >
+                  문의하기
+                </button>
               </div>
             </div>
           </motion.div>
