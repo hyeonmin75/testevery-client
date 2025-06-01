@@ -70,9 +70,251 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     if (!ctx) return;
 
     canvas.width = 1080;
-    canvas.height = 1920;
+    canvas.height = 2400; // MBTI용 더 긴 캔버스
 
-    if (result.testId === 'intuition_test') {
+    if (result.testId === 'mbti') {
+      // MBTI 테스트 전용 종합 이미지
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, '#6366f1');
+      gradient.addColorStop(0.5, '#8b5cf6');
+      gradient.addColorStop(1, '#ec4899');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const margin = 60;
+      const centerX = canvas.width / 2;
+      let y = margin + 40;
+
+      // 헤더
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText('MBTI 성격유형 분석 완료', centerX, y);
+      y += 80;
+
+      // 이모지
+      ctx.font = '120px Arial';
+      ctx.fillText(result.result.emoji, centerX, y);
+      y += 100;
+
+      // 성격유형 제목
+      ctx.font = 'bold 48px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(result.result.title, centerX, y);
+      y += 60;
+
+      // 성격유형 설명
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.font = '28px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(result.result.description, centerX, y);
+      y += 80;
+
+      // 성향 분석 그래프 섹션
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.fillRect(margin, y, canvas.width - margin * 2, 300);
+      
+      ctx.fillStyle = '#1f2937';
+      ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText('성향 분석', centerX, y + 40);
+      
+      // MBTI 차원별 분석 바
+      const traits = [
+        { name: '외향성 (E) vs 내향성 (I)', eValue: result.scores?.E || 50, iValue: result.scores?.I || 50 },
+        { name: '감각형 (S) vs 직관형 (N)', sValue: result.scores?.S || 50, nValue: result.scores?.N || 50 },
+        { name: '사고형 (T) vs 감정형 (F)', tValue: result.scores?.T || 50, fValue: result.scores?.F || 50 },
+        { name: '판단형 (J) vs 인식형 (P)', jValue: result.scores?.J || 50, pValue: result.scores?.P || 50 }
+      ];
+
+      let barY = y + 80;
+      traits.forEach((trait, index) => {
+        const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b'];
+        const barWidth = 600;
+        const barHeight = 30;
+        const barX = (canvas.width - barWidth) / 2;
+
+        // 배경
+        ctx.fillStyle = '#e5e7eb';
+        ctx.fillRect(barX, barY, barWidth, barHeight);
+
+        // 왼쪽 값 (E, S, T, J)
+        const leftValue = index === 0 ? trait.eValue : index === 1 ? trait.sValue : index === 2 ? trait.tValue : trait.jValue;
+        const leftWidth = (leftValue / 100) * barWidth;
+        
+        ctx.fillStyle = colors[index];
+        ctx.fillRect(barX, barY, leftWidth, barHeight);
+
+        // 텍스트
+        ctx.fillStyle = '#374151';
+        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
+        const leftLabel = index === 0 ? `E ${leftValue}%` : index === 1 ? `S ${leftValue}%` : index === 2 ? `T ${leftValue}%` : `J ${leftValue}%`;
+        const rightValue = 100 - leftValue;
+        const rightLabel = index === 0 ? `I ${rightValue}%` : index === 1 ? `N ${rightValue}%` : index === 2 ? `F ${rightValue}%` : `P ${rightValue}%`;
+        
+        ctx.fillText(leftLabel, barX - 80, barY + 20);
+        ctx.fillText(rightLabel, barX + barWidth + 20, barY + 20);
+
+        barY += 60;
+      });
+
+      y += 380;
+
+      // 상세 설명 박스
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.fillRect(margin, y, canvas.width - margin * 2, 200);
+      
+      ctx.fillStyle = '#1f2937';
+      ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText('성격 설명', centerX, y + 40);
+      
+      // 상세 설명 텍스트 (여러 줄)
+      ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#374151';
+      const detailedText = result.result.detailedDescription || result.result.personalityStory || '';
+      const maxWidth = canvas.width - margin * 2 - 40;
+      const lines = detailedText.split('\n\n').slice(0, 3);
+      let textY = y + 80;
+      
+      lines.forEach(line => {
+        const words = line.split(' ');
+        let currentLine = '';
+        
+        for (let i = 0; i < words.length; i++) {
+          const testLine = currentLine + words[i] + ' ';
+          const metrics = ctx.measureText(testLine);
+          
+          if (metrics.width > maxWidth && i > 0) {
+            ctx.fillText(currentLine, centerX, textY);
+            currentLine = words[i] + ' ';
+            textY += 28;
+          } else {
+            currentLine = testLine;
+          }
+        }
+        if (currentLine) {
+          ctx.fillText(currentLine, centerX, textY);
+          textY += 35;
+        }
+      });
+
+      y += 220;
+
+      // 잘 맞는 사람 섹션
+      if (result.result.compatibleTypes && result.result.compatibleTypes.length > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 120);
+        
+        ctx.fillStyle = '#dc2626';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('💕 이런 사람과 잘 맞아요', centerX, y + 40);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+        const compatibleText = result.result.compatibleTypes.map(type => `${type.emoji} ${type.title}`).join(', ');
+        ctx.fillText(compatibleText, centerX, y + 80);
+        
+        y += 140;
+      }
+
+      // 연애 스타일
+      if (result.result.loveStyle) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 140);
+        
+        ctx.fillStyle = '#ec4899';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('💝 연애 스타일', centerX, y + 40);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
+        const loveLines = result.result.loveStyle.split('.').slice(0, 2);
+        let loveY = y + 80;
+        
+        loveLines.forEach(line => {
+          if (line.trim()) {
+            ctx.fillText(line.trim() + '.', centerX, loveY);
+            loveY += 30;
+          }
+        });
+        
+        y += 160;
+      }
+
+      // 유명인물
+      if (result.result.celebrities && result.result.celebrities.length > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 100);
+        
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('⭐ 유명 인물', centerX, y + 40);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+        const celebrityText = result.result.celebrities.join(', ');
+        ctx.fillText(celebrityText, centerX, y + 80);
+        
+        y += 120;
+      }
+
+      // 직업/진로 추천
+      if (result.result.careers && result.result.careers.length > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 100);
+        
+        ctx.fillStyle = '#8b5cf6';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('💼 직업/진로 추천', centerX, y + 40);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+        const careerText = result.result.careers.join(', ');
+        ctx.fillText(careerText, centerX, y + 80);
+        
+        y += 120;
+      }
+
+      // 동물 비유
+      if (result.result.animalMetaphor) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 140);
+        
+        ctx.fillStyle = '#10b981';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('🐾 동물에 비유하면', centerX, y + 40);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '22px "Malgun Gothic", Arial, sans-serif';
+        const animalLines = result.result.animalMetaphor.split('.').slice(0, 2);
+        let animalY = y + 80;
+        
+        animalLines.forEach(line => {
+          if (line.trim()) {
+            ctx.fillText(line.trim() + '.', centerX, animalY);
+            animalY += 30;
+          }
+        });
+        
+        y += 160;
+      }
+
+      // 전체 통계
+      if (result.result.percentage) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(margin, y, canvas.width - margin * 2, 120);
+        
+        ctx.fillStyle = '#6366f1';
+        ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText('📊 전체 통계', centerX, y + 40);
+        
+        ctx.fillStyle = '#1f2937';
+        ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText(`${result.result.percentage}%`, centerX, y + 85);
+        
+        ctx.fillStyle = '#374151';
+        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText(result.result.rarity || `전체 중 ${result.result.percentage}%의 희귀한 유형`, centerX, y + 110);
+      }
+
+    } else if (result.testId === 'intuition_test') {
       // 눈치력 테스트 전용 상세 이미지
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
       gradient.addColorStop(0, '#f0fdf4');
