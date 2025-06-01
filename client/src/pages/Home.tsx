@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { TestCard } from "../components/TestCard";
+import { ContactButton } from "../components/ContactButton";
 import { tests } from "../data/tests";
 import { TestData } from "../types/test";
 
@@ -143,6 +144,16 @@ export default function Home() {
                   💫
                 </motion.span>
               </div>
+            </motion.div>
+            
+            {/* Contact Button */}
+            <motion.div
+              className="mt-8 flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <ContactButton />
             </motion.div>
           </motion.div>
 

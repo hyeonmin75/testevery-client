@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
+import { ContactButton } from "../components/ContactButton";
 
 export default function Privacy() {
   const [, setLocation] = useLocation();
@@ -84,10 +85,11 @@ export default function Privacy() {
               <p className="text-gray-600 leading-relaxed">
                 개인정보 처리에 관한 문의사항이 있으시면 아래 연락처로 연락해 주시기 바랍니다.
               </p>
-              <div className="bg-gray-50 p-4 rounded-lg mt-3">
+              <div className="bg-gray-50 p-4 rounded-lg mt-3 flex flex-col items-center gap-3">
                 <p className="text-gray-600">
-                  <strong>연락처:</strong> 웹사이트 문의하기 기능 이용
+                  <strong>연락처:</strong> 아래 문의하기 버튼을 이용해 주세요
                 </p>
+                <ContactButton />
               </div>
             </section>
 

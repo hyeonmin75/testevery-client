@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
+import { ContactButton } from "../components/ContactButton";
 
 export default function Terms() {
   const [, setLocation] = useLocation();
@@ -119,11 +120,12 @@ export default function Terms() {
               </p>
             </section>
 
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mt-8">
-              <p className="text-blue-800">
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mt-8 flex flex-col items-center gap-3">
+              <p className="text-blue-800 text-center">
                 <strong>문의사항:</strong> 이용약관과 관련하여 궁금한 사항이 있으시면 
-                웹사이트 문의 기능을 이용해 주시기 바랍니다.
+                아래 문의하기 버튼을 이용해 주시기 바랍니다.
               </p>
+              <ContactButton />
             </div>
           </div>
         </motion.div>
