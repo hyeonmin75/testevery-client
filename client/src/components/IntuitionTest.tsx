@@ -264,7 +264,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
         <div className="flex items-center justify-center space-x-4 sm:space-x-8">
           <motion.button
             onClick={() => handleChoice('left')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-12 sm:px-16 sm:py-16 md:px-20 md:py-20 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl min-w-24 min-h-24 sm:min-w-32 sm:min-h-32"
+            className="bg-blue-500 hover:bg-blue-600 text-white w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -273,7 +273,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           
           <motion.button
             onClick={() => handleChoice('right')}
-            className="bg-red-500 hover:bg-red-600 text-white px-12 py-12 sm:px-16 sm:py-16 md:px-20 md:py-20 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl min-w-24 min-h-24 sm:min-w-32 sm:min-h-32"
+            className="bg-red-500 hover:bg-red-600 text-white w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-3xl font-bold text-2xl sm:text-3xl md:text-4xl transition-colors shadow-xl flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
