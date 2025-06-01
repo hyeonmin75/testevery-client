@@ -8,7 +8,7 @@ export const mbtiTest: TestData = {
   color: 'from-indigo-500 to-purple-600',
   duration: '12-15분',
   questionCount: 20,
-  participants: 189743,
+  participants: 5127,
   questions: [
     {
       id: 1,
