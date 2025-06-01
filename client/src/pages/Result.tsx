@@ -362,7 +362,12 @@ export default function Result() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.6 }}
           >
-
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              결과 공유하기
+            </button>
             <button
               onClick={() => setLocation('/test/mbti')}
               className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
@@ -398,6 +403,13 @@ export default function Result() {
             </div>
           </motion.div>
         </div>
+        
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          result={result}
+        />
+        <Toaster />
       </div>
     );
   }
