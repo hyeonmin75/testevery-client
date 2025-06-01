@@ -8,6 +8,9 @@ import Test from "@/pages/Test";
 import Result from "@/pages/Result";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
+import About from "@/pages/About";
+import Guide from "@/pages/Guide";
+import FAQ from "@/pages/FAQ";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +21,9 @@ function Router() {
       <Route path="/result/:testId" component={Result} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/about" component={About} />
+      <Route path="/guide" component={Guide} />
+      <Route path="/faq" component={FAQ} />
       <Route component={NotFound} />
     </Switch>
   );

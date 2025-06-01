@@ -289,30 +289,24 @@ export default function Home() {
             </p>
             <p className="mb-6">결과를 친구들과 공유하고 함께 즐겨보세요! ✨</p>
             
-            {/* Legal Links & Contact */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-400">
-              <div className="flex gap-4 items-center">
-                <a 
-                  href="/privacy" 
-                  className="hover:text-gray-600 transition-colors"
-                >
-                  개인정보처리방침
-                </a>
-                <span>|</span>
-                <a 
-                  href="/terms" 
-                  className="hover:text-gray-600 transition-colors"
-                >
-                  이용약관
-                </a>
-                <span>|</span>
-                <button
-                  onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfaqVaA-uJd0IhJe2tN4Dfh7i8A5m4KAa7B6F11Q9UBKT4Nzg/viewform?usp=sharing", "_blank", "noopener,noreferrer")}
-                  className="hover:text-gray-600 transition-colors"
-                >
-                  문의하기
-                </button>
-              </div>
+            {/* Navigation Links */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400 mb-4">
+              <a href="/about" className="hover:text-gray-600 transition-colors">소개</a>
+              <span>|</span>
+              <a href="/guide" className="hover:text-gray-600 transition-colors">결과해석</a>
+              <span>|</span>
+              <a href="/faq" className="hover:text-gray-600 transition-colors">FAQ</a>
+              <span>|</span>
+              <a href="/privacy" className="hover:text-gray-600 transition-colors">개인정보처리방침</a>
+              <span>|</span>
+              <a href="/terms" className="hover:text-gray-600 transition-colors">이용약관</a>
+              <span>|</span>
+              <button
+                onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfaqVaA-uJd0IhJe2tN4Dfh7i8A5m4KAa7B6F11Q9UBKT4Nzg/viewform?usp=sharing", "_blank", "noopener,noreferrer")}
+                className="hover:text-gray-600 transition-colors"
+              >
+                문의하기
+              </button>
             </div>
           </motion.div>
         </div>
