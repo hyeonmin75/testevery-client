@@ -174,10 +174,10 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
         >
           <div className="text-4xl sm:text-6xl mb-4 sm:mb-6">👀</div>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">좌우 선택 눈치 테스트</h2>
-          <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed px-2">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 sm:mb-8 leading-relaxed px-2">
             빠르게 스쳐가는 이미지에서<br/>
             <strong className="text-blue-600">각 문제에 맞는 기준</strong>에 따라 선택하세요!<br/>
-            <span className="text-xs sm:text-sm">(문제마다 다른 선택 기준이 제시됩니다)</span><br/>
+            <span className="text-sm sm:text-base md:text-lg">(문제마다 다른 선택 기준이 제시됩니다)</span><br/>
             총 10라운드가 진행됩니다.
           </p>
           
