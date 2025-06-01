@@ -83,7 +83,11 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
 
       const margin = 50;
       const centerX = canvas.width / 2;
-      let y = margin + 40;
+      
+      // 전체 내용의 높이를 계산하여 세로 중앙 정렬
+      const totalContentHeight = 1800; // 대략적인 전체 내용 높이
+      const startY = (canvas.height - totalContentHeight) / 2 + 100; // 세로 중앙에서 시작
+      let y = startY;
 
       // 헤더
       ctx.fillStyle = 'white';
