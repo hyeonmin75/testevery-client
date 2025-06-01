@@ -116,12 +116,12 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <p className="text-gray-600 text-base sm:text-lg lg:text-xl leading-loose max-w-2xl mx-auto break-keep hyphens-auto px-6 sm:px-4">
-                당신의 숨겨진 성격을 발견해보세요!
+                지금 가장 핫한 테스트들이 여기 다 모였다!
                 <br />
                 <span className="text-purple-600 font-semibold break-keep">
-                  {Object.keys(tests).length}가지 재미있는 테스트
+                  {Object.keys(tests).length}가지 중독성 있는 테스트
                 </span>
-                로 나만의 특별함을 찾아보세요
+                로 친구들과 함께 즐기세요
               </p>
               <div className="mt-4 sm:mt-6 flex justify-center gap-3 sm:gap-4 text-xl sm:text-2xl">
                 <motion.span
