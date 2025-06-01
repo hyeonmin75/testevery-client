@@ -33,6 +33,15 @@ export interface TestResult {
     emoji: string;
     percentage: number;
   }>;
+  // MBTI 전용 추가 필드들
+  personalityStory?: string;
+  bestMatch?: string;
+  loveStyle?: string;
+  celebrities?: string[];
+  careers?: string[];
+  animalMetaphor?: string;
+  percentage?: number;
+  rarity?: string;
 }
 
 export interface TestData {

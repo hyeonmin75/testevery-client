@@ -889,7 +889,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 70 },
         { name: '사고력', emoji: '🧠', percentage: 85 },
         { name: '판단력', emoji: '⚖️', percentage: 80 }
-      ]
+      ],
+      personalityStory: '당신은 자연스럽게 사람들을 이끌어가는 카리스마를 가지고 있습니다. 큰 그림을 그리고 그 비전을 현실로 만들어내는 능력이 뛰어나며, 어떤 상황에서도 최적의 해결책을 찾아냅니다. 때로는 너무 완벽을 추구하다 보니 주변 사람들의 감정을 놓칠 수 있지만, 그것은 모든 것을 성공으로 이끌고자 하는 강한 의지에서 나오는 것입니다.',
+      bestMatch: 'INFP 유형과 최고의 팀워크를 보여줘요!',
+      loveStyle: '계획적이고 진취적인 연애를 추구하며, 서로의 목표를 응원하는 관계를 선호해요',
+      celebrities: ['스티브 잡스', '빌 게이츠', '나폴레옹'],
+      careers: ['CEO', '경영컨설턴트', '변호사', '정치인', '군인'],
+      animalMetaphor: '당신은 무리를 이끄는 늑대 같은 존재예요!',
+      percentage: 3,
+      rarity: '상위 3% 희귀 유형'
     },
     'ENTP': {
       id: 'ENTP',

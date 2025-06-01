@@ -222,6 +222,138 @@ export default function Result() {
             </div>
           </motion.div>
 
+          {/* Detailed Information Sections */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* Personality Story */}
+            {result.result.personalityStory && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">📖</span>
+                  성격 설명
+                </h4>
+                <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                  {result.result.personalityStory}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Best Match */}
+            {result.result.bestMatch && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">💕</span>
+                  이런 사람과 잘 맞아요
+                </h4>
+                <p className="text-gray-700 text-sm sm:text-base">
+                  {result.result.bestMatch}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Love Style */}
+            {result.result.loveStyle && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">💝</span>
+                  연애 스타일
+                </h4>
+                <p className="text-gray-700 text-sm sm:text-base">
+                  {result.result.loveStyle}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Celebrities */}
+            {result.result.celebrities && result.result.celebrities.length > 0 && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">⭐</span>
+                  유명 인물
+                </h4>
+                <p className="text-gray-700 text-sm sm:text-base">
+                  당신과 같은 유형: {result.result.celebrities.join(', ')}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Careers */}
+            {result.result.careers && result.result.careers.length > 0 && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">💼</span>
+                  직업/진로 추천
+                </h4>
+                <p className="text-gray-700 text-sm sm:text-base">
+                  {result.result.careers.join(', ')}에 적합한 성향이에요
+                </p>
+              </motion.div>
+            )}
+
+            {/* Animal Metaphor */}
+            {result.result.animalMetaphor && (
+              <motion.div
+                className="bg-white rounded-2xl p-6 shadow-xl"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-xl mr-2">🐾</span>
+                  동물에 비유하면
+                </h4>
+                <p className="text-gray-700 text-sm sm:text-base">
+                  {result.result.animalMetaphor}
+                </p>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Statistics */}
+          {result.result.percentage && (
+            <motion.div
+              className="bg-white rounded-2xl p-6 shadow-xl mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+            >
+              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center justify-center">
+                <span className="text-xl mr-2">📊</span>
+                전체 통계
+              </h4>
+              <div className="text-center">
+                <div className="inline-flex items-center bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full px-6 py-3">
+                  <span className="text-2xl font-bold text-indigo-600 mr-2">{result.result.percentage}%</span>
+                  <span className="text-gray-700">전체 중 {result.result.rarity}</span>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* Action Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
@@ -251,19 +383,21 @@ export default function Result() {
 
           {/* Recommended Tests */}
           <motion.div
-            className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 sm:p-8"
+            className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.6 }}
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 text-center">추천 테스트</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.values(tests).slice(0, 3).map((test) => (
-                <TestCard 
-                  key={test.id} 
-                  test={test} 
-                  onStartTest={(testId) => setLocation(`/test/${testId}`)} 
-                />
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 text-center">다른 테스트도 해보세요</h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {Object.values(tests).slice(0, 4).map((test) => (
+                <button
+                  key={test.id}
+                  onClick={() => setLocation(`/test/${test.id}`)}
+                  className="bg-white/30 hover:bg-white/40 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all hover:scale-105 backdrop-blur-sm"
+                >
+                  {test.emoji} {test.title.replace(' 테스트', '')}
+                </button>
               ))}
             </div>
           </motion.div>
