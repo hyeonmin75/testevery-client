@@ -77,12 +77,12 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
     return shuffled.slice(0, 10);
   }, []);
 
-  // 게임 시작 시 랜덤 라운드 생성
+  // 게임 시작 시 랜덤 라운드 생성 (중복 방지)
   useEffect(() => {
-    if (gameState === 'countdown' && selectedRounds.length === 0) {
-      setSelectedRounds(generateRandomRounds());
+    if (gameState === 'ready') {
+      setSelectedRounds([]);
     }
-  }, [gameState, selectedRounds.length, generateRandomRounds]);
+  }, [gameState]);
 
   const getCurrentRoundData = () => {
     return selectedRounds[currentRound - 1];

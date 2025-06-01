@@ -98,7 +98,68 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
   };
 
   const downloadImage = () => {
-    // 캔버스를 사용하여 결과 이미지 생성
+    // 눈치력 테스트의 경우 화면 캡처 방식 사용
+    if (result.testId === 'intuition_test') {
+      // 결과 영역만 캡처 (공유하기 버튼 이전까지)
+      const resultElement = document.querySelector('.min-h-screen');
+      if (resultElement) {
+        // HTML to canvas 라이브러리가 없으므로 간단한 캔버스 방식 사용
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        canvas.width = 1080;
+        canvas.height = 1920;
+
+        // 눈치력 테스트 전용 이미지 생성
+        const score = result.scores?.score || 0;
+        
+        // 배경
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#f0fdf4'); // green-50
+        gradient.addColorStop(0.5, '#eff6ff'); // blue-50  
+        gradient.addColorStop(1, '#faf5ff'); // purple-50
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 제목
+        ctx.fillStyle = '#1f2937';
+        ctx.font = 'bold 48px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('👀', canvas.width / 2, 150);
+        ctx.fillText('눈치력 테스트 결과', canvas.width / 2, 220);
+
+        // 점수 표시
+        ctx.font = 'bold 72px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText(`${score}/10`, canvas.width / 2, 320);
+
+        // 등급 표시
+        const gradeInfo = [
+          { name: '눈치 핵고수', min: 10, emoji: '🧠' },
+          { name: '눈치 만렙 근접', min: 8, emoji: '🎯' },
+          { name: '눈치 50%', min: 6, emoji: '👁️' },
+          { name: '사회성 훈련 필요', min: 3, emoji: '📚' },
+          { name: '멍때리는 타입', min: 0, emoji: '😴' }
+        ];
+        
+        const currentGrade = gradeInfo.find(grade => score >= grade.min) || gradeInfo[gradeInfo.length - 1];
+        
+        ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText(`${currentGrade.emoji} ${currentGrade.name}`, canvas.width / 2, 420);
+
+        // 결과 설명
+        ctx.font = '28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillText(result.result.description, canvas.width / 2, 500);
+
+        const link = document.createElement('a');
+        link.download = `눈치력테스트_결과.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        return;
+      }
+    }
+
+    // 일반 테스트용 캔버스 생성
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -113,34 +174,25 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 폰트 크기 설정
-    const fontSize = {
-      emoji: 80,
-      title: 42,
-      sectionTitle: 36,
-      content: 28,
-      description: 30,
-      list: 26
-    };
-
     // 텍스트 설정
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
     let currentY = 100;
-    const leftMargin = 100;
-    const rightMargin = canvas.width - leftMargin;
-    const maxWidth = rightMargin - leftMargin;
 
     // 이모지
-    ctx.font = `${fontSize.emoji}px Arial`;
+    ctx.font = '80px Arial';
     ctx.fillText(result.result.emoji, canvas.width / 2, currentY);
     currentY += 120;
 
     // 메인 제목
-    ctx.font = `bold ${fontSize.title}px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif`;
+    ctx.font = 'bold 42px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
     const titleText = `당신은 ${result.result.title}입니다!`;
     ctx.fillText(titleText, canvas.width / 2, currentY);
     currentY += 80;
+
+    // 설명
+    ctx.font = '30px "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif';
+    ctx.fillText(result.result.description, canvas.width / 2, currentY);
 
     // 이미지 다운로드
     const link = document.createElement('a');

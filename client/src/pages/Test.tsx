@@ -190,7 +190,7 @@ export default function Test() {
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           />
-          <p className="text-purple-600 font-semibold">테스트를 준비하고 있습니다...</p>
+          <p className="text-purple-600 font-semibold">결과를 준비하고 있습니다...</p>
         </div>
       </div>
     );
