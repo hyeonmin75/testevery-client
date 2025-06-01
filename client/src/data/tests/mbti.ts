@@ -6,557 +6,867 @@ export const mbtiTest: TestData = {
   description: '당신의 성격 유형을 정확하게 분석해보세요',
   emoji: '🧠',
   color: 'from-indigo-500 to-purple-600',
-  duration: '10-15분',
-  questionCount: 25,
-  participants: 245892,
+  duration: '12-15분',
+  questionCount: 20,
+  participants: 189743,
   questions: [
     {
       id: 1,
-      text: '새로운 사람들과의 만남에서',
-      subtitle: '당신의 일반적인 행동은?',
-      emoji: '👥',
+      text: '회의나 토론에서 발언하는 빈도는?',
+      subtitle: '1: 거의 안함 - 5: 매우 자주',
+      emoji: '🗣️',
       options: [
         {
-          id: 'a',
-          text: '먼저 다가가서 대화를 시작한다',
-          description: '적극적으로 관계를 형성해요',
-          emoji: '🗣️',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 거의 발언하지 않는다',
+          description: '조용히 듣는 편',
+          emoji: '🤐',
+          scores: { E: 0, I: 4, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '누군가 먼저 말을 걸어주기를 기다린다',
-          description: '신중하게 관계를 시작해요',
-          emoji: '🤐',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 필요할 때만 발언한다',
+          description: '신중하게 선택적으로',
+          emoji: '🤔',
+          scores: { E: 1, I: 3, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 보통 수준으로 참여한다',
+          description: '적당히 참여',
+          emoji: '😐',
+          scores: { E: 2, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 자주 의견을 제시한다',
+          description: '활발하게 참여',
+          emoji: '💬',
+          scores: { E: 3, I: 1, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 토론을 주도하며 적극 발언한다',
+          description: '매우 활발하고 주도적',
+          emoji: '📢',
+          scores: { E: 4, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 2,
-      text: '주말에 에너지를 충전하는 방법은?',
-      subtitle: '당신만의 휴식 방식',
-      emoji: '🔋',
+      text: '전화 통화 후 기분은 어떤가요?',
+      subtitle: '1: 매우 피곤함 - 5: 매우 활기참',
+      emoji: '📞',
       options: [
         {
-          id: 'a',
-          text: '친구들과 함께 밖에서 활동한다',
-          description: '사람들과 함께할 때 활력을 얻어요',
-          emoji: '🎉',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 매우 피곤하고 에너지가 소모된다',
+          description: '통화 자체가 부담스러움',
+          emoji: '😴',
+          scores: { E: 0, I: 4, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '집에서 혼자만의 시간을 보낸다',
-          description: '조용한 시간이 에너지를 충전해줘요',
-          emoji: '🏠',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 조금 피곤하다',
+          description: '짧은 통화는 괜찮음',
+          emoji: '😅',
+          scores: { E: 1, I: 3, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 별다른 느낌이 없다',
+          description: '평범한 일상',
+          emoji: '😑',
+          scores: { E: 2, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 기분이 좋아진다',
+          description: '사람과의 연결감을 즐김',
+          emoji: '😊',
+          scores: { E: 3, I: 1, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 매우 활기차고 에너지가 충전된다',
+          description: '통화할수록 신남',
+          emoji: '🤗',
+          scores: { E: 4, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 3,
-      text: '새로운 정보를 받아들일 때',
-      subtitle: '어떤 방식을 선호하나요?',
-      emoji: '📊',
+      text: '설명서를 읽는 스타일은?',
+      subtitle: '1: 전체 숙지 후 시작 - 5: 바로 만져보며 학습',
+      emoji: '📖',
       options: [
         {
-          id: 'a',
-          text: '구체적인 사실과 세부사항에 집중한다',
-          description: '현실적이고 정확한 정보를 선호해요',
-          emoji: '📈',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 설명서를 처음부터 끝까지 읽고 시작',
+          description: '체계적이고 순차적 학습',
+          emoji: '📚',
+          scores: { E: 0, I: 0, S: 4, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '전체적인 패턴과 가능성을 본다',
-          description: '숨겨진 의미와 잠재력을 찾아요',
-          emoji: '🔮',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 주요 부분만 읽고 시작',
+          description: '핵심 위주로 파악',
+          emoji: '📄',
+          scores: { E: 0, I: 0, S: 3, N: 1, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 필요한 부분을 찾아가며 읽는다',
+          description: '상황에 따라 적응적',
+          emoji: '🔍',
+          scores: { E: 0, I: 0, S: 2, N: 2, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 대충 훑어보고 바로 시작',
+          description: '직관적 이해 선호',
+          emoji: '⚡',
+          scores: { E: 0, I: 0, S: 1, N: 3, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 설명서 안 보고 바로 만져본다',
+          description: '실험적이고 직관적',
+          emoji: '🔧',
+          scores: { E: 0, I: 0, S: 0, N: 4, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 4,
-      text: '중요한 결정을 내릴 때',
-      subtitle: '무엇을 가장 우선시하나요?',
-      emoji: '⚖️',
+      text: '미래에 대해 생각하는 빈도는?',
+      subtitle: '1: 거의 안함 - 5: 매우 자주',
+      emoji: '🔮',
       options: [
         {
-          id: 'a',
-          text: '논리적 분석과 객관적 사실',
-          description: '합리적이고 논리적인 판단을 해요',
-          emoji: '🧮',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 현재에만 집중하며 미래는 거의 생각 안함',
+          description: '지금 이 순간이 중요',
+          emoji: '⏰',
+          scores: { E: 0, I: 0, S: 4, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '사람들의 감정과 가치관',
-          description: '인간적이고 따뜻한 결정을 해요',
-          emoji: '❤️',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 가끔 필요할 때만 생각한다',
+          description: '실용적 계획만',
+          emoji: '📅',
+          scores: { E: 0, I: 0, S: 3, N: 1, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 현재와 미래를 적당히 고려한다',
+          description: '균형잡힌 시각',
+          emoji: '⚖️',
+          scores: { E: 0, I: 0, S: 2, N: 2, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 자주 미래 계획을 세운다',
+          description: '앞일을 미리 준비',
+          emoji: '🎯',
+          scores: { E: 0, I: 0, S: 1, N: 3, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 항상 먼 미래의 가능성을 상상한다',
+          description: '비전과 상상력 중시',
+          emoji: '🌟',
+          scores: { E: 0, I: 0, S: 0, N: 4, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 5,
-      text: '일상생활에서 선호하는 방식은?',
-      subtitle: '계획과 즉흥성 중에서',
-      emoji: '📅',
+      text: '비판을 받을 때 어떻게 반응하나요?',
+      subtitle: '1: 매우 감정적 반응 - 5: 매우 논리적 분석',
+      emoji: '💭',
       options: [
         {
-          id: 'a',
-          text: '미리 계획을 세우고 체계적으로 진행',
-          description: '계획적이고 조직적으로 생활해요',
-          emoji: '📋',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
+          id: '1',
+          text: '1 - 상처받고 감정이 먼저 앞선다',
+          description: '개인적으로 받아들임',
+          emoji: '😢',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 4, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '상황에 따라 유연하게 적응',
-          description: '자유롭고 융통성 있게 생활해요',
-          emoji: '🌊',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
+          id: '2',
+          text: '2 - 감정적이지만 이해하려 노력한다',
+          description: '마음의 상처와 이해가 공존',
+          emoji: '😔',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 1, F: 3, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 감정과 논리를 반반 고려한다',
+          description: '균형잡힌 반응',
+          emoji: '🤨',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 2, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 객관적으로 분석하려 한다',
+          description: '논리적 검토 우선',
+          emoji: '🧐',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 3, F: 1, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 완전히 논리적으로만 분석한다',
+          description: '감정 배제하고 사실만 파악',
+          emoji: '🔬',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 4, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 6,
-      text: '팀 프로젝트에서 당신의 역할은?',
-      subtitle: '협업할 때의 모습',
-      emoji: '👨‍💼',
+      text: '친구의 고민 상담 시 어떤 조언을 하나요?',
+      subtitle: '1: 감정 공감 위주 - 5: 해결책 제시 위주',
+      emoji: '🤝',
       options: [
         {
-          id: 'a',
-          text: '팀원들과 적극적으로 소통하며 아이디어를 공유',
-          description: '활발한 의견 교환을 주도해요',
-          emoji: '💬',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - "정말 힘들겠다" 감정에 깊이 공감',
+          description: '마음을 이해하고 위로',
+          emoji: '🤗',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 4, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '깊이 있게 생각한 후 신중하게 의견 제시',
-          description: '숙고한 의견을 정확히 전달해요',
-          emoji: '🤔',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 공감하면서 약간의 조언도 한다',
+          description: '따뜻한 위로와 가벼운 조언',
+          emoji: '😊',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 1, F: 3, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 공감과 조언을 반반 한다',
+          description: '감정과 해결책 모두 고려',
+          emoji: '💭',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 2, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 공감 후 구체적 해결책을 제시',
+          description: '실질적 도움 제공',
+          emoji: '💡',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 3, F: 1, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - "이렇게 하면 된다" 해결책만 제시',
+          description: '효율적이고 논리적 조언',
+          emoji: '🎯',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 4, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 7,
-      text: '문제를 해결할 때',
-      subtitle: '어떤 접근 방식을 사용하나요?',
-      emoji: '🧩',
+      text: '계획 없이 떠나는 여행에 대한 생각은?',
+      subtitle: '1: 절대 불가능 - 5: 매우 흥미로움',
+      emoji: '✈️',
       options: [
         {
-          id: 'a',
-          text: '과거의 경험과 검증된 방법을 활용',
-          description: '실용적이고 확실한 방법을 선택해요',
-          emoji: '📚',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 절대 불가능하다. 계획이 필수',
+          description: '체계적 준비 없으면 불안',
+          emoji: '📋',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         },
         {
-          id: 'b',
-          text: '새로운 아이디어와 창의적 해결책 시도',
-          description: '혁신적이고 독창적인 방법을 찾아요',
-          emoji: '💡',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 최소한의 계획은 있어야 한다',
+          description: '기본 계획은 필요',
+          emoji: '📝',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
+        },
+        {
+          id: '3',
+          text: '3 - 상황에 따라 다르다',
+          description: '때로는 계획, 때로는 즉흥',
+          emoji: '🤔',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
+        },
+        {
+          id: '4',
+          text: '4 - 나쁘지 않다. 재미있을 것 같다',
+          description: '예상 밖의 경험을 즐김',
+          emoji: '😄',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
+        },
+        {
+          id: '5',
+          text: '5 - 정말 흥미롭다! 모험을 즐긴다',
+          description: '자유롭고 즉흥적인 것을 선호',
+          emoji: '🌊',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         }
       ]
     },
     {
       id: 8,
-      text: '갈등 상황에서',
-      subtitle: '어떻게 대처하시나요?',
-      emoji: '⚡',
+      text: '일정이 갑자기 바뀔 때 느끼는 스트레스 정도는?',
+      subtitle: '1: 매우 높음 - 5: 전혀 없음',
+      emoji: '⏰',
       options: [
         {
-          id: 'a',
-          text: '원인을 분석하고 해결책을 논리적으로 제시',
-          description: '체계적이고 이성적으로 접근해요',
-          emoji: '🔍',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 매우 스트레스받고 불안하다',
+          description: '예정된 계획이 깨지면 힘듦',
+          emoji: '😰',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         },
         {
-          id: 'b',
-          text: '상대방의 감정을 이해하고 조화를 추구',
-          description: '공감하고 화합을 이루려 해요',
-          emoji: '🤝',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 스트레스받지만 적응한다',
+          description: '초기 불편함 후 조정',
+          emoji: '😅',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
+        },
+        {
+          id: '3',
+          text: '3 - 약간 불편하지만 괜찮다',
+          description: '적당한 적응력',
+          emoji: '😐',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
+        },
+        {
+          id: '4',
+          text: '4 - 별로 신경 안 쓴다',
+          description: '유연하게 대처',
+          emoji: '🙂',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
+        },
+        {
+          id: '5',
+          text: '5 - 전혀 스트레스받지 않는다',
+          description: '변화를 자연스럽게 받아들임',
+          emoji: '😎',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         }
       ]
     },
     {
       id: 9,
-      text: '여행을 계획할 때',
-      subtitle: '어떤 스타일을 선호하나요?',
-      emoji: '✈️',
+      text: '새로운 앱이나 기기를 배울 때 어떻게 하나요?',
+      subtitle: '1: 튜토리얼 완주 - 5: 바로 탐험',
+      emoji: '📱',
       options: [
         {
-          id: 'a',
-          text: '일정표를 만들고 예약을 미리 완료',
-          description: '체계적이고 안전한 여행을 준비해요',
-          emoji: '🗓️',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
+          id: '1',
+          text: '1 - 튜토리얼을 모두 완료한 후 사용',
+          description: '단계적이고 체계적 학습',
+          emoji: '🎓',
+          scores: { E: 0, I: 0, S: 4, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '대략적인 계획만 세우고 현지에서 결정',
-          description: '자유롭고 즉흥적인 여행을 즐겨요',
-          emoji: '🎒',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
+          id: '2',
+          text: '2 - 기본 기능만 배우고 시작',
+          description: '필수적인 것만 우선 파악',
+          emoji: '📖',
+          scores: { E: 0, I: 0, S: 3, N: 1, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 사용하면서 필요한 것만 배운다',
+          description: '실용적이고 상황적 학습',
+          emoji: '⚡',
+          scores: { E: 0, I: 0, S: 2, N: 2, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 대충 만져보면서 감각적으로 익힌다',
+          description: '직관적이고 탐험적',
+          emoji: '🔍',
+          scores: { E: 0, I: 0, S: 1, N: 3, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 아무것도 안 보고 바로 탐험한다',
+          description: '모든 가능성을 직접 발견',
+          emoji: '🚀',
+          scores: { E: 0, I: 0, S: 0, N: 4, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 10,
-      text: '스트레스를 받을 때',
-      subtitle: '어떤 방법으로 해소하나요?',
-      emoji: '😰',
+      text: '팀 프로젝트에서 선호하는 작업 스타일은?',
+      subtitle: '1: 혼자 집중 작업 - 5: 계속 함께 협업',
+      emoji: '👥',
       options: [
         {
-          id: 'a',
-          text: '친구들과 만나서 이야기하고 활동',
-          description: '사람들과 함께할 때 스트레스가 해소돼요',
-          emoji: '👥',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 각자 맡은 부분을 혼자 완성',
+          description: '독립적이고 집중된 작업',
+          emoji: '🧘',
+          scores: { E: 0, I: 4, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '혼자만의 시간을 가지며 생각 정리',
-          description: '조용한 시간이 마음을 안정시켜줘요',
-          emoji: '🧘',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 주로 혼자 하되 가끔 의견 교환',
+          description: '최소한의 소통으로 효율성',
+          emoji: '💭',
+          scores: { E: 1, I: 3, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 독립 작업과 협업을 적절히 섞는다',
+          description: '상황에 맞는 유연한 방식',
+          emoji: '⚖️',
+          scores: { E: 2, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 자주 모여서 함께 작업한다',
+          description: '활발한 의견 교환 선호',
+          emoji: '💬',
+          scores: { E: 3, I: 1, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 항상 함께 있으며 실시간 협업',
+          description: '지속적 상호작용과 에너지 교환',
+          emoji: '🤝',
+          scores: { E: 4, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 11,
-      text: '새로운 기술이나 도구를 배울 때',
-      subtitle: '어떤 방법을 선호하나요?',
-      emoji: '💻',
+      text: '데이터나 통계를 볼 때 어디에 주목하나요?',
+      subtitle: '1: 구체적 수치 - 5: 전체적 패턴',
+      emoji: '📊',
       options: [
         {
-          id: 'a',
-          text: '매뉴얼을 읽고 단계별로 따라하기',
-          description: '체계적이고 순서대로 학습해요',
-          emoji: '📖',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 정확한 수치와 세부 데이터',
+          description: '구체적이고 명확한 사실',
+          emoji: '🔢',
+          scores: { E: 0, I: 0, S: 4, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '직접 만져보며 직관적으로 파악',
-          description: '실험하면서 원리를 이해해요',
-          emoji: '🔧',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 주요 수치와 핵심 포인트',
+          description: '중요한 데이터 위주',
+          emoji: '📈',
+          scores: { E: 0, I: 0, S: 3, N: 1, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 수치와 트렌드를 함께 본다',
+          description: '디테일과 큰 그림 모두',
+          emoji: '📋',
+          scores: { E: 0, I: 0, S: 2, N: 2, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 전체적인 흐름과 경향',
+          description: '트렌드와 방향성 파악',
+          emoji: '📉',
+          scores: { E: 0, I: 0, S: 1, N: 3, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 숨겨진 의미와 미래 가능성',
+          description: '데이터 너머의 통찰',
+          emoji: '🔮',
+          scores: { E: 0, I: 0, S: 0, N: 4, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 12,
-      text: '친구가 고민을 털어놓을 때',
-      subtitle: '어떻게 반응하시나요?',
-      emoji: '👂',
+      text: '갈등 상황에서 우선적으로 고려하는 것은?',
+      subtitle: '1: 사실과 논리 - 5: 감정과 관계',
+      emoji: '⚔️',
       options: [
         {
-          id: 'a',
-          text: '해결책을 찾아서 구체적인 조언 제공',
-          description: '실용적이고 효과적인 해결책을 제시해요',
-          emoji: '💡',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 누가 사실적으로 옳은지 분석',
+          description: '객관적 판단이 최우선',
+          emoji: '⚖️',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 4, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '감정에 공감하며 따뜻하게 위로',
-          description: '마음을 이해하고 정서적 지지를 해줘요',
+          id: '2',
+          text: '2 - 논리적 해결책을 찾되 감정도 고려',
+          description: '합리성 위주지만 배려',
+          emoji: '🧠',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 3, F: 1, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 사실과 감정을 모두 중요하게 본다',
+          description: '균형잡힌 접근',
+          emoji: '💭',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 2, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 사람들의 감정 상태를 우선 고려',
+          description: '관계와 화합 중시',
           emoji: '🤗',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 1, F: 3, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 모든 사람이 상처받지 않는 것이 중요',
+          description: '감정과 관계가 최우선',
+          emoji: '❤️',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 4, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 13,
-      text: '업무나 학습 환경에서',
-      subtitle: '어떤 분위기를 선호하나요?',
-      emoji: '📝',
+      text: '마감 기한이 있는 과제는 언제 주로 하나요?',
+      subtitle: '1: 즉시 시작 - 5: 마감 직전',
+      emoji: '⏰',
       options: [
         {
-          id: 'a',
-          text: '마감시한이 정해져 있고 목표가 명확한 환경',
-          description: '구조화되고 예측 가능한 환경을 좋아해요',
-          emoji: '⏰',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
+          id: '1',
+          text: '1 - 받자마자 즉시 시작해서 미리 완성',
+          description: '계획적이고 안전한 방식',
+          emoji: '🏃‍♀️',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         },
         {
-          id: 'b',
-          text: '유연하고 자율적으로 진행할 수 있는 환경',
-          description: '자유롭고 적응력이 필요한 환경을 선호해요',
-          emoji: '🎨',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
+          id: '2',
+          text: '2 - 며칠 내로 시작해서 여유있게 완성',
+          description: '체계적 계획 실행',
+          emoji: '📅',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
+        },
+        {
+          id: '3',
+          text: '3 - 중간 정도 시점에 시작한다',
+          description: '적당한 계획성',
+          emoji: '⚖️',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
+        },
+        {
+          id: '4',
+          text: '4 - 마감 며칠 전에 집중적으로 한다',
+          description: '압박감 속에서 효율성',
+          emoji: '💨',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
+        },
+        {
+          id: '5',
+          text: '5 - 마감 직전에 몰아서 한다',
+          description: '극한의 압박감에서 몰입',
+          emoji: '🔥',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         }
       ]
     },
     {
       id: 14,
-      text: '파티나 모임에서',
-      subtitle: '어떤 모습이신가요?',
-      emoji: '🎊',
+      text: '휴일 계획을 세우는 스타일은?',
+      subtitle: '1: 상세한 일정표 - 5: 그때그때 결정',
+      emoji: '🌞',
       options: [
         {
-          id: 'a',
-          text: '여러 사람들과 폭넓게 대화를 나눈다',
-          description: '많은 사람들과 활발하게 소통해요',
-          emoji: '🌟',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 시간별 상세 일정을 미리 짜둔다',
+          description: '완벽한 계획으로 효율성 추구',
+          emoji: '📋',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         },
         {
-          id: 'b',
-          text: '친한 사람들과 깊이 있는 대화를 한다',
-          description: '소수와 의미 있는 대화를 나눠요',
-          emoji: '💭',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 주요 활동들을 대략 계획한다',
+          description: '기본 틀은 있되 여유있게',
+          emoji: '📝',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
+        },
+        {
+          id: '3',
+          text: '3 - 몇 가지 옵션을 생각해둔다',
+          description: '선택의 여지를 남겨둠',
+          emoji: '🤔',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
+        },
+        {
+          id: '4',
+          text: '4 - 대충 방향만 정하고 즉흥적으로',
+          description: '자연스러운 흐름 선호',
+          emoji: '🌊',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
+        },
+        {
+          id: '5',
+          text: '5 - 아무 계획 없이 그때그때 결정',
+          description: '완전한 자유와 즉흥성',
+          emoji: '🎲',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         }
       ]
     },
     {
       id: 15,
-      text: '정보를 기억할 때',
-      subtitle: '어떤 방식이 효과적인가요?',
-      emoji: '🧠',
+      text: '창의적 아이디어는 언제 가장 잘 떠오르나요?',
+      subtitle: '1: 조용히 혼자 있을 때 - 5: 사람들과 대화할 때',
+      emoji: '💡',
       options: [
         {
-          id: 'a',
-          text: '구체적인 예시와 실제 경험을 통해',
-          description: '실질적이고 생생한 기억이 오래 남아요',
-          emoji: '📸',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 조용한 곳에서 혼자 깊이 생각할 때',
+          description: '고독한 집중이 창의력의 원천',
+          emoji: '🧘‍♀️',
+          scores: { E: 0, I: 4, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '개념과 이론의 연결고리를 통해',
-          description: '추상적이고 체계적인 연관성으로 기억해요',
-          emoji: '🕸️',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 혼자 있되 약간의 자극이 있을 때',
+          description: '적당한 외부 자극과 고독의 조합',
+          emoji: '☕',
+          scores: { E: 1, I: 3, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 혼자 있거나 함께 있거나 상관없다',
+          description: '환경보다는 내적 동기',
+          emoji: '🎯',
+          scores: { E: 2, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 몇 명의 사람들과 아이디어를 나눌 때',
+          description: '소규모 그룹에서의 영감',
+          emoji: '💭',
+          scores: { E: 3, I: 1, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 많은 사람들과 활발히 토론할 때',
+          description: '역동적 상호작용이 창의력 폭발',
+          emoji: '🌟',
+          scores: { E: 4, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 16,
-      text: '비판을 받을 때',
-      subtitle: '어떻게 받아들이시나요?',
-      emoji: '🎯',
+      text: '과거 경험을 현재 결정에 얼마나 반영하나요?',
+      subtitle: '1: 매우 중요하게 고려 - 5: 거의 고려 안함',
+      emoji: '🔄',
       options: [
         {
-          id: 'a',
-          text: '객관적으로 분석하여 개선점을 찾는다',
-          description: '논리적으로 검토하고 발전시켜요',
-          emoji: '🔬',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 과거 경험이 결정의 핵심 기준',
+          description: '검증된 경험을 가장 신뢰',
+          emoji: '📚',
+          scores: { E: 0, I: 0, S: 4, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '개인적으로 받아들여 감정적으로 반응',
-          description: '마음으로 느끼고 인간관계를 고려해요',
-          emoji: '💝',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 과거 경험을 중요하게 참고한다',
+          description: '경험을 바탕으로 한 신중한 판단',
+          emoji: '🎯',
+          scores: { E: 0, I: 0, S: 3, N: 1, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 과거와 새로운 가능성을 모두 고려',
+          description: '경험과 혁신의 균형',
+          emoji: '⚖️',
+          scores: { E: 0, I: 0, S: 2, N: 2, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 새로운 가능성에 더 집중한다',
+          description: '혁신적 접근을 선호',
+          emoji: '🚀',
+          scores: { E: 0, I: 0, S: 1, N: 3, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 과거는 거의 고려하지 않고 새롭게 접근',
+          description: '완전히 새로운 시각으로 도전',
+          emoji: '🌟',
+          scores: { E: 0, I: 0, S: 0, N: 4, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 17,
-      text: '프로젝트를 시작할 때',
-      subtitle: '어떤 순서로 진행하나요?',
-      emoji: '🚀',
+      text: '의사결정에서 다른 사람의 의견을 어느 정도 고려하나요?',
+      subtitle: '1: 매우 중요하게 - 5: 거의 고려 안함',
+      emoji: '🤝',
       options: [
         {
-          id: 'a',
-          text: '계획을 완성한 후 실행에 옮긴다',
-          description: '체계적으로 준비하고 시작해요',
-          emoji: '📋',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
+          id: '1',
+          text: '1 - 다른 사람들의 의견이 결정에 매우 중요',
+          description: '타인의 생각과 감정을 최우선 고려',
+          emoji: '👥',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 4, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '일단 시작하면서 계획을 수정해간다',
-          description: '실행하면서 유연하게 조정해요',
+          id: '2',
+          text: '2 - 다양한 의견을 듣고 종합해서 결정',
+          description: '협력적이고 포용적 의사결정',
+          emoji: '🤗',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 1, F: 3, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 의견은 들되 최종 결정은 스스로',
+          description: '참고는 하되 독립적 판단',
           emoji: '🎯',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 2, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 스스로 판단하되 필요시만 의견 수렴',
+          description: '개인적 판단 우선, 선택적 상담',
+          emoji: '🧠',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 3, F: 1, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 완전히 혼자서 결정한다',
+          description: '독립적이고 자율적 의사결정',
+          emoji: '🎪',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 4, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 18,
-      text: '토론할 때',
-      subtitle: '어떤 방식으로 참여하나요?',
-      emoji: '💬',
+      text: '선택의 기로에서 최종 결정을 내리는 속도는?',
+      subtitle: '1: 매우 빠름 - 5: 매우 오래 고민',
+      emoji: '⚡',
       options: [
         {
-          id: 'a',
-          text: '적극적으로 의견을 표현하고 논쟁한다',
-          description: '활발하게 아이디어를 주고받아요',
-          emoji: '📢',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 즉석에서 빠르게 결정한다',
+          description: '직관을 믿고 신속한 판단',
+          emoji: '⚡',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         },
         {
-          id: 'b',
-          text: '신중하게 듣고 생각한 후 발언한다',
-          description: '충분히 고민한 의견을 제시해요',
-          emoji: '🤫',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 짧게 생각하고 결정한다',
+          description: '빠른 분석 후 결정',
+          emoji: '💨',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
+        },
+        {
+          id: '3',
+          text: '3 - 적당히 고민한 후 결정한다',
+          description: '균형잡힌 숙고 시간',
+          emoji: '⚖️',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
+        },
+        {
+          id: '4',
+          text: '4 - 충분히 고민한 후 신중하게 결정',
+          description: '체계적 분석과 계획적 결정',
+          emoji: '🤔',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
+        },
+        {
+          id: '5',
+          text: '5 - 아주 오랫동안 신중하게 고민',
+          description: '모든 가능성을 완전히 검토',
+          emoji: '🔍',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         }
       ]
     },
     {
       id: 19,
-      text: '책이나 영화를 고를 때',
-      subtitle: '어떤 장르를 선호하나요?',
-      emoji: '📚',
+      text: '스트레스를 받을 때 도움이 되는 활동은?',
+      subtitle: '1: 혼자만의 시간 - 5: 사람들과 함께',
+      emoji: '😤',
       options: [
         {
-          id: 'a',
-          text: '현실적이고 실제 일어날 수 있는 이야기',
-          description: '현실감 있고 공감 가능한 내용을 좋아해요',
-          emoji: '🌍',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 조용한 곳에서 혼자만의 시간',
+          description: '고독 속에서 에너지 회복',
+          emoji: '🧘',
+          scores: { E: 0, I: 4, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         },
         {
-          id: 'b',
-          text: '상상력이 풍부하고 환상적인 이야기',
-          description: '창의적이고 독특한 세계관을 선호해요',
-          emoji: '🦄',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
+          id: '2',
+          text: '2 - 가까운 사람 한두 명과 조용히',
+          description: '신뢰하는 소수와의 소통',
+          emoji: '☕',
+          scores: { E: 1, I: 3, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '3',
+          text: '3 - 상황에 따라 혼자 또는 함께',
+          description: '기분과 상황에 맞춰 선택',
+          emoji: '🤷',
+          scores: { E: 2, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '4',
+          text: '4 - 친구들과 함께 활동하며 해소',
+          description: '사회적 상호작용으로 치유',
+          emoji: '👥',
+          scores: { E: 3, I: 1, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+        },
+        {
+          id: '5',
+          text: '5 - 많은 사람들과 활발한 활동',
+          description: '역동적 에너지로 스트레스 해소',
+          emoji: '🎉',
+          scores: { E: 4, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
         }
       ]
     },
     {
       id: 20,
-      text: '중요한 선택을 해야 할 때',
-      subtitle: '무엇을 가장 중시하나요?',
-      emoji: '🤲',
+      text: '새로운 도전을 대하는 자세는?',
+      subtitle: '1: 신중한 계획 후 - 5: 바로 도전',
+      emoji: '🏔️',
       options: [
         {
-          id: 'a',
-          text: '효율성과 합리적 결과',
-          description: '최적의 성과를 내는 선택을 해요',
-          emoji: '⚡',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
+          id: '1',
+          text: '1 - 완벽한 계획과 준비 후 시작',
+          description: '위험을 최소화하는 체계적 접근',
+          emoji: '📋',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 4, P: 0 }
         },
         {
-          id: 'b',
-          text: '관련된 사람들의 행복과 조화',
-          description: '모두에게 좋은 선택을 하려 해요',
-          emoji: '🌈',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
-        }
-      ]
-    },
-    {
-      id: 21,
-      text: '하루 일과를 마무리할 때',
-      subtitle: '어떤 방식을 선호하나요?',
-      emoji: '🌙',
-      options: [
-        {
-          id: 'a',
-          text: '내일 할 일을 정리하고 계획을 세운다',
-          description: '체계적으로 다음을 준비해요',
-          emoji: '📝',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
+          id: '2',
+          text: '2 - 기본 계획을 세우고 조심스럽게 시작',
+          description: '안전성을 고려한 점진적 접근',
+          emoji: '🚶',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 3, P: 1 }
         },
         {
-          id: 'b',
-          text: '그때그때 상황에 맞춰 자연스럽게',
-          description: '자유롭게 흘러가는 대로 생활해요',
-          emoji: '🌊',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
-        }
-      ]
-    },
-    {
-      id: 22,
-      text: '새로운 사람을 처음 만났을 때',
-      subtitle: '어떤 인상을 주려고 하나요?',
-      emoji: '👋',
-      options: [
-        {
-          id: 'a',
-          text: '활발하고 친근한 모습을 보여준다',
-          description: '적극적이고 열린 자세로 다가가요',
-          emoji: '😊',
-          scores: { E: 2, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '3',
+          text: '3 - 대략적 계획으로 차근차근 진행',
+          description: '적당한 준비와 실행의 조화',
+          emoji: '🎯',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 2 }
         },
         {
-          id: 'b',
-          text: '신중하고 진중한 모습을 유지한다',
-          description: '차분하고 신뢰할 수 있는 모습을 보여줘요',
-          emoji: '🤝',
-          scores: { E: 0, I: 2, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
-        }
-      ]
-    },
-    {
-      id: 23,
-      text: '복잡한 문제에 직면했을 때',
-      subtitle: '어떤 관점에서 접근하나요?',
-      emoji: '🔍',
-      options: [
-        {
-          id: 'a',
-          text: '세부사항을 하나씩 차근차근 분석',
-          description: '구체적이고 단계적으로 해결해요',
-          emoji: '🔢',
-          scores: { E: 0, I: 0, S: 2, N: 0, T: 0, F: 0, J: 0, P: 0 }
+          id: '4',
+          text: '4 - 일단 시작하고 상황에 맞춰 조정',
+          description: '실행 중심의 유연한 접근',
+          emoji: '🏃',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 1, P: 3 }
         },
         {
-          id: 'b',
-          text: '전체적인 그림을 보고 패턴을 찾기',
-          description: '큰 흐름을 파악하고 통찰력을 발휘해요',
-          emoji: '🌐',
-          scores: { E: 0, I: 0, S: 0, N: 2, T: 0, F: 0, J: 0, P: 0 }
-        }
-      ]
-    },
-    {
-      id: 24,
-      text: '팀에서 의견 충돌이 일어날 때',
-      subtitle: '어떤 역할을 하시나요?',
-      emoji: '⚔️',
-      options: [
-        {
-          id: 'a',
-          text: '냉정하게 사실을 분석하여 해결책 제시',
-          description: '객관적이고 논리적으로 중재해요',
-          emoji: '⚖️',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 2, F: 0, J: 0, P: 0 }
-        },
-        {
-          id: 'b',
-          text: '각자의 입장을 이해하며 화합 도모',
-          description: '감정적으로 공감하며 조화를 이뤄요',
-          emoji: '🕊️',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 2, J: 0, P: 0 }
-        }
-      ]
-    },
-    {
-      id: 25,
-      text: '마감 기한이 다가올 때',
-      subtitle: '어떤 방식으로 대처하나요?',
-      emoji: '⏰',
-      options: [
-        {
-          id: 'a',
-          text: '계획대로 착실히 진행했으므로 여유가 있다',
-          description: '미리미리 준비하는 스타일이에요',
-          emoji: '✅',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 2, P: 0 }
-        },
-        {
-          id: 'b',
-          text: '마지막에 집중해서 빠르게 마무리한다',
-          description: '압박감 속에서 몰입하는 스타일이에요',
-          emoji: '🏃‍♂️',
-          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 2 }
+          id: '5',
+          text: '5 - 계획 없이 바로 뛰어든다',
+          description: '직감과 모험심으로 즉시 도전',
+          emoji: '🚀',
+          scores: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 4 }
         }
       ]
     }

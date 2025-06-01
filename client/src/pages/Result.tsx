@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
+import { TestCard } from '../components/TestCard';
 import { tests } from '../data/tests';
 import { getTestHistory } from '../utils/testLogic';
 import { CalculatedResult } from '../types/test';
