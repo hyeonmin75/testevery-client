@@ -943,7 +943,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 80 },
         { name: '감정력', emoji: '❤️', percentage: 90 },
         { name: '판단력', emoji: '⚖️', percentage: 75 }
-      ]
+      ],
+      personalityStory: '당신은 타인의 성장과 행복을 자신의 기쁨으로 여기는 따뜻한 마음의 소유자입니다. 사람들의 잠재력을 발견하고 끌어내는 데 천부적인 재능이 있으며, 자연스럽게 리더 역할을 맡게 됩니다. 때로는 다른 사람을 위해 자신을 희생하는 경향이 있지만, 그것이 바로 세상을 더 따뜻하게 만드는 당신만의 특별한 힘입니다.',
+      bestMatch: 'INFP 유형과 서로의 꿈을 응원하는 완벽한 파트너십을 형성해요!',
+      loveStyle: '상대방의 성장을 진심으로 응원하며, 깊은 정서적 유대감을 바탕으로 한 사랑을 추구해요',
+      celebrities: ['오프라 윈프리', 'BTS RM', '버락 오바마'],
+      careers: ['교사', '상담사', '코치', '인사담당자', '사회활동가'],
+      animalMetaphor: '당신은 따뜻하고 지혜로운 황금 리트리버 같은 존재예요!',
+      percentage: 2,
+      rarity: '상위 2% 매우 희귀한 유형'
     },
     'ENFP': {
       id: 'ENFP',
@@ -962,7 +970,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 88 },
         { name: '감정력', emoji: '❤️', percentage: 80 },
         { name: '인식력', emoji: '🔍', percentage: 90 }
-      ]
+      ],
+      personalityStory: '당신은 세상을 밝게 비추는 태양 같은 존재입니다. 끝없는 호기심과 열정으로 새로운 가능성을 탐구하며, 주변 사람들에게 긍정적인 에너지를 전달합니다. 자유로운 영혼으로 틀에 박힌 것을 싫어하지만, 그만큼 창의적이고 독창적인 아이디어를 만들어냅니다. 때로는 여러 일을 동시에 하다가 집중하기 어려울 수 있지만, 그것은 풍부한 상상력의 증거입니다.',
+      bestMatch: 'INTJ 유형과 서로 다른 강점으로 완벽한 시너지를 만들어요!',
+      loveStyle: '로맨틱하고 자유로운 사랑을 추구하며, 함께 꿈을 키워나가는 관계를 선호해요',
+      celebrities: ['로빈 윌리엄스', 'BTS 뷔', '엘렌 드제너러스'],
+      careers: ['크리에이터', '방송인', '마케터', '이벤트 기획자', '심리상담사'],
+      animalMetaphor: '당신은 자유롭고 활발한 나비 같은 존재예요!',
+      percentage: 7,
+      rarity: '전체 중 7%의 활발한 유형'
     },
     'ESTJ': {
       id: 'ESTJ',
@@ -981,7 +997,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 85 },
         { name: '사고력', emoji: '🧠', percentage: 80 },
         { name: '판단력', emoji: '⚖️', percentage: 90 }
-      ]
+      ],
+      personalityStory: '당신은 조직과 사회의 기둥 역할을 하는 천생 리더입니다. 질서와 체계를 통해 효율성을 추구하며, 강한 책임감으로 맡은 일을 완벽하게 수행합니다. 전통적인 가치를 중시하고 안정적인 환경을 만들어가는 능력이 뛰어납니다. 때로는 변화에 대한 저항이 있을 수 있지만, 그것은 신중하고 검증된 방법을 선호하는 당신만의 신념 때문입니다.',
+      bestMatch: 'ISFP 유형과 서로 다른 관점으로 완벽한 균형을 이뤄요!',
+      loveStyle: '안정적이고 헌신적인 관계를 추구하며, 파트너의 성공을 적극 지원해요',
+      celebrities: ['고든 램지', '판사 주디', '헨리 포드'],
+      careers: ['CEO', '프로젝트 매니저', '판사', '군장교', '은행장'],
+      animalMetaphor: '당신은 강인하고 책임감 있는 사자 같은 존재예요!',
+      percentage: 9,
+      rarity: '전체 중 9%의 리더십 유형'
     },
     'ESTP': {
       id: 'ESTP',
@@ -1000,7 +1024,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 90 },
         { name: '사고력', emoji: '🧠', percentage: 70 },
         { name: '인식력', emoji: '🔍', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 현재를 살아가는 행동파입니다. 복잡한 이론보다는 직접 경험하고 실행하는 것을 선호하며, 위기 상황에서도 침착하게 대처하는 능력이 뛰어납니다. 사람들과의 관계에서 자연스럽고 친근한 매력을 발산하며, 어떤 환경에서도 빠르게 적응합니다. 때로는 장기적인 계획보다 즉석 해결을 선호할 수 있지만, 그것은 현실적이고 실용적인 접근을 중시하는 당신의 특성입니다.',
+      bestMatch: 'ISFJ 유형과 서로 다른 강점으로 완벽한 팀워크를 보여줘요!',
+      loveStyle: '자연스럽고 즐거운 관계를 추구하며, 함께 새로운 경험을 나누는 것을 좋아해요',
+      celebrities: ['마이클 조던', '브루스 윌리스', '도널드 트럼프'],
+      careers: ['영업사원', '운동선수', '응급실 의사', '요리사', '경찰관'],
+      animalMetaphor: '당신은 빠르고 기민한 치타 같은 존재예요!',
+      percentage: 4,
+      rarity: '상위 4% 희귀 유형'
     },
     'ESFJ': {
       id: 'ESFJ',
@@ -1019,7 +1051,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 80 },
         { name: '감정력', emoji: '❤️', percentage: 90 },
         { name: '판단력', emoji: '⚖️', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 따뜻한 마음으로 주변을 돌보는 천생 케어테이커입니다. 다른 사람의 필요를 민감하게 감지하고 도움을 주는 것에서 큰 보람을 느낍니다. 조화로운 환경을 만들기 위해 노력하며, 전통적인 가치를 소중히 여깁니다. 때로는 자신의 필요보다 타인을 우선시하는 경향이 있지만, 그것이 바로 세상을 더 따뜻하게 만드는 당신만의 특별한 힘입니다.',
+      bestMatch: 'ISFP 유형과 서로를 이해하고 지지하는 완벽한 조화를 이뤄요!',
+      loveStyle: '상대방을 세심하게 챙기고 배려하며, 안정적이고 따뜻한 사랑을 추구해요',
+      celebrities: ['테일러 스위프트', '휴 잭맨', '제니퍼 로페즈'],
+      careers: ['간호사', '교사', '이벤트 플래너', '인사담당자', '사회복지사'],
+      animalMetaphor: '당신은 다정하고 충성스러운 골든 리트리버 같은 존재예요!',
+      percentage: 12,
+      rarity: '전체 중 12%의 따뜻한 유형'
     },
     'ESFP': {
       id: 'ESFP',
@@ -1038,7 +1078,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 85 },
         { name: '감정력', emoji: '❤️', percentage: 85 },
         { name: '인식력', emoji: '🔍', percentage: 88 }
-      ]
+      ],
+      personalityStory: '당신은 삶을 축제처럼 즐기는 자유로운 영혼입니다. 긍정적인 에너지로 주변을 밝게 만들며, 순간순간을 소중히 여기는 마음을 가지고 있습니다. 사람들과 함께 있을 때 가장 빛이 나며, 자연스러운 매력으로 모든 이를 편안하게 만듭니다. 때로는 계획보다 즉흥을 선호할 수 있지만, 그것이 바로 삶에 생동감을 불어넣는 당신만의 특별한 방식입니다.',
+      bestMatch: 'ISTJ 유형과 서로 다른 매력으로 완벽한 균형을 이뤄요!',
+      loveStyle: '재미있고 활기찬 관계를 추구하며, 함께 웃고 즐기는 순간을 소중히 여겨요',
+      celebrities: ['마릴린 먼로', '엘튼 존', 'BTS 정국'],
+      careers: ['배우', '가수', 'MC', '이벤트 기획자', '여행가이드'],
+      animalMetaphor: '당신은 밝고 쾌활한 오리 같은 존재예요!',
+      percentage: 8,
+      rarity: '전체 중 8%의 즐거운 유형'
     },
     'INTJ': {
       id: 'INTJ',
@@ -1057,7 +1105,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 90 },
         { name: '사고력', emoji: '🧠', percentage: 85 },
         { name: '판단력', emoji: '⚖️', percentage: 88 }
-      ]
+      ],
+      personalityStory: '당신은 미래를 설계하는 마스터 플래너입니다. 복잡한 시스템을 이해하고 개선하는 능력이 뛰어나며, 혁신적인 아이디어로 세상을 바꾸고자 합니다. 혼자만의 시간을 통해 깊이 있는 사고를 하며, 자신만의 완벽한 계획을 세웁니다. 때로는 감정보다 논리를 우선시할 수 있지만, 그것은 최선의 결과를 만들어내려는 당신의 의지 때문입니다.',
+      bestMatch: 'ENFP 유형과 서로 다른 에너지로 완벽한 시너지를 만들어요!',
+      loveStyle: '깊이 있는 지적 교감을 추구하며, 서로의 비전을 존중하고 지지하는 관계를 선호해요',
+      celebrities: ['일론 머스크', '마크 저커버그', '크리스토퍼 놀란'],
+      careers: ['과학자', '건축가', '전략 컨설턴트', '소프트웨어 개발자', '투자 분석가'],
+      animalMetaphor: '당신은 지혜롭고 독립적인 올빼미 같은 존재예요!',
+      percentage: 2,
+      rarity: '상위 2% 매우 희귀한 유형'
     },
     'INTP': {
       id: 'INTP',
@@ -1076,7 +1132,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 88 },
         { name: '사고력', emoji: '🧠', percentage: 90 },
         { name: '인식력', emoji: '🔍', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 지식을 탐구하는 영원한 학자입니다. 복잡한 문제를 논리적으로 분석하고 새로운 관점을 찾아내는 능력이 뛰어납니다. 호기심이 많고 독립적이며, 자신만의 속도로 깊이 있게 사고합니다. 때로는 실행보다 이론에 더 관심이 있을 수 있지만, 그것은 완벽한 해답을 찾으려는 당신의 탐구 정신 때문입니다.',
+      bestMatch: 'ENTJ 유형과 서로 다른 접근 방식으로 완벽한 팀워크를 보여줘요!',
+      loveStyle: '지적 호기심을 공유하며, 서로의 독립성을 존중하는 자유로운 관계를 추구해요',
+      celebrities: ['알베르트 아인슈타인', '빌 게이츠', '찰스 다윈'],
+      careers: ['연구원', '수학자', '철학자', '소프트웨어 엔지니어', '물리학자'],
+      animalMetaphor: '당신은 신중하고 지혜로운 부엉이 같은 존재예요!',
+      percentage: 3,
+      rarity: '상위 3% 희귀 유형'
     },
     'INFJ': {
       id: 'INFJ',
@@ -1095,7 +1159,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 85 },
         { name: '감정력', emoji: '❤️', percentage: 90 },
         { name: '판단력', emoji: '⚖️', percentage: 80 }
-      ]
+      ],
+      personalityStory: '당신은 세상을 더 나은 곳으로 만들고자 하는 이상주의자입니다. 깊은 통찰력으로 사람들의 마음을 읽고 이해하며, 진심어린 조언과 도움을 제공합니다. 혼자만의 시간을 통해 내면의 가치관을 정립하고, 그에 따라 일관성 있게 행동합니다. 때로는 완벽을 추구하다 보니 스스로에게 가혹할 수 있지만, 그것은 세상에 선한 영향을 미치려는 순수한 마음 때문입니다.',
+      bestMatch: 'ENTP 유형과 서로 다른 관점으로 완벽한 성장을 이뤄요!',
+      loveStyle: '깊이 있는 정서적 연결을 중시하며, 서로의 내면세계를 이해하고 지지하는 관계를 추구해요',
+      celebrities: ['넬슨 만델라', '마더 테레사', 'BTS RM'],
+      careers: ['심리상담사', '작가', '인권활동가', '목사', '교육자'],
+      animalMetaphor: '당신은 신비롭고 지혜로운 늑대 같은 존재예요!',
+      percentage: 1,
+      rarity: '상위 1% 가장 희귀한 유형'
     },
     'INFP': {
       id: 'INFP',
