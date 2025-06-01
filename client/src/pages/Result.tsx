@@ -493,7 +493,7 @@ export default function Result() {
           </motion.div>
 
           {/* Performance Stats */}
-          {result.reactionTimes && (
+          {result.allReactionTimes && (
             <motion.div
               className="bg-white rounded-3xl p-8 shadow-2xl mb-10"
               initial={{ opacity: 0, y: 30 }}
@@ -552,28 +552,28 @@ export default function Result() {
 
           {/* Action Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.6 }}
           >
             <button
               onClick={() => setShowShareModal(true)}
-              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
             >
               결과 공유하기
             </button>
             <button
               onClick={() => setLocation('/test/intuition_test')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
             >
               다시 도전하기
             </button>
             <button
               onClick={handleGoHome}
-              className="bg-white text-gray-700 px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl border-2 border-gray-300"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
             >
-              다른 테스트 하기
+              홈으로 가기
             </button>
           </motion.div>
         </div>

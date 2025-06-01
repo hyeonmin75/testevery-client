@@ -146,7 +146,7 @@ export default function Test() {
       scores: { score, averageReactionTime: Math.round(averageReactionTime) },
       completedAt: Date.now(),
       testId: testData.id,
-      reactionTimes
+      allReactionTimes: reactionTimes
     };
 
     sessionStorage.setItem('currentTestResult', JSON.stringify(result));

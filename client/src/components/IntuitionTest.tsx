@@ -27,16 +27,16 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
   // 라운드 데이터 생성
   const generateRound = useCallback(() => {
     const rounds: Round[] = [
-      { leftImage: '🐶', rightImage: '🐱', correctSide: 'right', difference: '다른 동물' },
-      { leftImage: '🍎', rightImage: '🍎', correctSide: 'left', difference: '왼쪽이 더 밝음' },
-      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '다른 별 모양' },
-      { leftImage: '🏠', rightImage: '🏡', correctSide: 'right', difference: '지붕 색깔' },
-      { leftImage: '🚗', rightImage: '🚙', correctSide: 'right', difference: '차량 크기' },
-      { leftImage: '🌸', rightImage: '🌺', correctSide: 'right', difference: '꽃 종류' },
-      { leftImage: '☀️', rightImage: '🌤️', correctSide: 'right', difference: '구름 유무' },
-      { leftImage: '🎵', rightImage: '🎶', correctSide: 'right', difference: '음표 개수' },
-      { leftImage: '👑', rightImage: '👑', correctSide: 'left', difference: '왼쪽이 기울어짐' },
-      { leftImage: '🎈', rightImage: '🎀', correctSide: 'right', difference: '다른 아이템' }
+      { leftImage: '🐶', rightImage: '🐱', correctSide: 'right', difference: '오른쪽이 고양이 (다른 동물)' },
+      { leftImage: '🔴', rightImage: '🔵', correctSide: 'right', difference: '오른쪽이 파란색 (다른 색상)' },
+      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '오른쪽이 반짝이는 별' },
+      { leftImage: '🏠', rightImage: '🏡', correctSide: 'right', difference: '오른쪽 지붕이 빨간색' },
+      { leftImage: '😀', rightImage: '😢', correctSide: 'right', difference: '오른쪽이 슬픈 표정' },
+      { leftImage: '🌸', rightImage: '🌺', correctSide: 'right', difference: '오른쪽이 하이비스커스' },
+      { leftImage: '☀️', rightImage: '🌤️', correctSide: 'right', difference: '오른쪽에 구름이 있음' },
+      { leftImage: '👆', rightImage: '👇', correctSide: 'right', difference: '오른쪽이 아래를 가리킴' },
+      { leftImage: '🎈', rightImage: '🎀', correctSide: 'right', difference: '오른쪽이 리본' },
+      { leftImage: '🟢', rightImage: '🟡', correctSide: 'right', difference: '오른쪽이 노란색 원' }
     ];
     
     return rounds[currentRound - 1];
