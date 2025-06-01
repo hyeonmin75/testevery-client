@@ -672,6 +672,7 @@ export default function Result() {
           onClose={() => setShowShareModal(false)}
           result={result}
         />
+        <Toaster />
       </div>
     );
   }
@@ -917,6 +918,7 @@ export default function Result() {
           onClose={() => setShowShareModal(false)}
           result={result}
         />
+        <Toaster />
       </div>
     );
   }
