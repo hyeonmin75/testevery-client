@@ -916,7 +916,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 85 },
         { name: '사고력', emoji: '🧠', percentage: 75 },
         { name: '인식력', emoji: '🔍', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 아이디어의 폭발체와 같은 존재입니다. 새로운 것에 대한 호기심이 넘치고, 기존의 틀을 깨는 것을 두려워하지 않습니다. 사람들과의 토론을 통해 에너지를 얻으며, 다양한 관점을 탐구하는 것을 즐깁니다. 때로는 한 가지에 집중하기 어려울 수 있지만, 그것은 무한한 가능성을 보는 당신의 특별한 능력 때문입니다.',
+      bestMatch: 'INFJ 유형과 최고의 케미스트리를 자랑해요!',
+      loveStyle: '지적 자극과 새로운 경험을 함께 나누며, 서로의 성장을 돕는 관계를 추구해요',
+      celebrities: ['로버트 다우니 주니어', '톰 행크스', '라이언 레이놀즈'],
+      careers: ['마케터', '광고기획자', '창업가', '저널리스트', '컨설턴트'],
+      animalMetaphor: '당신은 호기심 많은 돌고래 같은 존재예요!',
+      percentage: 3,
+      rarity: '상위 3% 희귀 유형'
     },
     'ENFJ': {
       id: 'ENFJ',
@@ -1106,7 +1114,15 @@ export const mbtiTest: TestData = {
         { name: '직관력', emoji: '💡', percentage: 85 },
         { name: '감정력', emoji: '❤️', percentage: 88 },
         { name: '인식력', emoji: '🔍', percentage: 85 }
-      ]
+      ],
+      personalityStory: '당신은 마음 깊은 곳에 아름다운 이상향을 품고 있는 사람입니다. 진정성을 무엇보다 중요하게 여기며, 자신만의 가치관에 따라 살아갑니다. 타인의 감정을 깊이 이해하고 공감하는 능력이 뛰어나지만, 때로는 너무 완벽을 추구하다 보니 현실과의 괴리를 느낄 수 있습니다. 하지만 그런 순수함이 세상을 더 아름답게 만드는 당신만의 특별한 힘입니다.',
+      bestMatch: 'ENFJ 유형과 서로를 성장시키는 완벽한 조화를 이뤄요!',
+      loveStyle: '깊은 감정적 연결을 중시하며, 서로의 꿈과 가치관을 존중하는 진실한 사랑을 추구해요',
+      celebrities: ['아이유', 'BTS 슈가', '윤아'],
+      careers: ['작가', '심리상담사', '예술가', '사회복지사', '크리에이터'],
+      animalMetaphor: '당신은 순수하고 자유로운 유니콘 같은 존재예요!',
+      percentage: 4,
+      rarity: '상위 4% 희귀 유형'
     },
     'ISTJ': {
       id: 'ISTJ',
@@ -1125,7 +1141,15 @@ export const mbtiTest: TestData = {
         { name: '감각력', emoji: '👁️', percentage: 90 },
         { name: '사고력', emoji: '🧠', percentage: 80 },
         { name: '판단력', emoji: '⚖️', percentage: 88 }
-      ]
+      ],
+      personalityStory: '당신은 세상의 든든한 기둥과 같은 존재입니다. 일관성 있고 신뢰할 수 있으며, 어떤 일이든 끝까지 해내는 강한 의지력을 가지고 있습니다. 전통적인 가치를 중시하고 체계적으로 일을 처리하는 능력이 뛰어납니다. 때로는 변화에 적응하는 데 시간이 걸릴 수 있지만, 그것은 신중하고 안정적인 판단을 내리는 당신만의 방식입니다.',
+      bestMatch: 'ESFP 유형과 서로 다른 매력으로 완벽한 균형을 이뤄요!',
+      loveStyle: '안정적이고 신뢰할 수 있는 관계를 추구하며, 꾸준한 관심과 배려로 사랑을 표현해요',
+      celebrities: ['워런 버핏', '조지 워싱턴', '안젤라 메르켈'],
+      careers: ['회계사', '공무원', '의사', '법무사', '은행원'],
+      animalMetaphor: '당신은 묵묵히 일하는 성실한 꿀벌 같은 존재예요!',
+      percentage: 13,
+      rarity: '전체 중 13%의 안정적인 유형'
     },
     'ISTP': {
       id: 'ISTP',
