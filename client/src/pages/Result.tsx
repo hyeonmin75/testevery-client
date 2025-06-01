@@ -145,10 +145,12 @@ export default function Result() {
             transition={{ duration: 0.8 }}
           >
             <div className="text-7xl mb-6">⚡</div>
-            <h1 className="text-5xl font-black text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               탭핑 스피드 결과
             </h1>
-            <p className="text-xl text-gray-600">1분간의 집중력과 손목 지구력을 측정했습니다</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+              1분간의 집중력과 손목 지구력을 측정했습니다
+            </p>
           </motion.div>
 
           {/* Main Performance Stats */}
@@ -191,10 +193,12 @@ export default function Result() {
           >
             <div className="text-center">
               <div className="text-8xl mb-6">{rankInfo.emoji}</div>
-              <h2 className="text-4xl font-black text-gray-800 mb-4">
-                당신은 <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-gray-800 mb-4 px-4">
+                <span className="block sm:inline">당신은 </span>
+                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {rankInfo.name}급
-                </span> 입니다!
+                </span>
+                <span className="block sm:inline"> 입니다!</span>
               </h2>
               
               <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8">
@@ -394,10 +398,12 @@ export default function Result() {
             transition={{ duration: 0.8 }}
           >
             <div className="text-7xl mb-6">👀</div>
-            <h1 className="text-4xl font-black text-gray-800 mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-800 mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent px-4">
               눈치력 테스트 결과
             </h1>
-            <p className="text-xl text-gray-600">10라운드 눈치력 측정 완료</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+              10라운드 눈치력 측정 완료
+            </p>
           </motion.div>
 
           {/* Score Display */}
@@ -409,8 +415,8 @@ export default function Result() {
           >
             <div className="text-center">
               <div className="text-8xl mb-6">{currentGrade.emoji}</div>
-              <h2 className="text-3xl font-black text-gray-800 mb-4">
-                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-800 mb-4 px-4">
+                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block">
                   {currentGrade.name}
                 </span>
               </h2>

@@ -90,7 +90,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   const startGame = () => {
     setGameState('countdown');
-    setCountdown(5); // 5초로 카운트다운 연장
+    setCountdown(3); // 3초 카운트다운으로 변경
     setScore(0);
     setCurrentRound(1);
     setReactionTimes([]);
@@ -227,21 +227,21 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
         </div>
 
         <motion.div
-          className="flex items-center justify-center space-x-4 sm:space-x-8 md:space-x-12"
+          className="flex items-center justify-center space-x-6 sm:space-x-12 md:space-x-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="text-center">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-1 sm:mb-2 md:mb-4">{currentRoundData.leftImage}</div>
-            <div className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700">좌</div>
+            <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] mb-2 sm:mb-4">{currentRoundData.leftImage}</div>
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-700">좌</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-gray-400">VS</div>
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-gray-400 font-bold">VS</div>
           
           <div className="text-center">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-1 sm:mb-2 md:mb-4">{currentRoundData.rightImage}</div>
-            <div className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700">우</div>
+            <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] mb-2 sm:mb-4">{currentRoundData.rightImage}</div>
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-700">우</div>
           </div>
         </motion.div>
       </div>
