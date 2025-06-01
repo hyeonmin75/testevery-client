@@ -17,6 +17,7 @@ import { petTest } from './pet';
 import { friendshipTest } from './friendship';
 import { tappingEnduranceTest } from './tapping-endurance';
 import { intuitionTest } from './intuition-test';
+import { mbtiTest } from './mbti';
 
 
 
@@ -38,7 +39,8 @@ export const tests: Record<string, TestData> = {
   pet: petTest,
   friendship: friendshipTest,
   tapping_endurance: tappingEnduranceTest,
-  intuition_test: intuitionTest
+  intuition_test: intuitionTest,
+  mbti: mbtiTest
 };
 
 export default tests;

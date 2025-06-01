@@ -102,6 +102,175 @@ export default function Result() {
     );
   }
 
+  // MBTI 테스트 전용 결과 페이지
+  if (testData.id === 'mbti') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+        <div className="max-w-4xl mx-auto p-4 py-8">
+          {/* Header */}
+          <motion.div
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="text-7xl mb-6">{result.result.emoji}</div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent px-4">
+              {result.result.title}
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto px-4">
+              MBTI 성격유형 분석 완료
+            </p>
+          </motion.div>
+
+          {/* MBTI Type Display */}
+          <motion.div
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 sm:p-8 mb-8 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-4 px-4">
+              <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent block whitespace-nowrap">
+                당신의 성격유형: {result.resultId}
+              </span>
+            </h2>
+            
+            <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto px-4 break-keep">
+              {result.result.detailedDescription}
+            </p>
+          </motion.div>
+
+          {/* MBTI Dimensions Chart */}
+          <motion.div
+            className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">성향 분석</h3>
+            
+            <div className="space-y-6">
+              {/* E/I Dimension */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-semibold text-gray-700">외향성 (E) vs 내향성 (I)</span>
+                </div>
+                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-1000"
+                    style={{ width: `${result.scores.E || 50}%` }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
+                    <span>E {result.scores.E || 50}%</span>
+                    <span>I {result.scores.I || 50}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* S/N Dimension */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-semibold text-gray-700">감각형 (S) vs 직관형 (N)</span>
+                </div>
+                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-1000"
+                    style={{ width: `${result.scores.S || 50}%` }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
+                    <span>S {result.scores.S || 50}%</span>
+                    <span>N {result.scores.N || 50}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* T/F Dimension */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-semibold text-gray-700">사고형 (T) vs 감정형 (F)</span>
+                </div>
+                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-1000"
+                    style={{ width: `${result.scores.T || 50}%` }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
+                    <span>T {result.scores.T || 50}%</span>
+                    <span>F {result.scores.F || 50}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* J/P Dimension */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-semibold text-gray-700">판단형 (J) vs 인식형 (P)</span>
+                </div>
+                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-1000"
+                    style={{ width: `${result.scores.J || 50}%` }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
+                    <span>J {result.scores.J || 50}%</span>
+                    <span>P {result.scores.P || 50}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              결과 공유하기
+            </button>
+            <button
+              onClick={() => setLocation('/test/mbti')}
+              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              다시 테스트하기
+            </button>
+            <button
+              onClick={handleGoHome}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl"
+            >
+              홈으로 가기
+            </button>
+          </motion.div>
+
+          {/* Recommended Tests */}
+          <motion.div
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 sm:p-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 text-center">추천 테스트</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Object.values(tests).slice(0, 3).map((test) => (
+                <TestCard 
+                  key={test.id} 
+                  test={test} 
+                  onStartTest={(testId) => setLocation(`/test/${testId}`)} 
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   // 탭핑 테스트 전용 결과 페이지
   if (testData.id === 'tapping_endurance' && result.scores?.tapCount) {
     const tapCount = result.scores.tapCount;

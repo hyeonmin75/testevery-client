@@ -1,12 +1,20 @@
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
-import { TestCard } from '../components/TestCard';
-import { tests } from '../data/tests';
-import { TestData } from '../types/test';
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
+import { TestCard } from "../components/TestCard";
+import { tests } from "../data/tests";
+import { TestData } from "../types/test";
 
 // TopTestCard 컴포넌트 정의
-function TopTestCard({ test, rank, onStartTest }: { test: TestData; rank: number; onStartTest: (testId: string) => void }) {
+function TopTestCard({
+  test,
+  rank,
+  onStartTest,
+}: {
+  test: TestData;
+  rank: number;
+  onStartTest: (testId: string) => void;
+}) {
   const [animatedCount, setAnimatedCount] = useState(0);
 
   useEffect(() => {
@@ -14,7 +22,7 @@ function TopTestCard({ test, rank, onStartTest }: { test: TestData; rank: number
     const steps = 60;
     const increment = test.participants / steps;
     let current = 0;
-    
+
     const timer = setInterval(() => {
       current += increment;
       if (current >= test.participants) {
@@ -35,8 +43,12 @@ function TopTestCard({ test, rank, onStartTest }: { test: TestData; rank: number
       onClick={() => onStartTest(test.id)}
     >
       <div className="text-2xl lg:text-4xl mb-2 lg:mb-3">{test.emoji}</div>
-      <div className="font-semibold text-sm lg:text-base">{test.title.replace(' 테스트', '')}</div>
-      <div className="text-xs lg:text-sm text-purple-100">{rank}위 • {animatedCount.toLocaleString()}명 참여</div>
+      <div className="font-semibold text-sm lg:text-base">
+        {test.title.replace(" 테스트", "")}
+      </div>
+      <div className="text-xs lg:text-sm text-purple-100">
+        {rank}위 • {animatedCount.toLocaleString()}명 참여
+      </div>
     </motion.div>
   );
 }
@@ -53,9 +65,9 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -63,8 +75,8 @@ export default function Home() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   return (
@@ -72,67 +84,88 @@ export default function Home() {
       <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
         <div className="max-w-6xl w-full">
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-6 sm:mb-8 lg:mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.div 
+            <motion.div
               className="text-5xl sm:text-6xl lg:text-7xl mb-4 sm:mb-6"
-              animate={{ 
+              animate={{
                 scale: [1, 1.05, 1],
-                rotate: [0, 2, -2, 0]
+                rotate: [0, 2, -2, 0],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <i className="fas fa-brain text-purple-500"></i>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent break-keep leading-tight px-4"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              심리테스트 모음집
+              모두의 테스트
             </motion.h1>
-            
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <p className="text-gray-600 text-base sm:text-lg lg:text-xl leading-loose max-w-2xl mx-auto break-keep hyphens-auto px-6 sm:px-4">
-                당신의 숨겨진 성격을 발견해보세요!<br />
-                <span className="text-purple-600 font-semibold break-keep">{Object.keys(tests).length}가지 재미있는 테스트</span>로 나만의 특별함을 찾아보세요
+                당신의 숨겨진 성격을 발견해보세요!
+                <br />
+                <span className="text-purple-600 font-semibold break-keep">
+                  {Object.keys(tests).length}가지 재미있는 테스트
+                </span>
+                로 나만의 특별함을 찾아보세요
               </p>
               <div className="mt-4 sm:mt-6 flex justify-center gap-3 sm:gap-4 text-xl sm:text-2xl">
-                <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}>✨</motion.span>
-                <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}>🎯</motion.span>
-                <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}>💫</motion.span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
+                >
+                  ✨
+                </motion.span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                >
+                  🎯
+                </motion.span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
+                >
+                  💫
+                </motion.span>
               </div>
             </motion.div>
           </motion.div>
 
-
-
           {/* Popular Tests */}
-          <motion.div 
+          <motion.div
             className="mb-8 lg:mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
           >
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl lg:rounded-3xl p-4 lg:p-8 text-white text-center shadow-2xl">
-              <h2 className="text-xl lg:text-3xl font-bold mb-2 lg:mb-4">🔥 인기 테스트 TOP 3</h2>
-              <p className="text-purple-100 mb-4 lg:mb-6 text-sm lg:text-base">가장 많이 참여한 테스트들을 확인해보세요!</p>
+              <h2 className="text-xl lg:text-3xl font-bold mb-2 lg:mb-4">
+                🔥 인기 테스트 TOP 3
+              </h2>
+              <p className="text-purple-100 mb-4 lg:mb-6 text-sm lg:text-base">
+                가장 많이 참여한 테스트들을 확인해보세요!
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                 {Object.values(tests)
                   .sort((a, b) => b.participants - a.participants)
                   .slice(0, 3)
                   .map((test, index) => (
-                    <TopTestCard 
+                    <TopTestCard
                       key={test.id}
                       test={test}
                       rank={index + 1}
@@ -144,7 +177,7 @@ export default function Home() {
           </motion.div>
 
           {/* Test Cards */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
             variants={containerVariants}
             initial="hidden"
@@ -153,46 +186,46 @@ export default function Home() {
             {Object.values(tests).map((test) => {
               return (
                 <motion.div key={test.id} variants={itemVariants}>
-                  <TestCard
-                    test={test}
-                    onStartTest={handleStartTest}
-                  />
+                  <TestCard test={test} onStartTest={handleStartTest} />
                 </motion.div>
               );
             })}
           </motion.div>
 
           {/* Footer */}
-          <motion.div 
+          <motion.div
             className="text-center text-gray-500 text-xs lg:text-sm bg-white/50 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 lg:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.6, duration: 0.6 }}
           >
             <div className="flex justify-center gap-6 mb-4">
-              <motion.a 
-                href="#" 
+              <motion.a
+                href="#"
                 className="text-purple-500 hover:text-purple-600 text-xl transition-colors"
                 whileHover={{ scale: 1.2 }}
               >
                 <i className="fab fa-facebook"></i>
               </motion.a>
-              <motion.a 
-                href="#" 
+              <motion.a
+                href="#"
                 className="text-blue-500 hover:text-blue-600 text-xl transition-colors"
                 whileHover={{ scale: 1.2 }}
               >
                 <i className="fab fa-twitter"></i>
               </motion.a>
-              <motion.a 
-                href="#" 
+              <motion.a
+                href="#"
                 className="text-green-500 hover:text-green-600 text-xl transition-colors"
                 whileHover={{ scale: 1.2 }}
               >
                 <i className="fab fa-instagram"></i>
               </motion.a>
             </div>
-            <p className="mb-2">모든 테스트는 재미를 위한 것이며, 과학적 근거를 바탕으로 하지 않습니다.</p>
+            <p className="mb-2">
+              모든 테스트는 재미를 위한 것이며, 과학적 근거를 바탕으로 하지
+              않습니다.
+            </p>
             <p>결과를 친구들과 공유하고 함께 즐겨보세요! ✨</p>
           </motion.div>
         </div>
