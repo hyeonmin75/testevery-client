@@ -219,11 +219,11 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
   if (gameState === 'showing' && currentRoundData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
-        <div className="text-center mb-4 sm:mb-8">
-          <div className="text-base sm:text-lg font-bold text-gray-800 mb-2">
+        <div className="text-center mb-6 sm:mb-10">
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-xs sm:text-sm text-blue-600 font-semibold px-2">{currentRoundData?.criterion}</div>
+          <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-600 font-semibold px-2">{currentRoundData?.criterion}</div>
         </div>
 
         <motion.div
@@ -251,14 +251,14 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
   if (gameState === 'choosing' && currentRoundData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
-        <div className="text-center mb-4 sm:mb-8">
-          <div className="text-base sm:text-lg font-bold text-gray-800 mb-2">
+        <div className="text-center mb-6 sm:mb-10">
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-red-600 font-bold text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
+          <div className="text-red-600 font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold text-base sm:text-lg md:text-xl lg:text-2xl px-2">{currentRoundData?.criterion}</div>
+          <div className="text-blue-600 font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl px-2">{currentRoundData?.criterion}</div>
         </div>
 
         <div className="flex items-center justify-center space-x-6 sm:space-x-12">
