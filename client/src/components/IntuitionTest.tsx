@@ -10,6 +10,7 @@ interface Round {
   rightImage: string;
   correctSide: 'left' | 'right';
   difference: string;
+  criterion: string; // 판단 기준
 }
 
 export function IntuitionTest({ onComplete }: IntuitionTestProps) {
@@ -29,26 +30,26 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   const generateRandomRounds = useCallback(() => {
     const allRounds: Round[] = [
-      { leftImage: '🔴', rightImage: '🔵', correctSide: 'right', difference: '파란색이 더 차가운 색상' },
-      { leftImage: '⬆️', rightImage: '⬇️', correctSide: 'left', difference: '위쪽 화살표가 더 높은 위치' },
-      { leftImage: '🟩', rightImage: '🟨', correctSide: 'right', difference: '노란색이 더 밝은 색상' },
-      { leftImage: '🌕', rightImage: '🌑', correctSide: 'left', difference: '보름달이 더 밝음' },
-      { leftImage: '❄️', rightImage: '🔥', correctSide: 'right', difference: '불이 더 뜨거움' },
-      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '반짝이는 별이 더 밝음' },
-      { leftImage: '🔺', rightImage: '🔻', correctSide: 'left', difference: '위쪽 삼각형이 더 높은 방향' },
-      { leftImage: '🌞', rightImage: '🌙', correctSide: 'left', difference: '태양이 더 밝음' },
-      { leftImage: '📈', rightImage: '📉', correctSide: 'left', difference: '상승 그래프가 더 긍정적' },
-      { leftImage: '🟫', rightImage: '⬜', correctSide: 'right', difference: '흰색이 더 밝은 색상' },
-      { leftImage: '🔊', rightImage: '🔇', correctSide: 'left', difference: '스피커가 더 큰 소리' },
-      { leftImage: '🌊', rightImage: '🏔️', correctSide: 'right', difference: '산이 더 높음' },
-      { leftImage: '⚡', rightImage: '🌈', correctSide: 'left', difference: '번개가 더 강한 에너지' },
-      { leftImage: '🔥', rightImage: '💧', correctSide: 'left', difference: '불이 더 뜨거움' },
-      { leftImage: '🌻', rightImage: '🌹', correctSide: 'left', difference: '해바라기가 더 큰 꽃' },
-      { leftImage: '🎯', rightImage: '⚪', correctSide: 'left', difference: '과녁이 더 복잡한 패턴' },
-      { leftImage: '📱', rightImage: '📞', correctSide: 'left', difference: '스마트폰이 더 현대적' },
-      { leftImage: '🚀', rightImage: '✈️', correctSide: 'left', difference: '로켓이 더 빠름' },
-      { leftImage: '💎', rightImage: '🪨', correctSide: 'left', difference: '다이아몬드가 더 귀중함' },
-      { leftImage: '🏆', rightImage: '🥉', correctSide: 'left', difference: '금컵이 더 높은 등급' }
+      { leftImage: '🔴', rightImage: '🔵', correctSide: 'right', difference: '파란색이 더 차가운 색상', criterion: '더 차가운 색상을 선택하세요' },
+      { leftImage: '⬆️', rightImage: '⬇️', correctSide: 'left', difference: '위쪽 화살표가 더 높은 위치', criterion: '더 높은 방향을 선택하세요' },
+      { leftImage: '🟩', rightImage: '🟨', correctSide: 'right', difference: '노란색이 더 밝은 색상', criterion: '더 밝은 색상을 선택하세요' },
+      { leftImage: '🌕', rightImage: '🌑', correctSide: 'left', difference: '보름달이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '❄️', rightImage: '🔥', correctSide: 'right', difference: '불이 더 뜨거움', criterion: '더 뜨거운 것을 선택하세요' },
+      { leftImage: '⭐', rightImage: '🌟', correctSide: 'right', difference: '반짝이는 별이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '🔺', rightImage: '🔻', correctSide: 'left', difference: '위쪽 삼각형이 더 높은 방향', criterion: '더 높은 방향을 선택하세요' },
+      { leftImage: '🌞', rightImage: '🌙', correctSide: 'left', difference: '태양이 더 밝음', criterion: '더 밝은 것을 선택하세요' },
+      { leftImage: '📈', rightImage: '📉', correctSide: 'left', difference: '상승 그래프가 더 긍정적', criterion: '더 긍정적인 것을 선택하세요' },
+      { leftImage: '🟫', rightImage: '⬜', correctSide: 'right', difference: '흰색이 더 밝은 색상', criterion: '더 밝은 색상을 선택하세요' },
+      { leftImage: '🔊', rightImage: '🔇', correctSide: 'left', difference: '스피커가 더 큰 소리', criterion: '더 큰 소리를 선택하세요' },
+      { leftImage: '🌊', rightImage: '🏔️', correctSide: 'right', difference: '산이 더 높음', criterion: '더 높은 것을 선택하세요' },
+      { leftImage: '⚡', rightImage: '🌈', correctSide: 'left', difference: '번개가 더 강한 에너지', criterion: '더 강한 에너지를 선택하세요' },
+      { leftImage: '🔥', rightImage: '💧', correctSide: 'left', difference: '불이 더 뜨거움', criterion: '더 뜨거운 것을 선택하세요' },
+      { leftImage: '🌻', rightImage: '🌹', correctSide: 'left', difference: '해바라기가 더 큰 꽃', criterion: '더 큰 꽃을 선택하세요' },
+      { leftImage: '🎯', rightImage: '⚪', correctSide: 'left', difference: '과녁이 더 복잡한 패턴', criterion: '더 복잡한 것을 선택하세요' },
+      { leftImage: '📱', rightImage: '📞', correctSide: 'left', difference: '스마트폰이 더 현대적', criterion: '더 현대적인 것을 선택하세요' },
+      { leftImage: '🚀', rightImage: '✈️', correctSide: 'left', difference: '로켓이 더 빠름', criterion: '더 빠른 것을 선택하세요' },
+      { leftImage: '💎', rightImage: '🪨', correctSide: 'left', difference: '다이아몬드가 더 귀중함', criterion: '더 귀중한 것을 선택하세요' },
+      { leftImage: '🏆', rightImage: '🥉', correctSide: 'left', difference: '금컵이 더 높은 등급', criterion: '더 높은 등급을 선택하세요' }
     ];
     
     // 20개 중 랜덤하게 10개 선택
@@ -69,7 +70,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   const startGame = () => {
     setGameState('countdown');
-    setCountdown(3);
+    setCountdown(5); // 5초로 카운트다운 연장
     setScore(0);
     setCurrentRound(1);
     setReactionTimes([]);
@@ -155,8 +156,8 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <h2 className="text-3xl font-bold text-gray-800 mb-4">좌우 선택 눈치 테스트</h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
             빠르게 스쳐가는 이미지에서<br/>
-            <strong className="text-blue-600">더 강하거나 높거나 밝은 쪽</strong>을 선택하세요!<br/>
-            (더 뜨거운 것, 더 밝은 것, 더 높은 것, 더 큰 것)<br/>
+            <strong className="text-blue-600">각 문제에 맞는 기준</strong>에 따라 선택하세요!<br/>
+            (문제마다 다른 선택 기준이 제시됩니다)<br/>
             총 10라운드가 진행됩니다.
           </p>
           
@@ -202,7 +203,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-sm text-blue-600 font-semibold">더 강하거나 높거나 밝은 쪽을 기억하세요!</div>
+          <div className="text-sm text-blue-600 font-semibold">{currentRoundData?.criterion}</div>
         </div>
 
         <motion.div
@@ -237,7 +238,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           <div className="text-red-600 font-bold text-xl mb-4">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold">어느 쪽이 더 강하거나 높거나 밝았나요?</div>
+          <div className="text-blue-600 font-semibold">{currentRoundData?.criterion}</div>
         </div>
 
         <div className="flex items-center justify-center space-x-8">
