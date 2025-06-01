@@ -83,19 +83,19 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
 
       const margin = 50;
       const centerX = canvas.width / 2;
-      let y = margin + 30;
+      let y = margin + 40;
 
       // 헤더
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
+      ctx.font = 'bold 30px "Malgun Gothic", Arial, sans-serif';
       ctx.fillText('MBTI 성격유형 분석 완료', centerX, y);
-      y += 60;
+      y += 80; // 더 큰 간격
 
-      // 이모지 (헤더와 겹치지 않게 적절한 간격)
-      ctx.font = '100px Arial';
+      // 이모지 (헤더와 겹치지 않게 충분한 간격)
+      ctx.font = '80px Arial';
       ctx.fillText(result.result.emoji, centerX, y);
-      y += 80;
+      y += 70;
 
       // 성격유형 제목
       ctx.font = 'bold 40px "Malgun Gothic", Arial, sans-serif';
