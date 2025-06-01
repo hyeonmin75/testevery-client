@@ -166,24 +166,24 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   if (gameState === 'ready') {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
         <motion.div 
-          className="text-center max-w-md"
+          className="text-center max-w-xs sm:max-w-md mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="text-6xl mb-6">👀</div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">좌우 선택 눈치 테스트</h2>
-          <p className="text-gray-600 mb-8 leading-relaxed">
+          <div className="text-4xl sm:text-6xl mb-4 sm:mb-6">👀</div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">좌우 선택 눈치 테스트</h2>
+          <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed px-2">
             빠르게 스쳐가는 이미지에서<br/>
             <strong className="text-blue-600">각 문제에 맞는 기준</strong>에 따라 선택하세요!<br/>
-            (문제마다 다른 선택 기준이 제시됩니다)<br/>
+            <span className="text-xs sm:text-sm">(문제마다 다른 선택 기준이 제시됩니다)</span><br/>
             총 10라운드가 진행됩니다.
           </p>
           
           <motion.button
             onClick={startGame}
-            className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-lg"
+            className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg hover:scale-105 transition-transform shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -218,30 +218,30 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   if (gameState === 'showing' && currentRoundData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
-        <div className="text-center mb-8">
-          <div className="text-lg font-bold text-gray-800 mb-2">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
+        <div className="text-center mb-4 sm:mb-8">
+          <div className="text-base sm:text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-sm text-blue-600 font-semibold">{currentRoundData?.criterion}</div>
+          <div className="text-xs sm:text-sm text-blue-600 font-semibold px-2">{currentRoundData?.criterion}</div>
         </div>
 
         <motion.div
-          className="flex items-center justify-center space-x-12"
+          className="flex items-center justify-center space-x-6 sm:space-x-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="text-center">
-            <div className="text-8xl mb-4">{currentRoundData.leftImage}</div>
-            <div className="text-lg font-semibold text-gray-700">좌</div>
+            <div className="text-5xl sm:text-6xl md:text-8xl mb-2 sm:mb-4">{currentRoundData.leftImage}</div>
+            <div className="text-sm sm:text-lg font-semibold text-gray-700">좌</div>
           </div>
           
-          <div className="text-6xl text-gray-400">VS</div>
+          <div className="text-3xl sm:text-4xl md:text-6xl text-gray-400">VS</div>
           
           <div className="text-center">
-            <div className="text-8xl mb-4">{currentRoundData.rightImage}</div>
-            <div className="text-lg font-semibold text-gray-700">우</div>
+            <div className="text-5xl sm:text-6xl md:text-8xl mb-2 sm:mb-4">{currentRoundData.rightImage}</div>
+            <div className="text-sm sm:text-lg font-semibold text-gray-700">우</div>
           </div>
         </motion.div>
       </div>
@@ -250,21 +250,21 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
 
   if (gameState === 'choosing' && currentRoundData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
-        <div className="text-center mb-8">
-          <div className="text-lg font-bold text-gray-800 mb-2">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
+        <div className="text-center mb-4 sm:mb-8">
+          <div className="text-base sm:text-lg font-bold text-gray-800 mb-2">
             라운드 {currentRound}/10 - 점수: {score}
           </div>
-          <div className="text-red-600 font-bold text-xl mb-4">
+          <div className="text-red-600 font-bold text-lg sm:text-xl mb-3 sm:mb-4">
             남은 시간: {timeLeft}초
           </div>
-          <div className="text-blue-600 font-semibold">{currentRoundData?.criterion}</div>
+          <div className="text-blue-600 font-semibold text-sm sm:text-base px-2">{currentRoundData?.criterion}</div>
         </div>
 
-        <div className="flex items-center justify-center space-x-8">
+        <div className="flex items-center justify-center space-x-4 sm:space-x-8">
           <motion.button
             onClick={() => handleChoice('left')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-8 rounded-2xl font-bold text-2xl transition-colors shadow-lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 sm:px-12 py-6 sm:py-8 rounded-2xl font-bold text-xl sm:text-2xl transition-colors shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -273,7 +273,7 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
           
           <motion.button
             onClick={() => handleChoice('right')}
-            className="bg-red-500 hover:bg-red-600 text-white px-12 py-8 rounded-2xl font-bold text-2xl transition-colors shadow-lg"
+            className="bg-red-500 hover:bg-red-600 text-white px-8 sm:px-12 py-6 sm:py-8 rounded-2xl font-bold text-xl sm:text-2xl transition-colors shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

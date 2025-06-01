@@ -25,8 +25,7 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
     setMotivationMessage('');
   };
 
-  const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault();
+  const handleTap = useCallback(() => {
     if (gameState === 'active') {
       const now = Date.now();
       setTapCount(prev => prev + 1);
@@ -128,22 +127,22 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
 
   if (gameState === 'ready') {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
         <motion.div 
-          className="text-center max-w-md"
+          className="text-center max-w-xs sm:max-w-md mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="text-6xl mb-6">⚡</div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">1분 탭핑 챌린지</h2>
-          <p className="text-gray-600 mb-8 leading-relaxed">
+          <div className="text-4xl sm:text-6xl mb-4 sm:mb-6">⚡</div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">1분 탭핑 챌린지</h2>
+          <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed px-2">
             60초 동안 화면을 최대한 빠르게 탭해보세요!<br/>
             당신의 지구력과 집중력을 테스트합니다.
           </p>
           
           <motion.button
             onClick={startGame}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-lg"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg hover:scale-105 transition-transform shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -178,50 +177,51 @@ export function TappingEnduranceTest({ onComplete }: TappingEnduranceTestProps) 
 
   if (gameState === 'active') {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-4 sm:p-8">
         {/* 상단 정보 */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center items-center gap-8">
+        <div className="text-center mb-4 sm:mb-8">
+          <div className="flex justify-center items-center gap-4 sm:gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-600">{timeLeft}</div>
-              <div className="text-sm text-gray-600">초 남음</div>
+              <div className="text-2xl sm:text-3xl font-bold text-red-600">{timeLeft}</div>
+              <div className="text-xs sm:text-sm text-gray-600">초 남음</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">{currentTapsPerSecond}</div>
-              <div className="text-sm text-gray-600">초당 속도</div>
+              <div className="text-2xl sm:text-3xl font-bold text-purple-600">{currentTapsPerSecond}</div>
+              <div className="text-xs sm:text-sm text-gray-600">초당 속도</div>
             </div>
           </div>
         </div>
 
         {/* 탭핑 영역 */}
         <motion.div
-          className={`w-80 h-80 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
+          className={`w-64 h-64 sm:w-80 sm:h-80 rounded-full flex flex-col items-center justify-center cursor-pointer transition-all duration-100 select-none ${
             isPressed 
               ? 'bg-blue-600 scale-95 shadow-lg' 
               : 'bg-blue-500 scale-100 hover:bg-blue-600 shadow-xl'
           }`}
           onMouseDown={handleTap}
-          onTouchStart={handleTap}
+          onTouchEnd={handleTap}
+          style={{ touchAction: 'manipulation' }}
           whileTap={{ scale: 0.9 }}
         >
           <div className="text-white text-center pointer-events-none">
-            <div className="text-6xl font-bold mb-2">{tapCount}</div>
-            <div className="text-lg">탭</div>
+            <div className="text-4xl sm:text-6xl font-bold mb-2">{tapCount}</div>
+            <div className="text-base sm:text-lg">탭</div>
           </div>
         </motion.div>
 
         {/* 하단 성과 메시지 및 격려 문구 */}
-        <div className="mt-8 text-center">
-          <div className="text-lg font-semibold text-gray-700">
+        <div className="mt-4 sm:mt-8 text-center px-4">
+          <div className="text-base sm:text-lg font-semibold text-gray-700">
             {getPerformanceMessage()}
           </div>
-          <div className="text-sm text-gray-500 mt-2">
+          <div className="text-xs sm:text-sm text-gray-500 mt-2">
             분당 속도: {tapCount}회/분
           </div>
           
           {motivationMessage && (
             <motion.div
-              className="text-lg font-semibold text-orange-600 bg-orange-100 px-4 py-2 rounded-full mt-4"
+              className="text-sm sm:text-lg font-semibold text-orange-600 bg-orange-100 px-3 sm:px-4 py-2 rounded-full mt-3 sm:mt-4 inline-block"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
