@@ -751,32 +751,32 @@ export default function Result() {
             <div className="flex items-start justify-center space-x-12">
               {/* Vertical Progress Bar */}
               <div className="flex-shrink-0">
-                <div className="relative w-16 bg-gray-200 rounded-full overflow-hidden" style={{ height: `${gradeInfo.length * 80}px` }}>
+                <div className="relative w-16 bg-gray-200 rounded-full overflow-hidden h-96">
                   <motion.div
                     className="absolute bottom-0 w-full bg-gradient-to-t from-green-500 via-blue-500 to-purple-500 rounded-full"
                     initial={{ height: '0%' }}
-                    animate={{ height: `${Math.min(95, (score / 10) * 95)}%` }}
+                    animate={{ height: `${(score / 10) * 100}%` }}
                     transition={{ delay: 1.2, duration: 2, ease: "easeOut" }}
                   />
                   
                   {/* 사용자 위치 표시 점 */}
                   <motion.div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
-                    initial={{ bottom: '2%' }}
+                    className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
+                    initial={{ bottom: '0%' }}
                     animate={{ 
-                      bottom: `${Math.max(5, Math.min(95, (score / 10) * 90 + 5))}%`
+                      bottom: `${(score / 10) * 100}%`
                     }}
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
+                    style={{ transform: 'translate(-50%, 50%)' }}
                   />
                 </div>
               </div>
 
               {/* Grade Labels */}
-              <div className="flex-1 max-w-md" style={{ height: `${gradeInfo.length * 80}px` }}>
-                <div className="relative h-full">
+              <div className="flex-1 max-w-md h-96">
+                <div className="relative h-full flex flex-col justify-between">
                   {gradeInfo.map((grade, index) => {
                     const isCurrentGrade = score >= grade.min && (grade.min === 10 || score < gradeInfo[index - 1]?.min);
-                    const topPosition = (index / (gradeInfo.length - 1)) * 90;
                     
                     return (
                       <motion.div
