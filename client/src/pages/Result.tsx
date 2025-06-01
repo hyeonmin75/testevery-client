@@ -157,14 +157,14 @@ export default function Result() {
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-gray-700">외향성 (E) vs 내향성 (I)</span>
                 </div>
-                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                <div className="relative h-8 bg-gray-200 rounded-full overflow-hidden">
                   <div 
                     className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-1000"
                     style={{ width: `${result.scores.E || 50}%` }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
-                    <span>E {result.scores.E || 50}%</span>
-                    <span>I {result.scores.I || 50}%</span>
+                  <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
+                    <span className="text-white drop-shadow-md">E {result.scores.E || 50}%</span>
+                    <span className="text-gray-700">I {result.scores.I || 50}%</span>
                   </div>
                 </div>
               </div>
@@ -174,14 +174,14 @@ export default function Result() {
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-gray-700">감각형 (S) vs 직관형 (N)</span>
                 </div>
-                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                <div className="relative h-8 bg-gray-200 rounded-full overflow-hidden">
                   <div 
                     className="absolute left-0 top-0 h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-1000"
                     style={{ width: `${result.scores.S || 50}%` }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
-                    <span>S {result.scores.S || 50}%</span>
-                    <span>N {result.scores.N || 50}%</span>
+                  <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
+                    <span className="text-white drop-shadow-md">S {result.scores.S || 50}%</span>
+                    <span className="text-gray-700">N {result.scores.N || 50}%</span>
                   </div>
                 </div>
               </div>
@@ -191,14 +191,14 @@ export default function Result() {
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-gray-700">사고형 (T) vs 감정형 (F)</span>
                 </div>
-                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                <div className="relative h-8 bg-gray-200 rounded-full overflow-hidden">
                   <div 
                     className="absolute left-0 top-0 h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-1000"
                     style={{ width: `${result.scores.T || 50}%` }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
-                    <span>T {result.scores.T || 50}%</span>
-                    <span>F {result.scores.F || 50}%</span>
+                  <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
+                    <span className="text-white drop-shadow-md">T {result.scores.T || 50}%</span>
+                    <span className="text-gray-700">F {result.scores.F || 50}%</span>
                   </div>
                 </div>
               </div>
@@ -208,14 +208,14 @@ export default function Result() {
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-gray-700">판단형 (J) vs 인식형 (P)</span>
                 </div>
-                <div className="relative h-6 bg-gray-200 rounded-full overflow-hidden">
+                <div className="relative h-8 bg-gray-200 rounded-full overflow-hidden">
                   <div 
                     className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-1000"
                     style={{ width: `${result.scores.J || 50}%` }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold text-white">
-                    <span>J {result.scores.J || 50}%</span>
-                    <span>P {result.scores.P || 50}%</span>
+                  <div className="absolute inset-0 flex items-center justify-between px-4 text-sm font-bold">
+                    <span className="text-white drop-shadow-md">J {result.scores.J || 50}%</span>
+                    <span className="text-gray-700">P {result.scores.P || 50}%</span>
                   </div>
                 </div>
               </div>
@@ -227,16 +227,16 @@ export default function Result() {
             {/* Personality Story */}
             {result.result.personalityStory && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-blue-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">📖</span>
                   성격 설명
                 </h4>
-                <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                <p className="text-blue-800 leading-relaxed text-sm sm:text-base">
                   {result.result.personalityStory}
                 </p>
               </motion.div>
@@ -245,16 +245,16 @@ export default function Result() {
             {/* Best Match */}
             {result.result.bestMatch && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-rose-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">💕</span>
                   이런 사람과 잘 맞아요
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base">
+                <p className="text-rose-800 text-sm sm:text-base">
                   {result.result.bestMatch}
                 </p>
               </motion.div>
@@ -263,16 +263,16 @@ export default function Result() {
             {/* Love Style */}
             {result.result.loveStyle && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-6 border border-purple-100"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-purple-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">💝</span>
                   연애 스타일
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base">
+                <p className="text-purple-800 text-sm sm:text-base">
                   {result.result.loveStyle}
                 </p>
               </motion.div>
@@ -281,16 +281,16 @@ export default function Result() {
             {/* Celebrities */}
             {result.result.celebrities && result.result.celebrities.length > 0 && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-6 border border-amber-100"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-amber-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">⭐</span>
                   유명 인물
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base">
+                <p className="text-amber-800 text-sm sm:text-base">
                   당신과 같은 유형: {result.result.celebrities.join(', ')}
                 </p>
               </motion.div>
@@ -299,16 +299,16 @@ export default function Result() {
             {/* Careers */}
             {result.result.careers && result.result.careers.length > 0 && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-100"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.1, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-emerald-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">💼</span>
                   직업/진로 추천
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base">
+                <p className="text-emerald-800 text-sm sm:text-base">
                   {result.result.careers.join(', ')}에 적합한 성향이에요
                 </p>
               </motion.div>
@@ -317,16 +317,16 @@ export default function Result() {
             {/* Animal Metaphor */}
             {result.result.animalMetaphor && (
               <motion.div
-                className="bg-white rounded-2xl p-6 shadow-xl"
+                className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.1, duration: 0.6 }}
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <h4 className="text-lg font-bold text-orange-900 mb-3 flex items-center">
                   <span className="text-xl mr-2">🐾</span>
                   동물에 비유하면
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base">
+                <p className="text-orange-800 text-sm sm:text-base">
                   {result.result.animalMetaphor}
                 </p>
               </motion.div>
@@ -336,12 +336,12 @@ export default function Result() {
           {/* Statistics */}
           {result.result.percentage && (
             <motion.div
-              className="bg-white rounded-2xl p-6 shadow-xl mb-8"
+              className="bg-gradient-to-br from-slate-50 to-gray-50 rounded-2xl p-6 border border-slate-100 mb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.6 }}
             >
-              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center justify-center">
+              <h4 className="text-lg font-bold text-slate-900 mb-4 flex items-center justify-center">
                 <span className="text-xl mr-2">📊</span>
                 전체 통계
               </h4>
