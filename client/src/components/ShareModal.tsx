@@ -113,8 +113,9 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       ctx.fillRect(margin, y, canvas.width - margin * 2, 300);
       
       ctx.fillStyle = '#1f2937';
-      ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
-      ctx.fillText('성향 분석', centerX, y + 40);
+      ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('성향 분석', centerX, y + 35);
       
       // MBTI 차원별 분석 바
       const traits = [
@@ -124,11 +125,11 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         { name: '판단형 (J) vs 인식형 (P)', jValue: result.scores?.J || 50, pValue: result.scores?.P || 50 }
       ];
 
-      let barY = y + 80;
+      let barY = y + 70;
       traits.forEach((trait, index) => {
         const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b'];
-        const barWidth = 600;
-        const barHeight = 30;
+        const barWidth = 500;
+        const barHeight = 28;
         const barX = (canvas.width - barWidth) / 2;
 
         // 배경
@@ -142,20 +143,22 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         ctx.fillStyle = colors[index];
         ctx.fillRect(barX, barY, leftWidth, barHeight);
 
-        // 텍스트
+        // 텍스트 (중앙 정렬)
         ctx.fillStyle = '#374151';
-        ctx.font = '20px "Malgun Gothic", Arial, sans-serif';
+        ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'right';
         const leftLabel = index === 0 ? `E ${leftValue}%` : index === 1 ? `S ${leftValue}%` : index === 2 ? `T ${leftValue}%` : `J ${leftValue}%`;
         const rightValue = 100 - leftValue;
         const rightLabel = index === 0 ? `I ${rightValue}%` : index === 1 ? `N ${rightValue}%` : index === 2 ? `F ${rightValue}%` : `P ${rightValue}%`;
         
-        ctx.fillText(leftLabel, barX - 80, barY + 20);
-        ctx.fillText(rightLabel, barX + barWidth + 20, barY + 20);
+        ctx.fillText(leftLabel, barX - 10, barY + 19);
+        ctx.textAlign = 'left';
+        ctx.fillText(rightLabel, barX + barWidth + 10, barY + 19);
 
-        barY += 60;
+        barY += 50;
       });
 
-      y += 380;
+      y += 320;
 
       // 상세 설명 박스 (여백 줄임)
       ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
@@ -163,14 +166,16 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       
       ctx.fillStyle = '#1f2937';
       ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+      ctx.textAlign = 'center';
       ctx.fillText('성격 설명', centerX, y + 35);
       
-      // 상세 설명 텍스트 (여백 줄임)
+      // 상세 설명 텍스트 (중앙 정렬)
       ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
       ctx.fillStyle = '#374151';
+      ctx.textAlign = 'center';
       const detailedText = result.result.detailedDescription || result.result.personalityStory || '';
       const maxLineWidth = canvas.width - margin * 2 - 60;
-      const lines = detailedText.split('\n\n').slice(0, 2); // 줄 수 제한
+      const lines = detailedText.split('\n\n').slice(0, 2);
       let textY = y + 65;
       
       lines.forEach(line => {
@@ -204,10 +209,12 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#dc2626';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('💕 이런 사람과 잘 맞아요', centerX, y + 35);
         
         ctx.fillStyle = '#374151';
         ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         
         // MBTI 유형과 궁합 퍼센트 표시
         let compatY = y + 70;
@@ -223,6 +230,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         if (result.result.bestMatch) {
           ctx.font = '16px "Malgun Gothic", Arial, sans-serif';
           ctx.fillStyle = '#6b7280';
+          ctx.textAlign = 'center';
           const reasonText = "서로 다른 강점으로 완벽한 조화를 이룹니다";
           ctx.fillText(reasonText, centerX, compatY + 10);
         }
@@ -237,10 +245,12 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#ec4899';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('💝 연애 스타일', centerX, y + 35);
         
         ctx.fillStyle = '#374151';
         ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         
         // 텍스트를 프레임 안에 맞게 줄바꿈
         const loveText = result.result.loveStyle;
@@ -275,10 +285,12 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#f59e0b';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('⭐ 유명 인물', centerX, y + 35);
         
         ctx.fillStyle = '#374151';
         ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         const celebrityText = result.result.celebrities.join(', ');
         ctx.fillText(celebrityText, centerX, y + 65);
         
@@ -292,10 +304,12 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#8b5cf6';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('💼 직업/진로 추천', centerX, y + 35);
         
         ctx.fillStyle = '#374151';
         ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         const careerText = result.result.careers.join(', ');
         ctx.fillText(careerText, centerX, y + 65);
         
@@ -309,10 +323,12 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#10b981';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('🐾 동물에 비유하면', centerX, y + 35);
         
         ctx.fillStyle = '#374151';
         ctx.font = '18px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         
         // 텍스트를 프레임 안에 맞게 줄바꿈
         const animalText = result.result.animalMetaphor;
@@ -347,14 +363,17 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
         
         ctx.fillStyle = '#6366f1';
         ctx.font = 'bold 24px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText('📊 전체 통계', centerX, y + 35);
         
         ctx.fillStyle = '#1f2937';
         ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText(`${result.result.percentage}%`, centerX, y + 75);
         
         ctx.fillStyle = '#374151';
         ctx.font = '16px "Malgun Gothic", Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillText(result.result.rarity || `전체 중 ${result.result.percentage}%의 희귀한 유형`, centerX, y + 100);
       }
 
