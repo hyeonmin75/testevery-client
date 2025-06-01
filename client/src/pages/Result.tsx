@@ -764,21 +764,7 @@ export default function Result() {
                     className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
                     initial={{ bottom: '2%' }}
                     animate={{ 
-                      bottom: (() => {
-                        // 등급에 따른 정확한 위치 계산 (각 등급이 차지하는 영역의 중앙)
-                        const currentGradeIndex = gradeInfo.findIndex(grade => 
-                          score >= grade.min && (grade.min === 10 || score < gradeInfo[gradeInfo.findIndex(g => g.min > grade.min)]?.min || true)
-                        );
-                        
-                        if (currentGradeIndex === -1) return '10%'; // 기본값
-                        
-                        // 각 등급이 전체 높이의 20%씩 차지 (5개 등급)
-                        const sectionHeight = 90 / gradeInfo.length; // 90%를 5등급으로 나눔
-                        const gradePosition = (gradeInfo.length - 1 - currentGradeIndex) * sectionHeight; // 아래서부터 계산
-                        const centerOffset = sectionHeight / 2; // 각 구간의 중앙
-                        
-                        return `${Math.max(5, Math.min(95, gradePosition + centerOffset + 5))}%`;
-                      })()
+                      bottom: `${Math.max(5, Math.min(95, (score / 10) * 90 + 5))}%`
                     }}
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
                   />

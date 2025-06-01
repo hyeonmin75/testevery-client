@@ -94,7 +94,8 @@ export function IntuitionTest({ onComplete }: IntuitionTestProps) {
     setScore(0);
     setCurrentRound(1);
     setReactionTimes([]);
-    setSelectedRounds([]); // 새 게임 시작 시 라운드 초기화
+    // 새 게임 시작 시 즉시 새로운 랜덤 라운드 생성
+    setSelectedRounds(generateRandomRounds());
   };
 
   const startRound = () => {
