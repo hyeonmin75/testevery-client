@@ -72,42 +72,179 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
     canvas.width = 1080;
     canvas.height = 1920;
 
-    // 배경 설정
     if (result.testId === 'intuition_test') {
-      // 눈치력 테스트 배경
+      // 눈치력 테스트 전용 상세 이미지
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
       gradient.addColorStop(0, '#f0fdf4');
-      gradient.addColorStop(0.5, '#eff6ff');
-      gradient.addColorStop(1, '#faf5ff');
+      gradient.addColorStop(0.3, '#eff6ff');
+      gradient.addColorStop(0.7, '#fef3ff');
+      gradient.addColorStop(1, '#f9fafb');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#1f2937';
+      ctx.textAlign = 'center';
+      let y = 120;
+
+      // 헤더
+      ctx.font = 'bold 48px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText('눈치력 테스트 결과', canvas.width / 2, y);
+      y += 80;
+
+      // 이모지
+      ctx.font = '120px Arial';
+      ctx.fillText(result.result.emoji, canvas.width / 2, y);
+      y += 150;
+
+      // 제목
+      ctx.font = 'bold 56px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(result.result.title, canvas.width / 2, y);
+      y += 100;
+
+      // 점수 표시
+      const scores = result.scores;
+      const score = Math.round(scores?.score || 0);
+      
+      ctx.font = 'bold 72px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#059669';
+      ctx.fillText(`점수: ${score}/10`, canvas.width / 2, y);
+      y += 100;
+
+      // 등급 정보
+      const gradeInfo = [
+        { name: "눈치력 천재", emoji: "🧠", min: 9, desc: "최상급 눈치력" },
+        { name: "눈치력 고수", emoji: "⭐", min: 8, desc: "매우 높은 눈치력" },
+        { name: "눈치력 우수", emoji: "👍", min: 7, desc: "우수한 눈치력" },
+        { name: "눈치력 보통", emoji: "😊", min: 6, desc: "평균적인 눈치력" },
+        { name: "눈치력 초보", emoji: "🌱", min: 5, desc: "노력이 필요함" },
+        { name: "사회성 훈련 필요", emoji: "📚", min: 0, desc: "더 많은 연습이 필요함" }
+      ];
+
+      const currentGrade = gradeInfo.find(grade => 
+        score >= grade.min && (grade.min === 10 || score < gradeInfo[gradeInfo.indexOf(grade) - 1]?.min)
+      ) || gradeInfo[gradeInfo.length - 1];
+
+      ctx.font = 'bold 44px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#7c3aed';
+      ctx.fillText(`등급: ${currentGrade.name}`, canvas.width / 2, y);
+      y += 80;
+
+      // 설명
+      ctx.font = '32px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#374151';
+      const words = result.result.description.split(' ');
+      let line = '';
+      const maxWidth = 800;
+      
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && i > 0) {
+          ctx.fillText(line, canvas.width / 2, y);
+          line = words[i] + ' ';
+          y += 50;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, canvas.width / 2, y);
+      y += 80;
+
+      // 반응속도 분석
+      if (result.averageReactionTime) {
+        ctx.font = 'bold 36px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillStyle = '#dc2626';
+        ctx.fillText('반응속도 분석', canvas.width / 2, y);
+        y += 60;
+        
+        ctx.font = '28px "Malgun Gothic", Arial, sans-serif';
+        ctx.fillStyle = '#374151';
+        ctx.fillText(`평균 반응속도: ${result.averageReactionTime.toFixed(0)}ms`, canvas.width / 2, y);
+        y += 50;
+        
+        const speedGrade = result.averageReactionTime < 500 ? '매우 빠름' :
+                          result.averageReactionTime < 700 ? '빠름' :
+                          result.averageReactionTime < 900 ? '보통' : '느림';
+        ctx.fillText(`반응속도 등급: ${speedGrade}`, canvas.width / 2, y);
+        y += 80;
+      }
+
+      // 등급표 시각화
+      ctx.font = 'bold 32px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#1f2937';
+      ctx.fillText('눈치력 등급표', canvas.width / 2, y);
+      y += 60;
+
+      // 등급표 막대 그래프
+      const barWidth = 500;
+      const barHeight = 200;
+      const barX = (canvas.width - barWidth) / 2;
+      
+      // 배경 막대
+      ctx.fillStyle = '#e5e7eb';
+      ctx.fillRect(barX, y, barWidth, barHeight);
+      
+      // 점수 막대
+      const scoreWidth = (score / 10) * barWidth;
+      const scoreGradient = ctx.createLinearGradient(barX, y, barX + barWidth, y);
+      scoreGradient.addColorStop(0, '#10b981');
+      scoreGradient.addColorStop(0.5, '#3b82f6');
+      scoreGradient.addColorStop(1, '#8b5cf6');
+      ctx.fillStyle = scoreGradient;
+      ctx.fillRect(barX, y, scoreWidth, barHeight);
+      
+      // 점수 마커
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(barX + scoreWidth, y + barHeight / 2, 20, 0, Math.PI * 2);
+      ctx.fill();
+      
+      y += barHeight + 60;
+
+      // 등급 라벨들
+      ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillStyle = '#374151';
+      gradeInfo.forEach((grade, index) => {
+        const isCurrentGrade = grade === currentGrade;
+        if (isCurrentGrade) {
+          ctx.fillStyle = '#dc2626';
+          ctx.font = 'bold 28px "Malgun Gothic", Arial, sans-serif';
+        } else {
+          ctx.fillStyle = '#6b7280';
+          ctx.font = '24px "Malgun Gothic", Arial, sans-serif';
+        }
+        ctx.fillText(`${grade.emoji} ${grade.name} (${grade.min}점 이상)`, canvas.width / 2, y);
+        y += 40;
+      });
+
     } else {
-      // 일반 테스트 배경
+      // 일반 테스트 이미지
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
       gradient.addColorStop(0, '#667eea');
       gradient.addColorStop(1, '#764ba2');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      let y = 200;
+
+      // 이모지
+      ctx.font = '80px Arial';
+      ctx.fillText(result.result.emoji, canvas.width / 2, y);
+      y += 120;
+
+      // 제목
+      ctx.font = 'bold 42px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(`당신은 ${result.result.title}입니다!`, canvas.width / 2, y);
+      y += 80;
+
+      // 설명
+      ctx.font = '30px "Malgun Gothic", Arial, sans-serif';
+      ctx.fillText(result.result.description, canvas.width / 2, y);
     }
-
-    // 텍스트 설정
-    ctx.fillStyle = result.testId === 'intuition_test' ? '#1f2937' : 'white';
-    ctx.textAlign = 'center';
-    let y = 200;
-
-    // 이모지
-    ctx.font = '80px Arial';
-    ctx.fillText(result.result.emoji, canvas.width / 2, y);
-    y += 120;
-
-    // 제목
-    ctx.font = 'bold 42px "Malgun Gothic", Arial, sans-serif';
-    ctx.fillText(`당신은 ${result.result.title}입니다!`, canvas.width / 2, y);
-    y += 80;
-
-    // 설명
-    ctx.font = '30px "Malgun Gothic", Arial, sans-serif';
-    ctx.fillText(result.result.description, canvas.width / 2, y);
 
     // 다운로드
     const link = document.createElement('a');
