@@ -222,11 +222,28 @@ export default function Home() {
                 <i className="fab fa-instagram"></i>
               </motion.a>
             </div>
-            <p className="mb-2">
+            <p className="mb-4">
               모든 테스트는 재미를 위한 것이며, 과학적 근거를 바탕으로 하지
               않습니다.
             </p>
-            <p>결과를 친구들과 공유하고 함께 즐겨보세요! ✨</p>
+            <p className="mb-6">결과를 친구들과 공유하고 함께 즐겨보세요! ✨</p>
+            
+            {/* Legal Links */}
+            <div className="flex justify-center gap-4 text-sm text-gray-400">
+              <a 
+                href="/privacy" 
+                className="hover:text-gray-600 transition-colors"
+              >
+                개인정보처리방침
+              </a>
+              <span>|</span>
+              <a 
+                href="/terms" 
+                className="hover:text-gray-600 transition-colors"
+              >
+                이용약관
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
