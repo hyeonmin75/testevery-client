@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>모두의 테스트 - 재미있는 심리테스트 모음</title>
+    <description>MBTI 성격유형, 반응속도, 직감테스트 등 다양한 심리테스트로 자신을 발견하고 친구들과 공유하세요. 무료로 즐기는 재미있는 테스트 모음집!</description>
+    <link>https://testevery.com</link>
+    <language>ko-KR</language>
+    <lastBuildDate>Mon, 01 Jun 2025 12:00:00 +0900</lastBuildDate>
+    <atom:link href="https://testevery.com/rss.xml" rel="self" type="application/rss+xml" />
+    <generator>모두의 테스트</generator>
+    
+    <item>
+      <title>MBTI 성격유형 테스트 - 16가지 성격 발견하기</title>
+      <description>세계에서 가장 유명한 성격유형 검사 MBTI로 나의 진짜 성격을 알아보세요. 내향형인지 외향형인지, 감정형인지 사고형인지 정확하게 분석합니다.</description>
+      <link>https://testevery.com/test/mbti</link>
+      <guid>https://testevery.com/test/mbti</guid>
+      <pubDate>Mon, 01 Jun 2025 12:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>동물상 테스트 - 나와 닮은 동물 찾기</title>
+      <description>귀여운 강아지상부터 시크한 고양이상까지! 나의 외모와 성격에 가장 어울리는 동물상을 찾아보세요.</description>
+      <link>https://testevery.com/test/animal</link>
+      <guid>https://testevery.com/test/animal</guid>
+      <pubDate>Mon, 01 Jun 2025 12:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>반응속도 테스트 - 순간 판단력 측정</title>
+      <description>화면이 초록색으로 바뀌는 순간 얼마나 빠르게 반응할 수 있는지 측정해보세요. 나의 반사신경과 집중력을 확인해보세요!</description>
+      <link>https://testevery.com/test/reaction</link>
+      <guid>https://testevery.com/test/reaction</guid>
+      <pubDate>Mon, 01 Jun 2025 12:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>직감력 테스트 - 첫인상 판단력 분석</title>
+      <description>두 장의 사진 중 어느 것이 더 매력적인지 직감으로 선택해보세요. 나의 심미안과 직관력을 측정합니다.</description>
+      <link>https://testevery.com/test/intuition</link>
+      <guid>https://testevery.com/test/intuition</guid>
+      <pubDate>Mon, 01 Jun 2025 12:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>지구력 테스트 - 연속 탭핑 능력 측정</title>
+      <description>10초 동안 얼마나 많이 탭할 수 있는지 도전해보세요. 나의 순발력과 지구력을 동시에 측정하는 재미있는 테스트입니다.</description>
+      <link>https://testevery.com/test/endurance</link>
+      <guid>https://testevery.com/test/endurance</guid>
+      <pubDate>Mon, 01 Jun 2025 12:00:00 +0900</pubDate>
+    </item>
+  </channel>
+</rss>
