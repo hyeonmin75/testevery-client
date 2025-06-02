@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { TestCard } from "../components/TestCard";
 import { ContactButton } from "../components/ContactButton";
 import { tests } from "../data/tests";
@@ -291,15 +291,15 @@ export default function Home() {
             
             {/* Navigation Links */}
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400 mb-4">
-              <a href="/about" className="hover:text-gray-600 transition-colors">소개</a>
+              <Link href="/about" className="hover:text-gray-600 transition-colors">소개</Link>
               <span>|</span>
-              <a href="/guide" className="hover:text-gray-600 transition-colors">결과해석</a>
+              <Link href="/guide" className="hover:text-gray-600 transition-colors">결과해석</Link>
               <span>|</span>
-              <a href="/faq" className="hover:text-gray-600 transition-colors">FAQ</a>
+              <Link href="/faq" className="hover:text-gray-600 transition-colors">FAQ</Link>
               <span>|</span>
-              <a href="/privacy" className="hover:text-gray-600 transition-colors">개인정보처리방침</a>
+              <Link href="/privacy" className="hover:text-gray-600 transition-colors">개인정보처리방침</Link>
               <span>|</span>
-              <a href="/terms" className="hover:text-gray-600 transition-colors">이용약관</a>
+              <Link href="/terms" className="hover:text-gray-600 transition-colors">이용약관</Link>
               <span>|</span>
               <button
                 onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfaqVaA-uJd0IhJe2tN4Dfh7i8A5m4KAa7B6F11Q9UBKT4Nzg/viewform?usp=sharing", "_blank", "noopener,noreferrer")}
