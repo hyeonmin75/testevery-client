@@ -125,7 +125,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              모두의 테스트
+              무료 심리테스트 모음
             </motion.h1>
 
             <motion.div
@@ -134,12 +134,12 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <p className="text-gray-600 text-base sm:text-lg lg:text-xl leading-loose max-w-2xl mx-auto break-keep hyphens-auto px-6 sm:px-4">
-                지금 가장 핫한 테스트들이 여기 다 모였다!
+                MBTI 성격유형, 동물상, 직감력 등 다양한 심리테스트로 나를 알아가세요!
                 <br />
                 <span className="text-purple-600 font-semibold break-keep">
-                  {Object.keys(tests).length}가지 중독성 있는 테스트
+                  {Object.keys(tests).length}가지 무료 성격테스트
                 </span>
-                로 친구들과 함께 즐기세요
+                로 친구들과 함께 성격분석을 즐기세요
               </p>
               <div className="mt-4 sm:mt-6 flex justify-center gap-3 sm:gap-4 text-xl sm:text-2xl">
                 <motion.span
