@@ -18,11 +18,13 @@ import { friendshipTest } from './friendship';
 import { tappingEnduranceTest } from './tapping-endurance';
 import { intuitionTest } from './intuition-test';
 import { mbtiTest } from './mbti';
+import { burnoutRiskTest } from './burnout-risk';
 
 
 
 export const tests: Record<string, TestData> = {
   mbti: mbtiTest,
+  burnout_risk_test: burnoutRiskTest,
   tapping_endurance: tappingEnduranceTest,
   intuition_test: intuitionTest,
   animal: animalTest,
