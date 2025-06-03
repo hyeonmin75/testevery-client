@@ -8,7 +8,7 @@ export const burnoutRiskTest: TestData = {
   color: 'purple',
   duration: '약 2분',
   questionCount: 12,
-  participants: 8947,
+  participants: 15623,
   questions: [
     {
       id: 1,
