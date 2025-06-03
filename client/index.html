@@ -72,6 +72,17 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Naver Analytics -->
+    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+    <script type="text/javascript">
+    if(!wcs_add) var wcs_add = {};
+    wcs_add["wa"] = "6dc0bf68d89b40";
+    if(window.wcs) {
+      wcs_do();
+    }
+    </script>
+    
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script
       type="text/javascript"
