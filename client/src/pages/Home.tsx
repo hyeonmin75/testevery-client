@@ -241,6 +241,22 @@ export default function Home() {
             </div>
           </motion.div>
 
+          {/* Test Cards */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {(Object.values(updatedTests).length > 0 ? Object.values(updatedTests) : Object.values(tests)).map((test) => {
+              return (
+                <motion.div key={test.id} variants={itemVariants}>
+                  <TestCard test={test} onStartTest={handleStartTest} />
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
           {/* Educational Content Section */}
           <motion.div
             className="mb-8 lg:mb-12"
@@ -292,22 +308,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Test Cards */}
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {(Object.values(updatedTests).length > 0 ? Object.values(updatedTests) : Object.values(tests)).map((test) => {
-              return (
-                <motion.div key={test.id} variants={itemVariants}>
-                  <TestCard test={test} onStartTest={handleStartTest} />
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
           {/* Statistics and Trust Indicators */}
           <motion.div
             className="mb-8 lg:mb-12"
@@ -321,7 +321,7 @@ export default function Home() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 <div>
-                  <div className="text-3xl lg:text-4xl font-bold mb-2">20+</div>
+                  <div className="text-3xl lg:text-4xl font-bold mb-2">15+</div>
                   <div className="text-indigo-100 text-sm">다양한 테스트</div>
                 </div>
                 <div>
