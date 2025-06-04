@@ -25,7 +25,7 @@ export default function Result() {
 
     const timer = setTimeout(() => {
       const savedResult = sessionStorage.getItem('currentTestResult');
-      
+
       if (savedResult) {
         try {
           const parsedResult = JSON.parse(savedResult);
@@ -70,7 +70,7 @@ export default function Result() {
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           />
-          
+
           <div className="bg-white rounded-full p-2 w-80 mx-auto">
             <div className="bg-gray-200 rounded-full h-4">
               <motion.div
@@ -137,7 +137,7 @@ export default function Result() {
                 당신의 성격유형: {result.resultId}
               </span>
             </h2>
-            
+
             <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto px-4 break-keep">
               {result.result.detailedDescription}
             </p>
@@ -151,7 +151,7 @@ export default function Result() {
             transition={{ delay: 0.6, duration: 0.6 }}
           >
             <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">성향 분석</h3>
-            
+
             <div className="space-y-6">
               {/* E/I Dimension */}
               <div className="space-y-2">
@@ -403,7 +403,7 @@ export default function Result() {
             </div>
           </motion.div>
         </div>
-        
+
         <ShareModal
           isOpen={showShareModal}
           onClose={() => setShowShareModal(false)}
@@ -418,7 +418,7 @@ export default function Result() {
   if (testData.id === 'tapping_endurance' && result.scores?.tapCount) {
     const tapCount = result.scores.tapCount;
     const tapsPerSecond = (tapCount / 60).toFixed(1);
-    
+
     const getRankInfo = (count: number) => {
       if (count >= 400) return { name: '전설', emoji: '👑', color: 'purple', next: null };
       if (count >= 350) return { name: '마스터', emoji: '🔥', color: 'red', next: 400 };
@@ -512,7 +512,7 @@ export default function Result() {
                 </span>
                 <span className="block sm:inline"> 입니다!</span>
               </h2>
-              
+
               <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8">
                 <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto whitespace-pre-line">
                   {tapCount >= 350 ? 
@@ -549,7 +549,7 @@ export default function Result() {
             transition={{ delay: 0.9, duration: 0.6 }}
           >
             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">전체 등급표</h3>
-            
+
             <div className="flex items-start justify-center space-x-12">
               {/* Vertical Progress Bar - Full Height */}
               <div className="flex-shrink-0">
@@ -561,7 +561,7 @@ export default function Result() {
                     animate={{ height: `${Math.min(95, (tapCount / 400) * 95)}%` }}
                     transition={{ delay: 1.5, duration: 2, ease: "easeOut" }}
                   />
-                  
+
                   {/* Current position indicator */}
                   <motion.div
                     className="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
@@ -578,7 +578,7 @@ export default function Result() {
                   {allRanks.map((rank, index) => {
                     const isCurrentRank = tapCount >= rank.min && (rank.min === 400 || tapCount < allRanks[index - 1]?.min);
                     const topPosition = (index / (allRanks.length - 1)) * 90;
-                    
+
                     return (
                       <motion.div
                         key={rank.name}
@@ -679,7 +679,7 @@ export default function Result() {
     const score = result.scores.score;
     const maxScore = 10;
     const percentage = (score / maxScore) * 100;
-    
+
     const gradeInfo = [
       { name: '눈치 핵고수', min: 10, emoji: '🧠', color: 'purple' },
       { name: '눈치 만렙 근접', min: 8, emoji: '🎯', color: 'blue' },
@@ -723,7 +723,7 @@ export default function Result() {
                   {currentGrade.name}
                 </span>
               </h2>
-              
+
               <div className="bg-gray-50 rounded-2xl p-8 mb-6">
                 <div className="text-6xl font-black text-green-600 mb-2">{score}</div>
                 <div className="text-2xl text-gray-600">/ 10점</div>
@@ -744,7 +744,7 @@ export default function Result() {
             transition={{ delay: 0.6, duration: 0.6 }}
           >
             <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">눈치력 등급표</h3>
-            
+
             <div className="flex items-start justify-center space-x-12">
               {/* Vertical Progress Bar */}
               <div className="flex-shrink-0">
@@ -755,7 +755,7 @@ export default function Result() {
                     animate={{ height: `${(score / 10) * 100}%` }}
                     transition={{ delay: 1.2, duration: 2, ease: "easeOut" }}
                   />
-                  
+
                   {/* 사용자 위치 표시 점 */}
                   <motion.div
                     className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full shadow-xl z-10"
@@ -774,7 +774,7 @@ export default function Result() {
                 <div className="relative h-full flex flex-col justify-between">
                   {gradeInfo.map((grade, index) => {
                     const isCurrentGrade = score >= grade.min && (grade.min === 10 || score < gradeInfo[index - 1]?.min);
-                    
+
                     return (
                       <motion.div
                         key={grade.name}
@@ -818,14 +818,14 @@ export default function Result() {
               transition={{ delay: 0.9, duration: 0.6 }}
             >
               <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">반응속도 분석</h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl">
                   <div className="text-3xl mb-3">⚡</div>
                   <div className="text-lg font-bold text-blue-700 mb-1">평균 반응속도</div>
                   <div className="text-3xl font-bold text-blue-800">{result.scores.averageReactionTime}ms</div>
                 </div>
-                
+
                 <div className="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl">
                   <div className="text-3xl mb-3">🎯</div>
                   <div className="text-lg font-bold text-green-700 mb-1">정답률</div>
@@ -931,7 +931,7 @@ export default function Result() {
           >
             {result.result.emoji}
           </motion.div>
-          
+
           <motion.h1
             className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-4 sm:mb-6 text-gray-800 break-keep px-4 leading-tight"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -942,7 +942,7 @@ export default function Result() {
               {result.result.title}
             </span>입니다!
           </motion.h1>
-          
+
           <motion.p
             className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-loose break-keep hyphens-auto px-6"
             initial={{ opacity: 0 }}
@@ -961,7 +961,7 @@ export default function Result() {
           transition={{ delay: 0.6, duration: 0.6 }}
         >
           <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center break-keep">성격 특성</h3>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {result.result.traits.map((trait, index) => (
               <motion.div
@@ -1066,62 +1066,12 @@ export default function Result() {
           </div>
         </motion.div>
 
-        {/* Recommended Tests */}
-        <motion.div
-          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
-        >
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">추천 테스트</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(() => {
-              // 현재 테스트에 따른 추천 테스트 선별
-              const getRecommendedTests = () => {
-                const allTests = [
-                  { id: 'mbti', title: 'MBTI 성격유형', emoji: '🧠', description: '당신의 성격 유형을 정확하게 분석' },
-
-                  { id: 'burnout_risk_test', title: '번아웃 위험도', emoji: '🔥', description: '직무 스트레스와 탈진 위험도 체크' },
-                  { id: 'reaction_speed', title: '반응속도', emoji: '⚡', description: '빠른 반응속도를 측정' },
-                  { id: 'tapping_endurance', title: '탭핑 지구력', emoji: '💪', description: '1분간 탭핑 지구력 테스트' },
-                  { id: 'intuition_test', title: '눈치력', emoji: '👀', description: '관찰력과 직감 능력 측정' },
-                  { id: 'animal', title: '동물 성격', emoji: '🐾', description: '당신과 닮은 동물 찾기' },
-                  { id: 'love', title: '연애 유형', emoji: '💕', description: '당신의 연애 스타일 분석' },
-                  { id: 'career', title: '직업 적성', emoji: '💼', description: '나에게 맞는 직업 찾기' }
-                ];
-                
-                // 현재 테스트 제외하고 랜덤하게 3개 선택
-                const filtered = allTests.filter(test => test.id !== testId);
-                const shuffled = filtered.sort(() => 0.5 - Math.random());
-                return shuffled.slice(0, 3);
-              };
-              
-              return getRecommendedTests().map((test, index) => (
-                <motion.div
-                  key={test.id}
-                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 cursor-pointer hover:scale-105 transition-transform shadow-lg"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2.0 + index * 0.1 }}
-                  onClick={() => setLocation(`/test/${test.id}`)}
-                >
-                  <div className="text-center">
-                    <div className="text-4xl mb-3">{test.emoji}</div>
-                    <h4 className="font-bold text-gray-800 mb-2 break-keep">{test.title}</h4>
-                    <p className="text-sm text-gray-600 break-keep">{test.description}</p>
-                  </div>
-                </motion.div>
-              ));
-            })()}
-          </div>
-        </motion.div>
-
         {/* Action Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.2, duration: 0.6 }}
+          transition={{ delay: 2.0, duration: 0.6 }}
         >
           <button
             onClick={() => setShowShareModal(true)}

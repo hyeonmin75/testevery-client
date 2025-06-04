@@ -6,7 +6,7 @@ import { ProgressBar } from '../components/ProgressBar';
 import { ReactionTest } from '../components/ReactionTest';
 import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
 import { IntuitionTest } from '../components/IntuitionTest';
-
+import { ConcentrationTest } from '../components/ConcentrationTest';
 
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
@@ -34,16 +34,16 @@ export default function Test() {
   useEffect(() => {
     if (testData && session && isTestComplete(testData) && !isLoading) {
       setIsLoading(true);
-      
+
       const processResult = async () => {
         await finishTest(testData);
-        
+
         // 결과 계산 완료 후 페이지 이동
         setTimeout(() => {
           setLocation(`/result/${testId}`);
         }, 1000);
       };
-      
+
       processResult();
     }
   }, [testData, isTestComplete, finishTest, isLoading, setLocation, testId]);
@@ -51,13 +51,13 @@ export default function Test() {
   const handleReactionComplete = (reactionTime: number) => {
     const newReactionTimes = [...reactionTimes, reactionTime];
     setReactionTimes(newReactionTimes);
-    
+
     if (currentReactionRound < 5) {
       setCurrentReactionRound(prev => prev + 1);
     } else {
       // 모든 라운드 완료 - 평균 계산하여 결과 도출
       const averageTime = newReactionTimes.reduce((sum, time) => sum + time, 0) / newReactionTimes.length;
-      
+
       // 반응속도에 따른 결과 결정
       let resultType = 'steady';
       if (averageTime < 250) {
@@ -67,7 +67,7 @@ export default function Test() {
       } else if (averageTime < 450) {
         resultType = 'eagle';
       }
-      
+
       // 세션 스토리지에 반응속도 결과 저장
       const result = {
         resultId: resultType,
@@ -78,7 +78,7 @@ export default function Test() {
         averageReactionTime: Math.round(averageTime),
         allReactionTimes: newReactionTimes
       };
-      
+
       sessionStorage.setItem('currentTestResult', JSON.stringify(result));
       setLocation(`/result/${testId}`);
     }
@@ -86,7 +86,7 @@ export default function Test() {
 
   const handleTappingComplete = (tapCount: number) => {
     if (!testData) return;
-    
+
     // 탭핑 횟수에 따른 결과 등급 결정
     let resultType = 'starter';
     if (tapCount >= 400) {
@@ -124,7 +124,7 @@ export default function Test() {
 
   const handleIntuitionComplete = (score: number, reactionTimes: number[]) => {
     if (!testData) return;
-    
+
     // 점수에 따른 결과 등급 결정
     let resultType = 'oblivious';
     if (score === 10) {
@@ -154,19 +154,17 @@ export default function Test() {
     setLocation(`/result/${testId}`);
   };
 
-
-
   const handleSelectOption = async (optionId: string) => {
     if (isAnimating || !testData || !session) return;
-    
+
     setSelectedOptionId(optionId);
     setIsAnimating(true);
 
     // Wait for selection animation
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     answerQuestion(optionId);
-    
+
     // 답변 후 테스트 완료 여부 확인
     const nextQuestionIndex = session.currentQuestionIndex + 1;
     if (nextQuestionIndex >= testData.questions.length) {
@@ -175,7 +173,7 @@ export default function Test() {
       // 결과 페이지로 이동
       setLocation(`/result/${testId}`);
     }
-    
+
     setSelectedOptionId('');
     setIsAnimating(false);
   };
@@ -318,7 +316,70 @@ export default function Test() {
     );
   }
 
+  // 집중력 테스트인 경우 특별한 렌더링
+  if (testData.id === 'concentration_test') {
+    return (
+      <div className="min-h-screen bg-gradient-korean">
+        {/* Header */}
+        <motion.div 
+          className="bg-white shadow-lg p-2 sm:p-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-4xl mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center justify-between">
+              <motion.button
+                onClick={handleBack}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm md:text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                >
+                <i className="fas fa-arrow-left"></i>
+                <span>홈으로 돌아가기</span>
+              </motion.button>
 
+              <div className="text-base md:text-lg font-semibold text-gray-800 text-center">
+                {testData.emoji} {testData.title}
+              </div>
+              <div className="text-xs md:text-sm text-gray-500">
+                집중력 테스트
+              </div>
+            </div>
+
+            {/* Mobile Layout */}
+            <div className="sm:hidden">
+              <div className="flex items-center justify-between mb-2">
+                <motion.button
+                  onClick={handleBack}
+                  className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <i className="fas fa-arrow-left text-xs"></i>
+                  <span>홈</span>
+                </motion.button>
+                <div className="text-xs text-gray-500">
+                  집중력 테스트
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-gray-800">
+                  {testData.emoji} {testData.title}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Concentration Test Component */}
+        <ConcentrationTest
+          onComplete={handleConcentrationComplete}
+        />
+      </div>
+    );
+  }
 
   // 눈치 테스트인 경우 특별한 렌더링
   if (testData.id === 'intuition_test') {
@@ -443,4 +504,41 @@ export default function Test() {
       </div>
     </div>
   );
+
+  function getRankScore(rank: string) {
+    throw new Error('Function not implemented.');
+  }
+
+  const handleConcentrationComplete = (result: {
+    score: number;
+    correctCount: number;
+    totalCount: number;
+    averageReactionTime: number;
+    missedCount: number;
+  }) => {
+    const percentage = Math.round((result.correctCount / result.totalCount) * 100);
+    let resultType = '';
+
+    if (result.score >= 18) resultType = '초집중형';
+    else if (result.score >= 14) resultType = '안정형';
+    else if (result.score >= 10) resultType = '변동형';
+    else if (result.score >= 6) resultType = '분산형';
+    else resultType = '자유형';
+
+    setLocation(`/result/${testId}`, { 
+      state: { 
+        result: { 
+          type: resultType,
+          scores: {
+            concentrationScore: result.score,
+            correctCount: result.correctCount,
+            totalCount: result.totalCount,
+            averageReactionTime: result.averageReactionTime,
+            missedCount: result.missedCount,
+            accuracy: percentage
+          }
+        } 
+      } 
+    });
+  };
 }
