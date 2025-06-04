@@ -241,6 +241,57 @@ export default function Home() {
             </div>
           </motion.div>
 
+          {/* Educational Content Section */}
+          <motion.div
+            className="mb-8 lg:mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.6 }}
+          >
+            <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-xl">
+              <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-6 text-center">
+                📚 심리학 교육 콘텐츠
+              </h2>
+              <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+                전문적인 심리학 지식과 최신 연구 결과를 쉽게 이해할 수 있도록 제공합니다
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.div
+                  className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 cursor-pointer hover:scale-105 transition-transform"
+                  onClick={() => setLocation('/psychology')}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="text-4xl mb-4">🧠</div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">심리학적 기초와 성격 이론</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    MBTI의 이론적 배경인 칼 융의 심리유형론부터 현대 성격 심리학의 빅 파이브 모델까지, 
+                    성격 테스트의 과학적 근거를 상세히 설명합니다.
+                  </p>
+                  <div className="flex items-center text-purple-600 text-sm font-semibold">
+                    자세히 보기 →
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-6 cursor-pointer hover:scale-105 transition-transform"
+                  onClick={() => setLocation('/blog')}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="text-4xl mb-4">📝</div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">심리학 인사이트 블로그</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    최신 심리학 연구 결과와 일상생활에서 활용할 수 있는 심리학적 통찰을 정기적으로 
+                    업데이트하여 제공합니다.
+                  </p>
+                  <div className="flex items-center text-green-600 text-sm font-semibold">
+                    블로그 보기 →
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Test Cards */}
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
@@ -255,6 +306,38 @@ export default function Home() {
                 </motion.div>
               );
             })}
+          </motion.div>
+
+          {/* Statistics and Trust Indicators */}
+          <motion.div
+            className="mb-8 lg:mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0, duration: 0.6 }}
+          >
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl lg:rounded-3xl p-6 lg:p-8 text-white">
+              <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-center">
+                📊 플랫폼 신뢰도 지표
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                  <div className="text-3xl lg:text-4xl font-bold mb-2">20+</div>
+                  <div className="text-indigo-100 text-sm">다양한 테스트</div>
+                </div>
+                <div>
+                  <div className="text-3xl lg:text-4xl font-bold mb-2">50K+</div>
+                  <div className="text-indigo-100 text-sm">총 참여자 수</div>
+                </div>
+                <div>
+                  <div className="text-3xl lg:text-4xl font-bold mb-2">4.8/5</div>
+                  <div className="text-indigo-100 text-sm">사용자 만족도</div>
+                </div>
+                <div>
+                  <div className="text-3xl lg:text-4xl font-bold mb-2">100%</div>
+                  <div className="text-indigo-100 text-sm">개인정보 보호</div>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* Footer */}
