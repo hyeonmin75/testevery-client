@@ -25,25 +25,26 @@ export function FocusDurationTest({ onComplete }: FocusDurationTestProps) {
       return;
     }
 
-    // 0.8초 후에 무작위 위치에 타겟 표시
+    // 0.5-1.2초 사이 랜덤 간격으로 타겟 표시
+    const randomDelay = Math.random() * 700 + 500; // 500-1200ms
     timeoutRef.current = setTimeout(() => {
       const randomPosition = Math.floor(Math.random() * 9);
       setTargetPosition(randomPosition);
       setIsTargetVisible(true);
       setRoundStartTime(Date.now());
       
-      // 2초 후에 타겟이 사라짐 (놓친 것으로 처리)
+      // 1.5초 후에 타겟이 사라짐 (놓친 것으로 처리) - 더 빠른 반응 요구
       targetTimeoutRef.current = setTimeout(() => {
         if (isTargetVisible) {
           setIsTargetVisible(false);
           setTargetPosition(null);
-          // 반응시간을 2000ms로 기록 (놓친 경우)
-          setReactionTimes(prev => [...prev, 2000]);
+          // 반응시간을 1500ms로 기록 (놓친 경우)
+          setReactionTimes(prev => [...prev, 1500]);
           setCurrentRound(prev => prev + 1);
-          setTimeout(startRound, 500);
+          setTimeout(startRound, 300); // 더 빠른 다음 라운드 진행
         }
-      }, 2000);
-    }, 800);
+      }, 1500);
+    }, randomDelay);
   }, [currentRound, isTargetVisible]);
 
   const startTest = () => {
@@ -84,7 +85,7 @@ export function FocusDurationTest({ onComplete }: FocusDurationTestProps) {
       }
       
       setCurrentRound(prev => prev + 1);
-      setTimeout(startRound, 500);
+      setTimeout(startRound, 300);
     }
   };
 

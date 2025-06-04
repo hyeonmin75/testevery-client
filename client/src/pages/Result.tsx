@@ -1066,12 +1066,62 @@ export default function Result() {
           </div>
         </motion.div>
 
+        {/* Recommended Tests */}
+        <motion.div
+          className="bg-white rounded-3xl p-8 shadow-xl mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+        >
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">추천 테스트</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {(() => {
+              // 현재 테스트에 따른 추천 테스트 선별
+              const getRecommendedTests = () => {
+                const allTests = [
+                  { id: 'mbti', title: 'MBTI 성격유형', emoji: '🧠', description: '당신의 성격 유형을 정확하게 분석' },
+                  { id: 'focus_duration_test', title: '집중력 측정', emoji: '🎯', description: '집중력 지속시간을 정확히 측정' },
+                  { id: 'burnout_risk_test', title: '번아웃 위험도', emoji: '🔥', description: '직무 스트레스와 탈진 위험도 체크' },
+                  { id: 'reaction_speed', title: '반응속도', emoji: '⚡', description: '빠른 반응속도를 측정' },
+                  { id: 'tapping_endurance', title: '탭핑 지구력', emoji: '💪', description: '1분간 탭핑 지구력 테스트' },
+                  { id: 'intuition_test', title: '눈치력', emoji: '👀', description: '관찰력과 직감 능력 측정' },
+                  { id: 'animal', title: '동물 성격', emoji: '🐾', description: '당신과 닮은 동물 찾기' },
+                  { id: 'love', title: '연애 유형', emoji: '💕', description: '당신의 연애 스타일 분석' },
+                  { id: 'career', title: '직업 적성', emoji: '💼', description: '나에게 맞는 직업 찾기' }
+                ];
+                
+                // 현재 테스트 제외하고 랜덤하게 3개 선택
+                const filtered = allTests.filter(test => test.id !== testId);
+                const shuffled = filtered.sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, 3);
+              };
+              
+              return getRecommendedTests().map((test, index) => (
+                <motion.div
+                  key={test.id}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 cursor-pointer hover:scale-105 transition-transform shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.0 + index * 0.1 }}
+                  onClick={() => setLocation(`/test/${test.id}`)}
+                >
+                  <div className="text-center">
+                    <div className="text-4xl mb-3">{test.emoji}</div>
+                    <h4 className="font-bold text-gray-800 mb-2 break-keep">{test.title}</h4>
+                    <p className="text-sm text-gray-600 break-keep">{test.description}</p>
+                  </div>
+                </motion.div>
+              ));
+            })()}
+          </div>
+        </motion.div>
+
         {/* Action Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.0, duration: 0.6 }}
+          transition={{ delay: 2.2, duration: 0.6 }}
         >
           <button
             onClick={() => setShowShareModal(true)}
