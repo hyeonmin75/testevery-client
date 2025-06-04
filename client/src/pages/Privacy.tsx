@@ -73,11 +73,48 @@ export default function Privacy() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-800 mb-4">5. 쿠키 사용</h2>
-              <p className="text-gray-600 leading-relaxed">
-                본 웹사이트는 서비스 개선을 위해 쿠키를 사용할 수 있습니다. 
-                브라우저 설정을 통해 쿠키 사용을 거부할 수 있습니다.
-              </p>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">5. 쿠키 및 광고 서비스 사용</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">쿠키 사용</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    본 웹사이트는 서비스 개선을 위해 쿠키를 사용할 수 있습니다. 
+                    브라우저 설정을 통해 쿠키 사용을 거부할 수 있습니다.
+                  </p>
+                </div>
+                
+                <div className="bg-blue-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-blue-800 mb-3">Google AdSense 광고 서비스</h3>
+                  <p className="text-blue-700 text-sm leading-relaxed mb-3">
+                    본 웹사이트는 Google AdSense를 통해 맞춤형 광고를 제공합니다. 
+                    이 과정에서 다음과 같은 정보가 수집될 수 있습니다:
+                  </p>
+                  <ul className="list-disc list-inside text-blue-700 text-sm space-y-1 mb-3">
+                    <li>웹사이트 방문 기록 및 페이지 조회 정보</li>
+                    <li>광고 클릭 및 상호작용 데이터</li>
+                    <li>디바이스 정보 (OS, 브라우저 유형 등)</li>
+                    <li>일반적인 위치 정보 (국가/지역 수준)</li>
+                  </ul>
+                  <p className="text-blue-700 text-sm">
+                    Google의 광고 개인화 설정은 
+                    <a href="https://adssettings.google.com" className="underline font-semibold" target="_blank" rel="noopener noreferrer">
+                      Google 광고 설정
+                    </a>에서 관리할 수 있습니다.
+                  </p>
+                </div>
+
+                <div className="bg-green-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-green-800 mb-3">Google Analytics</h3>
+                  <p className="text-green-700 text-sm leading-relaxed">
+                    웹사이트 이용 통계 분석을 위해 Google Analytics를 사용합니다. 
+                    수집되는 정보는 익명화 처리되며, 개인을 식별할 수 없습니다. 
+                    Google Analytics 수집을 거부하려면 
+                    <a href="https://tools.google.com/dlpage/gaoptout" className="underline font-semibold" target="_blank" rel="noopener noreferrer">
+                      Google Analytics 거부 브라우저 추가 기능
+                    </a>을 설치하세요.
+                  </p>
+                </div>
+              </div>
             </section>
 
             <section>

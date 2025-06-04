@@ -388,12 +388,7 @@ export default function Home() {
               <span>|</span>
               <Link href="/terms" className="hover:text-gray-600 transition-colors">이용약관</Link>
               <span>|</span>
-              <button
-                onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfaqVaA-uJd0IhJe2tN4Dfh7i8A5m4KAa7B6F11Q9UBKT4Nzg/viewform?usp=sharing", "_blank", "noopener,noreferrer")}
-                className="hover:text-gray-600 transition-colors"
-              >
-                문의하기
-              </button>
+              <Link href="/contact" className="hover:text-gray-600 transition-colors">문의하기</Link>
             </div>
           </motion.div>
         </div>
