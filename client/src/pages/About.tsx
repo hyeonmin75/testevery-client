@@ -22,10 +22,10 @@ export default function About() {
               ← 홈으로 돌아가기
             </button>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              모두의 테스트에 대하여
+              모두의 테스트 - 전문 심리 분석 플랫폼
             </h1>
-            <p className="text-gray-600">
-              재미있고 다양한 심리테스트로 자신을 발견하는 즐거운 여행
+            <p className="text-gray-600 text-lg">
+              심리학 연구를 기반으로 한 신뢰할 수 있는 성격 분석과 교육적 콘텐츠를 제공합니다
             </p>
           </div>
 
@@ -37,9 +37,9 @@ export default function About() {
                 🎯 우리의 미션
               </h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                모두의 테스트는 사람들이 자신을 더 잘 이해하고, 친구들과 즐거운 시간을 
-                보낼 수 있도록 돕는 플랫폼입니다. 과학적 근거보다는 재미와 소통을 중시하며, 
-                누구나 쉽게 참여할 수 있는 다양한 심리테스트를 제공합니다.
+                모두의 테스트는 심리학 이론과 연구를 바탕으로 개발된 전문적인 성격 분석 플랫폼입니다. 
+                칼 융의 심리유형론, 빅 파이브 성격 모델 등 검증된 심리학 이론을 적용하여 
+                신뢰할 수 있는 성격 분석 결과를 제공하며, 사용자의 자기 이해와 성장을 지원합니다.
               </p>
             </div>
 

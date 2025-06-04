@@ -13,6 +13,7 @@ import Guide from "@/pages/Guide";
 import FAQ from "@/pages/FAQ";
 import Psychology from "@/pages/Psychology";
 import Blog from "@/pages/Blog";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/faq" component={FAQ} />
       <Route path="/psychology" component={Psychology} />
       <Route path="/blog" component={Blog} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
