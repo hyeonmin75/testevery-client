@@ -14,3 +14,5 @@ Allow: /result/
 Allow: /about
 Allow: /guide
 Allow: /faq
+Allow: /psychology
+Allow: /blog
