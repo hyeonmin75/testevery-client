@@ -154,26 +154,32 @@ export default function Test() {
     setLocation(`/result/${testId}`);
   };
 
-  const handleFocusComplete = (focusTime: number) => {
+  const handleFocusComplete = (score: number, reactionTimes: number[]) => {
     if (!testData) return;
     
-    // 집중 시간에 따른 결과 등급 결정
-    let resultType = 'beginner';
-    if (focusTime >= 180) {
-      resultType = 'master';
-    } else if (focusTime >= 120) {
-      resultType = 'expert';
-    } else if (focusTime >= 60) {
-      resultType = 'average';
+    // 점수에 따른 결과 등급 결정
+    let resultType = 'free';
+    if (score >= 18) {
+      resultType = 'super_focus';
+    } else if (score >= 14) {
+      resultType = 'stable';
+    } else if (score >= 10) {
+      resultType = 'variable';
+    } else if (score >= 6) {
+      resultType = 'distributed';
     }
+
+    // 평균 반응시간 계산
+    const averageReactionTime = reactionTimes.reduce((sum, time) => sum + time, 0) / reactionTimes.length;
 
     // 세션 스토리지에 집중력 테스트 결과 저장
     const result = {
       resultId: resultType,
       result: testData.results[resultType],
-      scores: { focusTime: Math.round(focusTime * 10) / 10 },
+      scores: { score, averageReactionTime: Math.round(averageReactionTime) },
       completedAt: Date.now(),
-      testId: testData.id
+      testId: testData.id,
+      allReactionTimes: reactionTimes
     };
 
     sessionStorage.setItem('currentTestResult', JSON.stringify(result));
