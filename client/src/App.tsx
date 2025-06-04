@@ -11,6 +11,8 @@ import Terms from "@/pages/Terms";
 import About from "@/pages/About";
 import Guide from "@/pages/Guide";
 import FAQ from "@/pages/FAQ";
+import Psychology from "@/pages/Psychology";
+import Blog from "@/pages/Blog";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -24,6 +26,8 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/guide" component={Guide} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/psychology" component={Psychology} />
+      <Route path="/blog" component={Blog} />
       <Route component={NotFound} />
     </Switch>
   );
