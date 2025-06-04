@@ -19,13 +19,12 @@ import { tappingEnduranceTest } from './tapping-endurance';
 import { intuitionTest } from './intuition-test';
 import { mbtiTest } from './mbti';
 import { burnoutRiskTest } from './burnout-risk';
-import { focusDurationTest } from './focus-duration';
+
 
 
 
 export const tests: Record<string, TestData> = {
   mbti: mbtiTest,
-  focus_duration_test: focusDurationTest,
   burnout_risk_test: burnoutRiskTest,
   tapping_endurance: tappingEnduranceTest,
   intuition_test: intuitionTest,

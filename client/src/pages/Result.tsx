@@ -1080,7 +1080,7 @@ export default function Result() {
               const getRecommendedTests = () => {
                 const allTests = [
                   { id: 'mbti', title: 'MBTI 성격유형', emoji: '🧠', description: '당신의 성격 유형을 정확하게 분석' },
-                  { id: 'focus_duration_test', title: '집중력 측정', emoji: '🎯', description: '집중력 지속시간을 정확히 측정' },
+
                   { id: 'burnout_risk_test', title: '번아웃 위험도', emoji: '🔥', description: '직무 스트레스와 탈진 위험도 체크' },
                   { id: 'reaction_speed', title: '반응속도', emoji: '⚡', description: '빠른 반응속도를 측정' },
                   { id: 'tapping_endurance', title: '탭핑 지구력', emoji: '💪', description: '1분간 탭핑 지구력 테스트' },

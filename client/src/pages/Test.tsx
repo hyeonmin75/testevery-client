@@ -6,7 +6,7 @@ import { ProgressBar } from '../components/ProgressBar';
 import { ReactionTest } from '../components/ReactionTest';
 import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
 import { IntuitionTest } from '../components/IntuitionTest';
-import { FocusDurationTest } from '../components/FocusDurationTest';
+
 
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
@@ -154,37 +154,7 @@ export default function Test() {
     setLocation(`/result/${testId}`);
   };
 
-  const handleFocusComplete = (score: number, reactionTimes: number[]) => {
-    if (!testData) return;
-    
-    // 점수에 따른 결과 등급 결정
-    let resultType = 'free';
-    if (score >= 18) {
-      resultType = 'super_focus';
-    } else if (score >= 14) {
-      resultType = 'stable';
-    } else if (score >= 10) {
-      resultType = 'variable';
-    } else if (score >= 6) {
-      resultType = 'distributed';
-    }
 
-    // 평균 반응시간 계산
-    const averageReactionTime = reactionTimes.reduce((sum, time) => sum + time, 0) / reactionTimes.length;
-
-    // 세션 스토리지에 집중력 테스트 결과 저장
-    const result = {
-      resultId: resultType,
-      result: testData.results[resultType],
-      scores: { score, averageReactionTime: Math.round(averageReactionTime) },
-      completedAt: Date.now(),
-      testId: testData.id,
-      allReactionTimes: reactionTimes
-    };
-
-    sessionStorage.setItem('currentTestResult', JSON.stringify(result));
-    setLocation(`/result/${testId}`);
-  };
 
   const handleSelectOption = async (optionId: string) => {
     if (isAnimating || !testData || !session) return;
@@ -348,43 +318,7 @@ export default function Test() {
     );
   }
 
-  // 집중력 지속시간 테스트인 경우 특별한 렌더링
-  if (testData.id === 'focus_duration_test') {
-    return (
-      <div className="min-h-screen bg-gradient-korean">
-        {/* Header */}
-        <motion.div 
-          className="bg-white shadow-lg p-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <motion.button
-              onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <i className="fas fa-arrow-left"></i>
-              <span>홈으로 돌아가기</span>
-            </motion.button>
-            <div className="text-lg font-semibold text-gray-800">
-              {testData.emoji} {testData.title}
-            </div>
-            <div className="text-sm text-gray-500">
-              집중력 측정
-            </div>
-          </div>
-        </motion.div>
 
-        {/* Focus Duration Test Component */}
-        <FocusDurationTest
-          onComplete={handleFocusComplete}
-        />
-      </div>
-    );
-  }
 
   // 눈치 테스트인 경우 특별한 렌더링
   if (testData.id === 'intuition_test') {
