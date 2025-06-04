@@ -60,6 +60,10 @@ export default function Home() {
   const [updatedTests, setUpdatedTests] = useState<Record<string, TestData>>({});
 
   useEffect(() => {
+    // 로컬스토리지 초기화 (번아웃 테스트 참여자 수 리셋)
+    localStorage.removeItem('participant_count_burnout_risk_test');
+    localStorage.removeItem('participant_count_burnout_risk_test_timestamp');
+    
     // 컴포넌트 마운트 시 모든 테스트의 참여자 수 업데이트
     const updated: Record<string, TestData> = {};
     
