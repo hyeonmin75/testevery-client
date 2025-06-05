@@ -207,6 +207,66 @@ export default function BlogPostPage() {
                     </div>
                   );
                 }
+
+                // 감정지능 블로그에서 테스트 버튼 추가
+                if (post.id === "emotional-intelligence-development" && paragraph.includes("본인의 감정지능 수준이나 대인관계 스타일이 궁금하다면 MBTI 성격유형 테스트나 동물 성격 테스트를 통해 알아보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">💙</div>
+                        <h3 className="text-xl font-bold text-blue-800 mb-3">감정지능 관련 테스트</h3>
+                        <p className="text-blue-600 mb-4">성격 유형 분석 • 대인관계 스타일 • 동물 성격 진단</p>
+                        <div className="flex gap-3 justify-center">
+                          <button
+                            onClick={() => setLocation('/test/mbti')}
+                            className="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg"
+                          >
+                            MBTI 테스트
+                          </button>
+                          <button
+                            onClick={() => setLocation('/test/animal')}
+                            className="bg-indigo-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-600 transition-colors shadow-lg"
+                          >
+                            동물 성격 테스트
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 학습 블로그에서 테스트 버튼 추가
+                if (post.id === "memory-learning-psychology" && paragraph.includes("본인의 학습 방식이나 성격 유형이 궁금하다면 MBTI 성격유형 테스트나 색깔 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">📚</div>
+                        <h3 className="text-xl font-bold text-yellow-800 mb-3">학습 성향 관련 테스트</h3>
+                        <p className="text-yellow-600 mb-4">성격 유형 분석 • 학습 스타일 진단 • 개인 특성 파악</p>
+                        <div className="flex gap-3 justify-center">
+                          <button
+                            onClick={() => setLocation('/test/mbti')}
+                            className="bg-yellow-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-yellow-600 transition-colors shadow-lg"
+                          >
+                            MBTI 테스트
+                          </button>
+                          <button
+                            onClick={() => setLocation('/test/color')}
+                            className="bg-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors shadow-lg"
+                          >
+                            색깔 테스트
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
                 
                 return (
                   <p key={index} className="text-gray-600 leading-relaxed mb-4">
