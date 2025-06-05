@@ -120,22 +120,88 @@ export default function BlogPostPage() {
                   );
                 }
 
-                // 반응속도 테스트 블로그에서 특정 문구 뒤에 테스트 버튼 추가
-                if (post.id === "reaction-speed-psychology" && paragraph.includes("지금 바로 테스트해보고, 당신만의 기록을 세워보세요!")) {
+                // MBTI 블로그에서 특정 문구 뒤에 테스트 버튼 추가
+                if (post.id === "mbti-workplace-dynamics" && paragraph.includes("자신이 어떤 유형인지 정확히 알고 싶다면, MBTI 성격유형 테스트를 통해 확인해보세요.")) {
                   return (
                     <div key={index}>
                       <p className="text-gray-600 leading-relaxed mb-6">
                         {paragraph}
                       </p>
-                      <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-6 text-center my-8">
-                        <div className="text-2xl mb-3">⚡</div>
-                        <h3 className="text-xl font-bold text-red-800 mb-3">반응속도 테스트 바로가기</h3>
-                        <p className="text-red-600 mb-4">정확한 밀리초 측정 • 5라운드 평균 • 등급 분석</p>
+                      <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🧠</div>
+                        <h3 className="text-xl font-bold text-purple-800 mb-3">MBTI 성격유형 테스트</h3>
+                        <p className="text-purple-600 mb-4">16가지 성격유형 분석 • 상세한 직업 추천 • 궁합 분석</p>
                         <button
-                          onClick={() => setLocation('/test/reaction_speed')}
-                          className="bg-red-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors shadow-lg"
+                          onClick={() => setLocation('/test/mbti')}
+                          className="bg-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors shadow-lg"
                         >
-                          🚀 지금 바로 테스트하기
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 집중력 블로그에서 특정 문구 뒤에 테스트 버튼 추가
+                if (post.id === "attention-span-digital-age" && paragraph.includes("본인의 현재 집중력 수준이 궁금하다면 집중력 관련 심리테스트를 통해 측정해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🎯</div>
+                        <h3 className="text-xl font-bold text-green-800 mb-3">직감력 테스트</h3>
+                        <p className="text-green-600 mb-4">좌우 선택 직관력 • 반응속도 측정 • 집중력 분석</p>
+                        <button
+                          onClick={() => setLocation('/test/intuition_test')}
+                          className="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 번아웃 관련 문구 뒤에 테스트 버튼 추가
+                if (post.id === "attention-span-digital-age" && paragraph.includes("집중력과 관련된 스트레스나 번아웃이 걱정된다면, 번아웃 위험도 테스트를 통해 현재 상태를 점검해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">😰</div>
+                        <h3 className="text-xl font-bold text-orange-800 mb-3">번아웃 위험도 테스트</h3>
+                        <p className="text-orange-600 mb-4">스트레스 수준 분석 • 번아웃 단계 진단 • 개선 방법 제시</p>
+                        <button
+                          onClick={() => setLocation('/test/burnout_risk_test')}
+                          className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 색깔 테스트 버튼 추가
+                if (post.id === "psychology-color-emotions" && paragraph.includes("색깔에 대한 개인의 선호도나 반응을 알고 싶다면, 색깔 성격 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🌈</div>
+                        <h3 className="text-xl font-bold text-pink-800 mb-3">색깔 성격 테스트</h3>
+                        <p className="text-pink-600 mb-4">색깔 선호도 분석 • 성격 특성 진단 • 심리상태 파악</p>
+                        <button
+                          onClick={() => setLocation('/test/color')}
+                          className="bg-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
                         </button>
                       </div>
                     </div>
