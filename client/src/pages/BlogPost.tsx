@@ -107,7 +107,7 @@ export default function BlogPostPage() {
                 if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                   return (
                     <h4 key={index} className="text-lg font-semibold text-gray-800 mt-4 mb-2">
-                      {paragraph.replace(/\*\*/g, '')}
+                      {cleanParagraph}
                     </h4>
                   );
                 }
@@ -115,7 +115,7 @@ export default function BlogPostPage() {
                 if (paragraph.startsWith('- ')) {
                   return (
                     <li key={index} className="text-gray-600 leading-relaxed ml-4">
-                      {paragraph.replace('- ', '')}
+                      {cleanParagraph.replace('- ', '')}
                     </li>
                   );
                 }
