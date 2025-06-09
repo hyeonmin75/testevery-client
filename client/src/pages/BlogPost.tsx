@@ -120,8 +120,38 @@ export default function BlogPostPage() {
                   );
                 }
 
+                // HTML 버튼이 포함된 단락 처리
+                if (paragraph.includes('<button onclick="window.location.href=')) {
+                  const buttonMatch = paragraph.match(/<button[^>]*onclick="window\.location\.href='([^']*)'[^>]*>(.*?)<\/button>/);
+                  if (buttonMatch) {
+                    const [, url, buttonText] = buttonMatch;
+                    const textBeforeButton = paragraph.substring(0, paragraph.indexOf('<button'));
+                    
+                    return (
+                      <div key={index}>
+                        {textBeforeButton && (
+                          <p className="text-gray-600 leading-relaxed mb-6">
+                            {textBeforeButton}
+                          </p>
+                        )}
+                        <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 text-center my-8">
+                          <div className="text-3xl mb-3">🧠</div>
+                          <h3 className="text-xl font-bold text-purple-800 mb-3">관련 테스트 체험하기</h3>
+                          <p className="text-purple-600 mb-4">과학적으로 검증된 심리 검사를 통해 자신을 더 깊이 이해해보세요</p>
+                          <button
+                            onClick={() => setLocation(url)}
+                            className="bg-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors shadow-lg"
+                          >
+                            {buttonText.replace(/[🔥⚡🎯🐾🏢📊]/g, '').trim()}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+                }
+
                 // MBTI 블로그에서 특정 문구 뒤에 테스트 버튼 추가
-                if (post.id === "mbti-workplace-dynamics" && paragraph.includes("자신이 어떤 유형인지 정확히 알고 싶다면, MBTI 성격유형 테스트를 통해 확인해보세요.")) {
+                if (post.id === "career-mbti-workplace" && paragraph.includes("본인의 성격유형과 직장 내 역할이 궁금하다면 MBTI 테스트를 통해 확인해보세요.")) {
                   return (
                     <div key={index}>
                       <p className="text-gray-600 leading-relaxed mb-6">
@@ -129,10 +159,10 @@ export default function BlogPostPage() {
                       </p>
                       <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 text-center my-8">
                         <div className="text-3xl mb-3">🧠</div>
-                        <h3 className="text-xl font-bold text-purple-800 mb-3">MBTI 성격유형 테스트</h3>
-                        <p className="text-purple-600 mb-4">16가지 성격유형 분석 • 상세한 직업 추천 • 궁합 분석</p>
+                        <h3 className="text-xl font-bold text-purple-800 mb-3">MBTI 직업 성격 테스트</h3>
+                        <p className="text-purple-600 mb-4">16가지 성격유형 분석 • 직업 적성 진단 • 팀워크 스타일 분석</p>
                         <button
-                          onClick={() => setLocation('/test/mbti')}
+                          onClick={() => setLocation('/test/career')}
                           className="bg-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors shadow-lg"
                         >
                           지금 바로 테스트하기
@@ -142,8 +172,52 @@ export default function BlogPostPage() {
                   );
                 }
 
+                // 동물 심리학 블로그 테스트 버튼
+                if (post.id === "animal-psychology-metaphor" && paragraph.includes("본인과 닮은 동물이 궁금하다면 동물 성격 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-orange-50 to-pink-50 border-2 border-orange-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🐾</div>
+                        <h3 className="text-xl font-bold text-orange-800 mb-3">동물 성격 테스트</h3>
+                        <p className="text-orange-600 mb-4">나와 닮은 동물 찾기 • 성격 특성 분석 • 심리적 상징 해석</p>
+                        <button
+                          onClick={() => setLocation('/test/animal')}
+                          className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 번아웃 블로그 테스트 버튼
+                if (post.id === "burnout-prevention-psychology" && paragraph.includes("본인의 번아웃 위험도가 궁금하다면 번아웃 위험도 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🔥</div>
+                        <h3 className="text-xl font-bold text-red-800 mb-3">번아웃 위험도 테스트</h3>
+                        <p className="text-red-600 mb-4">스트레스 수준 진단 • 번아웃 위험 평가 • 예방 전략 제시</p>
+                        <button
+                          onClick={() => setLocation('/test/burnout-risk')}
+                          className="bg-red-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
                 // 집중력 블로그에서 특정 문구 뒤에 테스트 버튼 추가
-                if (post.id === "attention-span-digital-age" && paragraph.includes("본인의 현재 집중력 수준이 궁금하다면 집중력 관련 심리테스트를 통해 측정해보세요.")) {
+                if (post.id === "concentration-focus-psychology" && paragraph.includes("본인의 집중력과 주의력 수준이 궁금하다면 집중력 테스트를 통해 확인해보세요.")) {
                   return (
                     <div key={index}>
                       <p className="text-gray-600 leading-relaxed mb-6">
