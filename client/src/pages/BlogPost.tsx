@@ -223,13 +223,57 @@ export default function BlogPostPage() {
                       <p className="text-gray-600 leading-relaxed mb-6">
                         {paragraph}
                       </p>
-                      <div className="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-200 rounded-xl p-6 text-center my-8">
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 text-center my-8">
                         <div className="text-3xl mb-3">🎯</div>
-                        <h3 className="text-xl font-bold text-green-800 mb-3">직감력 테스트</h3>
-                        <p className="text-green-600 mb-4">좌우 선택 직관력 • 반응속도 측정 • 집중력 분석</p>
+                        <h3 className="text-xl font-bold text-blue-800 mb-3">집중력 측정 테스트</h3>
+                        <p className="text-blue-600 mb-4">주의력 분석 • 집중 지속 능력 • 반응속도 측정</p>
                         <button
-                          onClick={() => setLocation('/test/intuition_test')}
-                          className="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors shadow-lg"
+                          onClick={() => setLocation('/test?category=concentration')}
+                          className="bg-blue-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 반응속도 블로그 테스트 버튼
+                if (post.id === "reaction-speed-cognitive-psychology" && paragraph.includes("본인의 반응속도와 집중력이 궁금하다면 관련 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">⚡</div>
+                        <h3 className="text-xl font-bold text-yellow-800 mb-3">반응속도 테스트</h3>
+                        <p className="text-yellow-600 mb-4">순간 반응력 • 인지 처리 속도 • 집중력 측정</p>
+                        <button
+                          onClick={() => setLocation('/test?category=cognitive')}
+                          className="bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors shadow-lg"
+                        >
+                          지금 바로 테스트하기
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // 직감 블로그 테스트 버튼
+                if (post.id === "intuition-psychology-decision" && paragraph.includes("본인의 직감 능력과 의사결정 스타일이 궁금하다면 직감 테스트를 통해 확인해보세요.")) {
+                  return (
+                    <div key={index}>
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200 rounded-xl p-6 text-center my-8">
+                        <div className="text-3xl mb-3">🎯</div>
+                        <h3 className="text-xl font-bold text-pink-800 mb-3">직감 능력 테스트</h3>
+                        <p className="text-pink-600 mb-4">직관적 판단력 • 좌우 선택 테스트 • 무의식적 인식</p>
+                        <button
+                          onClick={() => setLocation('/test?category=intuition')}
+                          className="bg-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors shadow-lg"
                         >
                           지금 바로 테스트하기
                         </button>
