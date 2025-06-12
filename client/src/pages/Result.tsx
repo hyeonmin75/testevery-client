@@ -355,12 +355,90 @@ export default function Result() {
             </motion.div>
           )}
 
+          {/* 심리학적 해석 섹션 */}
+          <motion.div
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              🧠 성격유형의 심리학적 분석
+            </h3>
+            
+            <div className="space-y-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-yellow-300 mb-3">MBTI의 과학적 근거</h4>
+                <p className="text-white/90 leading-relaxed">
+                  MBTI는 칼 구스타프 융(Carl Gustav Jung)의 심리유형론을 기반으로 개발된 성격 검사입니다. 
+                  인간의 인식과 판단 기능을 체계적으로 분류하여 16가지 성격유형으로 구분합니다. 
+                  각 유형은 외향성-내향성, 감각-직관, 사고-감정, 판단-인식의 4가지 선호 지표의 조합으로 결정됩니다.
+                  현대 신경과학 연구에 따르면, 성격 특성은 뇌의 구조적, 기능적 차이와 관련이 있는 것으로 나타났습니다.
+                </p>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-green-300 mb-3">개인차와 발달 과정</h4>
+                <p className="text-white/90 leading-relaxed">
+                  성격유형은 개인의 선천적 선호를 나타내지만, 환경과 경험에 따라 발달하고 변화할 수 있습니다. 
+                  중요한 것은 자신의 자연스러운 선호를 이해하고 이를 바탕으로 개인적 성장과 타인과의 관계 개선에 활용하는 것입니다. 
+                  모든 유형은 고유한 가치와 강점을 가지며, 어떤 유형이 다른 유형보다 우월하지 않습니다.
+                  발달심리학적 관점에서 성격은 생애 전반에 걸쳐 지속적으로 발달하는 동적 특성을 보입니다.
+                </p>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-blue-300 mb-3">실생활 적용 방법</h4>
+                <p className="text-white/90 leading-relaxed">
+                  성격유형 이해는 자기 인식 향상, 진로 선택, 대인관계 개선, 팀워크 증진에 도움이 됩니다. 
+                  자신의 강점을 활용하고 약점을 보완하는 방향으로 발전시켜 나가는 것이 중요합니다. 
+                  또한 타인의 성격유형을 이해함으로써 더 효과적인 의사소통과 협력이 가능해집니다.
+                  직장에서는 팀 구성, 업무 분배, 갈등 해결에 활용할 수 있으며, 개인적으로는 스트레스 관리와 자기계발에 도움이 됩니다.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 문화적 맥락과 연구 동향 */}
+          <motion.div
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              📚 성격 심리학 연구 동향
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-pink-300 mb-3">최신 연구 결과</h4>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  최근 신경과학 연구에 따르면, 성격 특성은 뇌의 구조적, 기능적 차이와 관련이 있는 것으로 나타났습니다. 
+                  외향성은 도파민 시스템과, 신경성은 편도체 활성화와 관련이 깊습니다. 
+                  이러한 생물학적 기반은 성격유형의 과학적 타당성을 뒷받침합니다.
+                  또한 epigenetics 연구를 통해 환경이 유전자 발현에 미치는 영향도 밝혀지고 있습니다.
+                </p>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-orange-300 mb-3">문화적 고려사항</h4>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  성격유형의 표현과 발달은 문화적 맥락에 따라 다르게 나타날 수 있습니다. 
+                  집단주의 문화권에서는 관계 중심적 특성이, 개인주의 문화권에서는 독립성이 더 강조될 수 있습니다. 
+                  결과 해석 시 이러한 문화적 배경을 고려하는 것이 중요합니다.
+                  한국 문화에서는 눈치, 정, 체면 등의 개념이 성격 표현에 영향을 미칠 수 있습니다.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Action Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
+            transition={{ delay: 1.0, duration: 0.6 }}
           >
             <button
               onClick={() => setShowShareModal(true)}
