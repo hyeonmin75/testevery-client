@@ -93,24 +93,46 @@ export default function Contact() {
 
               <div className="bg-white rounded-2xl shadow-lg p-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">자주 묻는 질문</h2>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">테스트 결과의 정확성은?</h3>
-                    <p className="text-gray-600 text-sm">
-                      MBTI와 같은 표준화된 테스트는 심리학 이론을 바탕으로 하지만, 
-                      모든 결과는 참고용으로만 활용해주세요.
+                    <h3 className="font-semibold text-gray-800 mb-2">테스트 결과의 정확성과 신뢰성</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      모든 심리 검사는 표준화된 심리학적 이론과 통계적 검증을 거쳐 개발되었습니다. 
+                      MBTI는 칼 융의 심리유형론을 기반으로 하며, 수십 년간의 연구를 통해 신뢰성과 타당성이 검증되었습니다. 
+                      다만 개인의 복잡한 성격을 완전히 설명하기보다는 자기 이해의 도구로 활용하시기 바랍니다.
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">개인정보 보호는?</h3>
-                    <p className="text-gray-600 text-sm">
-                      모든 테스트 결과는 로컬 저장되며, 개인정보는 수집하지 않습니다.
+                    <h3 className="font-semibold text-gray-800 mb-2">개인정보 보호 정책</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      TestEvery는 사용자의 개인정보를 최우선으로 보호합니다. 
+                      모든 테스트 응답과 결과는 브라우저 로컬 스토리지에만 저장되며, 서버로 전송되지 않습니다. 
+                      이름, 이메일, 전화번호 등의 개인 식별 정보는 일체 수집하지 않으며, 
+                      쿠키 사용도 최소한으로 제한하고 있습니다.
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">새로운 테스트 제안</h3>
-                    <p className="text-gray-600 text-sm">
-                      새로운 테스트 아이디어나 개선사항은 언제든 환영합니다!
+                    <h3 className="font-semibold text-gray-800 mb-2">심리 검사의 윤리적 사용</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      심리 검사 결과는 개인의 성장과 자기 이해를 위한 참고 자료로만 사용되어야 합니다. 
+                      채용, 승진, 인사 평가 등의 중요한 결정에는 전문 심리학자의 종합적 평가가 필요합니다. 
+                      또한 타인에 대한 편견이나 선입견을 형성하는 도구로 사용되어서는 안 됩니다.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-2">새로운 테스트 개발과 제안</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      새로운 심리 검사 아이디어나 기존 테스트의 개선사항은 언제든 환영합니다. 
+                      제안해주신 아이디어는 심리학 전문가와 개발팀이 검토하여 과학적 타당성과 실용성을 평가한 후 
+                      개발 여부를 결정합니다. 사용자 피드백은 더 나은 서비스 제공의 원동력입니다.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-2">테스트 결과 해석 및 활용</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      테스트 결과는 현재 상태의 스냅샷일 뿐, 고정불변의 특성이 아닙니다. 
+                      개인의 성격과 심리상태는 경험, 학습, 환경 변화에 따라 발달할 수 있습니다. 
+                      결과에 대한 궁금증이나 더 깊은 해석이 필요한 경우, 전문 상담사나 심리학자와 상담하실 것을 권장합니다.
                     </p>
                   </div>
                 </div>
