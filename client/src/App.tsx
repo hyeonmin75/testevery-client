@@ -18,6 +18,7 @@ import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 import MBTITheory from "@/pages/MBTITheory";
 import PsychologyEducation from "@/pages/PsychologyEducation";
+import CognitivePsychology from "@/pages/CognitivePsychology";
 
 function Router() {
   return (
@@ -32,6 +33,8 @@ function Router() {
       <Route path="/faq" component={FAQ} />
       <Route path="/psychology" component={Psychology} />
       <Route path="/psychology/mbti-theory" component={MBTITheory} />
+      <Route path="/psychology/education" component={PsychologyEducation} />
+      <Route path="/psychology/cognitive-psychology" component={CognitivePsychology} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:id" component={BlogPostPage} />
       <Route path="/contact" component={Contact} />
