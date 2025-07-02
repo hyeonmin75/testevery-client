@@ -1,7 +1,38 @@
 # 심리학 교육 센터 & 심리 테스트 플랫폼
 
 ## 프로젝트 개요
-testevery.com을 위한 종합적인 한국어 심리학 교육 플랫폼입니다. 단순한 테스트 사이트에서 전문적인 심리학 교육 리소스로 전환하여 구글 애드센스 승인 기준을 충족하고 월 200,000-500,000 KRW의 수익을 목표로 합니다.
+testevery.com을 위한 종합적인 한국어 심리학 교육 플랫폼입니다. React SPA에서 Next.js SSR/SSG 기반으로 완전 마이그레이션하여 구글 애드센스 승인 기준을 충족하고 월 200,000-500,000 KRW의 수익을 목표로 합니다.
+
+## 최근 변경사항 (2025-01-02)
+
+### Next.js SSR/SSG 완전 마이그레이션 완료
+- **핵심 아키텍처 변경**: React SPA → Next.js SSR/SSG 기반 구조
+- **SEO 최적화**: View Page Source에서 모든 콘텐츠가 HTML로 렌더링됨
+- **구글 애드센스 준비**: Head/body 태그에 광고 삽입 위치 사전 마킹 (주석 처리)
+- **사이트맵 자동 생성**: next-sitemap을 통한 robots.txt 및 sitemap.xml 자동 생성
+
+### 완성된 Next.js 페이지 구조
+1. **홈페이지** (`pages/index.tsx`)
+   - getStaticProps를 통한 SSG 구현
+   - 인기 테스트, 최신 블로그 포스트 데이터 서버사이드 렌더링
+   - JSON-LD 구조화 데이터 포함
+
+2. **블로그 시스템** (`pages/blog/`)
+   - 블로그 목록 페이지 (`/blog/index.tsx`)
+   - 동적 블로그 포스트 페이지 (`/blog/[id].tsx`)
+   - 10개 이상의 전문 심리학 글 포함
+   - getStaticPaths와 getStaticProps를 통한 정적 생성
+
+3. **필수 정적 페이지들**
+   - 소개 페이지 (`/about`) - 회사 소개, 미션, 비전
+   - 문의 페이지 (`/contact`) - 연락폼, API 엔드포인트 포함
+   - 개인정보처리방침 (`/privacy`) - 법적 요구사항 완전 준수
+
+### SEO 및 구글 애드센스 최적화
+- **메타데이터 완벽 구성**: 모든 페이지에 title, description, keywords 설정
+- **Open Graph 태그**: 소셜 미디어 공유 최적화
+- **JSON-LD 구조화 데이터**: 검색엔진 인식 향상
+- **광고 삽입 준비**: 배너, 사이드바, 인라인 광고 위치 사전 마킹
 
 ## 최근 변경사항 (2024-12-25)
 
@@ -47,20 +78,20 @@ testevery.com을 위한 종합적인 한국어 심리학 교육 플랫폼입니�
 
 ## 기술 스택
 
-### Frontend
-- React.js 18 with TypeScript
-- Vite (build tool)
+### Frontend (Next.js SSR/SSG)
+- Next.js 15 with TypeScript
+- React.js 18 (Server-Side Rendering)
 - Tailwind CSS (styling)
-- Framer Motion (animations)
-- Wouter (routing)
-- TanStack Query (data fetching)
+- Static Site Generation (SSG) for 블로그 및 주요 페이지
+- Server-Side Rendering (SSR) for 동적 콘텐츠
 - shadcn/ui components
+- next-sitemap for 자동 sitemap 생성
 
-### Backend
-- Express.js with TypeScript
-- In-memory storage (MemStorage)
-- Session management
-- RESTful API design
+### Backend API
+- Next.js API Routes (/pages/api/)
+- TypeScript 기반 API 엔드포인트
+- Zod를 통한 데이터 유효성 검증
+- RESTful API 설계 원칙
 
 ### 테스트 시스템
 - 다양한 심리 테스트 지원 (MBTI, 동물상, 번아웃 등)
@@ -68,35 +99,31 @@ testevery.com을 위한 종합적인 한국어 심리학 교육 플랫폼입니�
 - 과학적 채점 알고리즘
 - 상세한 결과 분석
 
-## 프로젝트 아키텍처
+## 프로젝트 아키텍처 (Next.js SSR/SSG)
 
 ```
-client/
-├── src/
-│   ├── pages/
-│   │   ├── Home.tsx (메인 페이지)
-│   │   ├── Test.tsx (테스트 진행)
-│   │   ├── Result.tsx (결과 분석)
-│   │   ├── MBTITheory.tsx (MBTI 이론)
-│   │   ├── CognitivePsychology.tsx (인지 심리학)
-│   │   ├── PsychologyEducation.tsx (교육 센터)
-│   │   └── ... (기타 페이지들)
-│   ├── components/
-│   │   ├── QuestionCard.tsx
-│   │   ├── ProgressBar.tsx
-│   │   ├── ShareModal.tsx
-│   │   └── ... (테스트 컴포넌트들)
-│   ├── data/
-│   │   ├── tests.ts (테스트 데이터)
-│   │   └── blogPosts.ts (블로그 콘텐츠)
-│   └── utils/
-│       ├── testLogic.ts (채점 로직)
-│       └── participantCounter.ts
-server/
-├── index.ts (메인 서버)
-├── routes.ts (API 라우팅)
-├── storage.ts (데이터 저장)
-└── vite.ts (Vite 통합)
+root/
+├── pages/
+│   ├── _app.tsx (전역 App 컴포넌트)
+│   ├── index.tsx (홈페이지 - SSG)
+│   ├── about.tsx (소개 페이지 - SSG)
+│   ├── contact.tsx (문의 페이지 - SSR)
+│   ├── privacy.tsx (개인정보처리방침 - SSG)
+│   ├── blog/
+│   │   ├── index.tsx (블로그 목록 - SSG)
+│   │   └── [id].tsx (개별 블로그 포스트 - SSG)
+│   └── api/
+│       └── contact.ts (문의 폼 API 엔드포인트)
+├── components/
+│   └── Layout.tsx (공통 레이아웃)
+├── styles/
+│   └── globals.css (전역 스타일)
+├── public/
+│   ├── sitemap.xml (자동 생성)
+│   └── robots.txt (자동 생성)
+├── next.config.js (Next.js 설정)
+├── next-sitemap.config.js (사이트맵 설정)
+└── tailwind.config.ts (Tailwind CSS 설정)
 ```
 
 ## 구글 애드센스 최적화 전략
