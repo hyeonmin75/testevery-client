@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://testevery.com/sitemap.xml
+
+# Allow all important pages
+Allow: /about
+Allow: /psychology
+Allow: /blog
+Allow: /guide
+Allow: /faq
+Allow: /contact
+Allow: /test/
+Allow: /privacy
+Allow: /terms
+
+# Crawl delay for better server performance
+Crawl-delay: 1
