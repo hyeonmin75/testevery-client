@@ -5,7 +5,7 @@ export interface TestQuestion {
   text: string;
   options: {
     text: string;
-    score: { [key: string]: number };
+    score: Record<string, number>;
   }[];
 }
 
@@ -32,14 +32,16 @@ export interface Test {
 }
 
 // 테스트 결과 계산
-export function calculateTestResult(questions: TestQuestion[], answers: number[]): string {
+export function calculateTestResult(questions: any[], answers: number[]): string {
   const scores: Record<string, number> = {};
   
   questions.forEach((question, index) => {
     const selectedOption = question.options[answers[index]];
-    if (selectedOption) {
+    if (selectedOption && selectedOption.score) {
       Object.entries(selectedOption.score).forEach(([key, value]) => {
-        scores[key] = (scores[key] || 0) + value;
+        if (typeof value === 'number') {
+          scores[key] = (scores[key] || 0) + value;
+        }
       });
     }
   });
@@ -180,17 +182,17 @@ export function trackEvent(eventName: string, parameters?: Record<string, any>) 
 }
 
 // 인기 순으로 테스트 정렬
-export function sortTestsByPopularity(tests: Test[]): Test[] {
+export function sortTestsByPopularity(tests: any[]): any[] {
   return tests.sort((a, b) => b.popularity - a.popularity);
 }
 
 // 카테고리별 테스트 필터링
-export function filterTestsByCategory(tests: Test[], category: string): Test[] {
+export function filterTestsByCategory(tests: any[], category: string): any[] {
   return tests.filter(test => test.category === category);
 }
 
 // 랜덤 테스트 선택
-export function getRandomTest(tests: Test[], exclude?: string): Test {
+export function getRandomTest(tests: any[], exclude?: string): any {
   const availableTests = exclude 
     ? tests.filter(test => test.id !== exclude)
     : tests;

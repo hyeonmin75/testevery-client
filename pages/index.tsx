@@ -219,7 +219,7 @@ export default function Home({ featuredTest, popularTests, todaysTest, categorie
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   // 테스트 데이터 변환
-  const tests: Test[] = Object.values(testsData);
+  const tests: any[] = Object.values(testsData);
   
   // 인기순 정렬
   const sortedTests = sortTestsByPopularity(tests);
