@@ -2,12 +2,19 @@
 
 ## Overview
 
-TestEvery is a Korean psychological testing platform that provides various personality tests and psychological assessments. The application offers interactive tests including MBTI personality assessments, animal personality tests, cognitive ability measurements, and educational psychology content.
+TestEvery is a Korean psychological testing platform transformed from a simple SPA to a comprehensive educational platform using Next.js SSR/SSG architecture for Google AdSense approval. The application provides psychological tests, educational content, and research materials with full server-side rendering for optimal SEO and content indexing.
 
 ## System Architecture
 
-The application follows a modern full-stack architecture:
+**NEW: Next.js SSR/SSG Architecture (2025.01.02)**
+- **Framework**: Next.js 14 with TypeScript for SSR/SSG
+- **Rendering**: Static Site Generation (SSG) for most pages, Server-Side Rendering (SSR) for dynamic content
+- **SEO**: Complete meta tag optimization, structured data, canonical URLs
+- **Content**: 10+ educational blog posts (2000+ words each), comprehensive educational sections
+- **Sitemap**: Auto-generated XML sitemap with next-sitemap
+- **Styling**: Tailwind CSS with responsive design
 
+**Legacy Architecture (Maintained)**
 - **Frontend**: React.js with TypeScript using Vite as the build tool
 - **Backend**: Express.js server with TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
