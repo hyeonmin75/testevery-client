@@ -13,6 +13,20 @@ const nextConfig = {
   env: {
     SITE_URL: 'https://testevery.com',
   },
+  // Cross-origin 요청 허용
+  async headers() {
+    return [
+      {
+        source: '/_next/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

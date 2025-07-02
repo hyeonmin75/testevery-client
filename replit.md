@@ -5,6 +5,15 @@ testevery.com을 위한 종합적인 한국어 심리학 교육 플랫폼입니�
 
 ## 최근 변경사항 (2025-01-02)
 
+### 앱 실행 오류 수정 완료 (2025-01-02)
+- **tailwindcss-animate 의존성 문제**: 누락된 패키지 설치 및 tailwind.config.ts에 플러그인 추가
+- **Next.js 스크립트 경고 해결**: Google Analytics와 폰트를 _app.tsx에서 _document.tsx로 이동
+- **Script 태그 최적화**: next/script 컴포넌트 사용으로 성능 향상
+- **크로스 오리진 요청 설정**: next.config.js에 헤더 설정 추가
+- **앱 실행 상태**: Next.js 15.3.4에서 정상 작동, 모든 페이지 컴파일 성공
+
+## 최근 변경사항 (2025-01-02)
+
 ### Next.js SSR/SSG 완전 마이그레이션 완료
 - **핵심 아키텍처 변경**: React SPA → Next.js SSR/SSG 기반 구조
 - **SEO 최적화**: View Page Source에서 모든 콘텐츠가 HTML로 렌더링됨
