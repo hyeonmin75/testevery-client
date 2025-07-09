@@ -100,6 +100,7 @@ The application is configured for deployment on Vercel with the following setup:
   - **디버깅 도구**: SEO 상태 확인 API 및 진단 도구 추가 ✅
   - **라우팅 최적화**: Express 라우트 우선순위 및 case-insensitive 처리 ✅
   - **배포 준비**: Vite 개발환경과 프로덕션 환경 분리 처리 ✅
+  - **블로그 라우팅**: 모든 블로그 포스트 SEO 최적화 및 리다이렉트 추가 ✅
 - January 18, 2025. 창의력 진단 테스트 및 감정탱크 테스트 추가
   - 창의력 진단 테스트 구현 (Alternate Uses Task 기반)
     * 5가지 랜덤 사물 중 1개 선택

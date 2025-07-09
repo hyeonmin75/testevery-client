@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { generateTestPageSEO, generateResultPageSEO, generateSEOHTML, getDefaultSEO } from "./seo";
 import { tests } from "../client/src/data/tests";
+import { blogPosts } from "../client/src/data/blogPosts";
 import { setupDebugRoutes } from "./debug";
 
 export async function registerRoutes(app: Express): Promise<void> {
@@ -19,6 +20,88 @@ export async function registerRoutes(app: Express): Promise<void> {
     const { testId } = req.params;
     console.log(`[REDIRECT] Original URL: ${req.originalUrl}, Path: ${req.path}, Redirecting /Test/${testId} -> /test/${testId.toLowerCase()}`);
     return res.redirect(301, `/test/${testId.toLowerCase()}`);
+  });
+
+  // Blog post redirects for common variations
+  app.get('/blog/mbti-personality-workplace', (req: Request, res: Response) => {
+    console.log(`[REDIRECT] Redirecting /blog/mbti-personality-workplace -> /blog/mbti-workplace-dynamics`);
+    return res.redirect(301, '/blog/mbti-workplace-dynamics');
+  });
+
+  // SEO-optimized blog pages
+  app.get('/blog/:postId', (req: Request, res: Response) => {
+    const { postId } = req.params;
+    const userAgent = req.get('User-Agent') || '';
+    const isBot = userAgent.includes('bot') || userAgent.includes('crawl') || userAgent.includes('spider');
+    
+    console.log(`[DEBUG] GET /blog/${postId} (path: ${req.path}) - User-Agent: ${userAgent.substring(0, 50)}...`);
+    
+    if (isBot) {
+      console.log(`[SEO Route] Handling /blog/${postId} for User-Agent: ${userAgent.substring(0, 50)}`);
+      
+      const post = blogPosts.find(p => p.id === postId);
+      if (!post) {
+        console.log(`[SEO Route] Blog post not found: ${postId}`);
+        return res.status(404).send('Blog post not found');
+      }
+      
+      console.log(`[SEO Route] Found blog post: ${post.title}`);
+      
+      const seoData = {
+        title: `${post.title} | 모두의 테스트`,
+        description: post.excerpt,
+        keywords: post.tags.join(', '),
+        ogTitle: post.title,
+        ogDescription: post.excerpt,
+        ogImage: 'https://testevery.com/og-image.png',
+        jsonLd: {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt,
+          "datePublished": post.date,
+          "author": {
+            "@type": "Organization",
+            "name": "모두의 테스트"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "모두의 테스트",
+            "url": "https://testevery.com"
+          }
+        }
+      };
+      
+      const htmlContent = generateSEOHTML(seoData, `
+      <div class="blog-content">
+        <article>
+          <header>
+            <h1>${post.title}</h1>
+            <div class="meta">
+              <time datetime="${post.date}">${post.date}</time>
+              <span class="category">${post.category}</span>
+              <span class="read-time">${post.readTime}</span>
+            </div>
+          </header>
+          <div class="content">
+            ${post.content.split('\n').map(line => 
+              line.trim() ? `<p>${line}</p>` : ''
+            ).join('')}
+          </div>
+          <footer>
+            <div class="tags">
+              ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </footer>
+        </article>
+      </div>
+    `);
+      
+      return res.send(htmlContent);
+    }
+    
+    // For regular users, serve the SPA
+    return res.redirect(`/#/blog/${postId}`);
   });
 
   // SEO-optimized routes for test pages (EXACT MATCH ONLY)
@@ -141,6 +224,17 @@ export async function registerRoutes(app: Express): Promise<void> {
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>`;
+    });
+
+    // Add blog pages
+    blogPosts.forEach(post => {
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/blog/${post.id}</loc>
+    <lastmod>${post.date}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>`;
     });
 
