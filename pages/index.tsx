@@ -237,6 +237,12 @@ export const getStaticProps: GetStaticProps = async () => {
   // 실제 데이터는 API나 CMS에서 가져와야 합니다
   const posts = [
     {
+      id: '11',
+      title: '에겐남-테토녀 성격 유형: 2024년 Z세대가 주목하는 새로운 성격 분석법',
+      excerpt: '에스트로겐과 테스토스테론 호르몬 특성을 기반으로 한 에겐-테토 성격 유형 분석이 젊은 세대에게 큰 인기를 끌고 있습니다.',
+      date: '2024년 1월 18일'
+    },
+    {
       id: '1',
       title: 'MBTI 심리유형론의 과학적 근거와 한계',
       excerpt: '칼 융의 심리유형론부터 현대 MBTI까지, 성격 심리학의 발전사와 과학적 타당성을 종합적으로 분석합니다.',
@@ -283,18 +289,18 @@ export const getStaticProps: GetStaticProps = async () => {
       participants: 152340
     },
     {
+      id: 'egen_teto',
+      title: '에겐-테토 성격 유형 테스트',
+      description: '호르몬 특성으로 알아보는 나의 연애 성향과 성격 유형. 2024년 Z세대가 주목하는 새로운 성격 분석법',
+      emoji: '💝',
+      participants: 127843
+    },
+    {
       id: 'big-five',
       title: '빅파이브 성격 검사',
       description: '개방성, 성실성, 외향성, 친화성, 신경증성의 5가지 차원으로 성격을 측정하는 과학적 검사입니다.',
       emoji: '🌟',
       participants: 98756
-    },
-    {
-      id: 'emotional-intelligence',
-      title: '감정지능 검사',
-      description: '자신과 타인의 감정을 인식하고 관리하는 능력을 측정하여 인간관계 역량을 평가합니다.',
-      emoji: '💝',
-      participants: 67890
     }
   ];
 

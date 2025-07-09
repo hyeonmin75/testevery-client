@@ -19,12 +19,14 @@ import { tappingEnduranceTest } from './tapping-endurance';
 import { intuitionTest } from './intuition-test';
 import { mbtiTest } from './mbti';
 import { burnoutRiskTest } from './burnout-risk';
+import { egenTetoTest } from './egen-teto';
 
 
 
 
 export const tests: Record<string, TestData> = {
   mbti: mbtiTest,
+  egen_teto: egenTetoTest,
   burnout_risk_test: burnoutRiskTest,
   tapping_endurance: tappingEnduranceTest,
   intuition_test: intuitionTest,

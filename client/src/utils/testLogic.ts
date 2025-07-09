@@ -11,6 +11,47 @@ export function calculateTestResult(
     return calculateMBTIResult(testData, answers);
   }
   
+  // 에겐-테토 테스트인 경우 특별한 계산 로직
+  if (testData.id === 'egen_teto') {
+    return calculateEgenTetoResult(testData, answers);
+  }
+  
+  // Initialize scores for all possible results
+  Object.keys(testData.results).forEach(resultId => {
+    scores[resultId] = 0;
+  });
+  
+  // Calculate scores based on answers
+  answers.forEach(answer => {
+    const question = testData.questions.find(q => q.id === answer.questionId);
+    if (!question) return;
+    
+    const option = question.options.find(opt => opt.id === answer.optionId);
+    if (!option) return;
+    
+    // Add scores from this option to the total
+    Object.entries(option.scores).forEach(([resultId, score]) => {
+      scores[resultId] = (scores[resultId] || 0) + score;
+    });
+  });
+  
+  // Find the result with the highest score
+  const resultId = Object.keys(scores).reduce((a, b) => 
+    scores[a] > scores[b] ? a : b
+  );
+  
+  return {
+    resultId,
+    result: testData.results[resultId],
+    scores,
+    completedAt: Date.now(),
+    testId: testData.id
+  };
+}
+
+function calculateEgenTetoResult(testData: TestData, answers: UserAnswer[]): CalculatedResult {
+  const scores: Record<string, number> = {};
+  
   // Initialize scores for all possible results
   Object.keys(testData.results).forEach(resultId => {
     scores[resultId] = 0;
