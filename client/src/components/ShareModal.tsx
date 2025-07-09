@@ -6,9 +6,10 @@ interface ShareModalProps {
   isOpen: boolean;
   onClose: () => void;
   result: CalculatedResult;
+  customMessage?: string;
 }
 
-export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
+export function ShareModal({ isOpen, onClose, result, customMessage }: ShareModalProps) {
   const [notification, setNotification] = useState<string>('');
 
   const showNotification = (message: string) => {
@@ -17,7 +18,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
   };
 
   const shareToKakao = async () => {
-    const text = `나는 ${result.result.title}입니다! ${result.result.description}`;
+    const text = customMessage || `나는 ${result.result.title}입니다! ${result.result.description}`;
     const url = window.location.href;
     const fullText = `${text}\n${url}`;
     

@@ -7,6 +7,7 @@ import { ReactionTest } from '../components/ReactionTest';
 import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
 import { IntuitionTest } from '../components/IntuitionTest';
 import { ConcentrationTest } from '../components/ConcentrationTest';
+import { EmotionalTankTest } from '../components/EmotionalTankTest';
 
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
@@ -291,6 +292,21 @@ export default function Test() {
           </div>
         </div>
       </div>
+    );
+  }
+
+  // 감정탱크 테스트인 경우 특별한 렌더링  
+  if (testData.id === 'emotional_tank') {
+    const handleEmotionalTankComplete = (result: any) => {
+      sessionStorage.setItem('currentTestResult', JSON.stringify(result));
+      setLocation(`/result/${testId}`);
+    };
+
+    return (
+      <EmotionalTankTest 
+        testData={testData} 
+        onComplete={handleEmotionalTankComplete}
+      />
     );
   }
 

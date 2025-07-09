@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
+import { EmotionalTankResult } from '../components/EmotionalTankResult';
 import { TestCard } from '../components/TestCard';
 import { Toaster } from '../components/ui/toaster';
 import { tests } from '../data/tests';
@@ -61,6 +62,11 @@ export default function Result() {
     setLocation('/');
   };
 
+  const handleRestart = () => {
+    sessionStorage.removeItem('currentTestResult');
+    setLocation(`/test/${testId}`);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-korean flex items-center justify-center">
@@ -101,6 +107,16 @@ export default function Result() {
           </button>
         </div>
       </div>
+    );
+  }
+
+  // 감정탱크 테스트 전용 결과 페이지
+  if (testData?.id === 'emotional_tank' && result?.result) {
+    return (
+      <EmotionalTankResult
+        result={result}
+        onRestart={handleRestart}
+      />
     );
   }
 
