@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
+import { updateMetaTags, addStructuredData } from '../utils/seo';
 import { TestCard } from "../components/TestCard";
 import { ContactButton } from "../components/ContactButton";
 import { tests } from "../data/tests";
@@ -58,6 +59,39 @@ function TopTestCard({
 export default function Home() {
   const [, setLocation] = useLocation();
   const [updatedTests, setUpdatedTests] = useState<Record<string, TestData>>({});
+
+  // 홈페이지 SEO 설정
+  useEffect(() => {
+    updateMetaTags({
+      title: "모두의 테스트 - 재미있는 심리테스트와 성격진단",
+      description: "MBTI, 에겐-테토, 창의력 진단 등 다양한 심리테스트로 자신을 알아보세요. 200,000명이 선택한 신뢰할 수 있는 온라인 테스트 플랫폼입니다.",
+      keywords: "심리테스트, 성격테스트, MBTI, 에겐테토, 창의력테스트, 자가진단, 온라인테스트",
+      ogTitle: "모두의 테스트 - 재미있는 심리테스트와 성격진단",
+      ogDescription: "MBTI, 에겐-테토, 창의력 진단 등 다양한 심리테스트로 자신을 알아보세요.",
+      ogImage: 'https://testevery.com/og-image.png',
+      canonicalUrl: 'https://testevery.com/'
+    });
+
+    // 홈페이지 구조화된 데이터
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "모두의 테스트",
+      "url": "https://testevery.com",
+      "description": "재미있는 심리테스트와 성격진단 플랫폼",
+      "publisher": {
+        "@type": "Organization",
+        "name": "모두의 테스트"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://testevery.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": "ko"
+    };
+    addStructuredData(structuredData);
+  }, []);
 
   useEffect(() => {
     // 로컬스토리지 초기화 (번아웃 테스트 참여자 수 리셋)

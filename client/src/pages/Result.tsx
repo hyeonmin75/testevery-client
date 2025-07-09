@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
+import { updateMetaTags, addStructuredData } from '../utils/seo';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
 import { EmotionalTankResult } from '../components/EmotionalTankResult';
@@ -18,6 +19,46 @@ export default function Result() {
   const [isLoading, setIsLoading] = useState(true);
 
   const testData = testId ? tests[testId] : null;
+
+  // SEO 메타 태그 업데이트
+  useEffect(() => {
+    if (testData && testId && result) {
+      const resultData = result.result;
+      const title = `${resultData?.title || '결과'} - ${testData.title} 결과 | 모두의 테스트`;
+      const description = `당신은 ${resultData?.title || '특별한 유형'}입니다! ${resultData?.description || testData.description} ${testData.title} 결과를 친구들과 공유해보세요.`;
+      
+      updateMetaTags({
+        title,
+        description,
+        keywords: `${testData.title}, 결과, 심리테스트 결과, 성격분석, ${resultData?.title || ''}`,
+        ogTitle: title,
+        ogDescription: description,
+        ogImage: 'https://testevery.com/og-image.png',
+        canonicalUrl: `https://testevery.com/result/${testId}`
+      });
+
+      // 구조화된 데이터 추가
+      const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": title,
+        "description": description,
+        "url": `https://testevery.com/result/${testId}`,
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "모두의 테스트",
+          "url": "https://testevery.com"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": `${testData.title} 결과`,
+          "description": description
+        },
+        "inLanguage": "ko"
+      };
+      addStructuredData(structuredData);
+    }
+  }, [testData, testId, result]);
 
   useEffect(() => {
     if (!testData) {

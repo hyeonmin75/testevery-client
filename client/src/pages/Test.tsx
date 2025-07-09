@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'wouter';
+import { updateMetaTags, addStructuredData, generateTestPageStructuredData } from '../utils/seo';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuestionCard } from '../components/QuestionCard';
 import { ProgressBar } from '../components/ProgressBar';
@@ -32,6 +33,28 @@ export default function Test() {
       startTest(testData);
     }
   }, [testData, session, startTest]);
+
+  // SEO 메타 태그 업데이트
+  useEffect(() => {
+    if (testData && testId) {
+      const title = `${testData.title} | 모두의 테스트`;
+      const description = `${testData.description} 지금 바로 ${testData.title}를 통해 자신을 더 깊이 알아보세요. ${testData.participants.toLocaleString()}명이 참여한 인기 테스트입니다.`;
+      
+      updateMetaTags({
+        title,
+        description,
+        keywords: `${testData.title}, 심리테스트, 성격테스트, 자가진단, ${testId}, 온라인테스트`,
+        ogTitle: title,
+        ogDescription: description,
+        ogImage: 'https://testevery.com/og-image.png',
+        canonicalUrl: `https://testevery.com/test/${testId}`
+      });
+
+      // 구조화된 데이터 추가
+      const structuredData = generateTestPageStructuredData(testId, testData);
+      addStructuredData(structuredData);
+    }
+  }, [testData, testId]);
 
   useEffect(() => {
     if (testData && session && isTestComplete(testData) && !isLoading) {
