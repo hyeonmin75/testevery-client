@@ -21,6 +21,7 @@ import { mbtiTest } from './mbti';
 import { burnoutRiskTest } from './burnout-risk';
 import { egenTetoTest } from './egen-teto';
 import { emotionalTankTest } from './emotional-tank';
+import { creativityTest } from './creativity';
 
 
 
@@ -29,6 +30,7 @@ export const tests: Record<string, TestData> = {
   mbti: mbtiTest,
   egen_teto: egenTetoTest,
   emotional_tank: emotionalTankTest,
+  creativity: creativityTest,
   burnout_risk_test: burnoutRiskTest,
   tapping_endurance: tappingEnduranceTest,
   intuition_test: intuitionTest,

@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ShareModal } from '../components/ShareModal';
 import { EmotionalTankResult } from '../components/EmotionalTankResult';
+import { CreativityResult } from '../components/CreativityResult';
 import { TestCard } from '../components/TestCard';
 import { Toaster } from '../components/ui/toaster';
 import { tests } from '../data/tests';
@@ -114,6 +115,16 @@ export default function Result() {
   if (testData?.id === 'emotional_tank' && result?.result) {
     return (
       <EmotionalTankResult
+        result={result}
+        onRestart={handleRestart}
+      />
+    );
+  }
+
+  // 창의력 테스트 전용 결과 페이지
+  if (testData?.id === 'creativity' && result?.result) {
+    return (
+      <CreativityResult
         result={result}
         onRestart={handleRestart}
       />

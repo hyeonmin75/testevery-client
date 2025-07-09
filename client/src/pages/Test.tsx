@@ -8,6 +8,7 @@ import { TappingEnduranceTest } from '../components/TappingEnduranceTest';
 import { IntuitionTest } from '../components/IntuitionTest';
 import { ConcentrationTest } from '../components/ConcentrationTest';
 import { EmotionalTankTest } from '../components/EmotionalTankTest';
+import { CreativityTest } from '../components/CreativityTest';
 
 import { tests } from '../data/tests';
 import { useTest } from '../hooks/useTest';
@@ -306,6 +307,21 @@ export default function Test() {
       <EmotionalTankTest 
         testData={testData} 
         onComplete={handleEmotionalTankComplete}
+      />
+    );
+  }
+
+  // 창의력 테스트인 경우 특별한 렌더링
+  if (testData.id === 'creativity') {
+    const handleCreativityComplete = (result: any) => {
+      sessionStorage.setItem('currentTestResult', JSON.stringify(result));
+      setLocation(`/result/${testId}`);
+    };
+
+    return (
+      <CreativityTest 
+        testData={testData} 
+        onComplete={handleCreativityComplete}
       />
     );
   }
