@@ -1,8 +1,11 @@
 import express, { type Request, Response, NextFunction } from "express";
+import { createServer } from "http";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+// Disable case-sensitive routing
+app.set('case sensitive routing', false);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -37,7 +40,8 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  const server = await registerRoutes(app);
+  // Register routes FIRST
+  await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -47,9 +51,10 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // Create server
+  const server = createServer(app);
+
+  // Setup Vite or static serving AFTER routes
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {

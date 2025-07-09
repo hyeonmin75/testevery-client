@@ -3,16 +3,43 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { generateTestPageSEO, generateResultPageSEO, generateSEOHTML, getDefaultSEO } from "./seo";
 import { tests } from "../client/src/data/tests";
+import { setupDebugRoutes } from "./debug";
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  // SEO-optimized routes for test pages
-  app.get('/test/:testId', (req: Request, res: Response) => {
+export async function registerRoutes(app: Express): Promise<void> {
+  // Debug middleware to log all requests
+  app.use((req: Request, res: Response, next) => {
+    if (req.path.startsWith('/test/') || req.path.startsWith('/result/') || req.path === '/sitemap.xml' || req.path === '/robots.txt') {
+      console.log(`[DEBUG] ${req.method} ${req.originalUrl} (path: ${req.path}) - User-Agent: ${req.get('User-Agent')?.substring(0, 50)}...`);
+    }
+    next();
+  });
+
+  // Case-insensitive redirect for test URLs (backup for external links)
+  app.get('/Test/:testId', (req: Request, res: Response) => {
     const { testId } = req.params;
+    console.log(`[REDIRECT] Original URL: ${req.originalUrl}, Path: ${req.path}, Redirecting /Test/${testId} -> /test/${testId.toLowerCase()}`);
+    return res.redirect(301, `/test/${testId.toLowerCase()}`);
+  });
+
+  // SEO-optimized routes for test pages (EXACT MATCH ONLY)
+  app.get('/test/:testId', (req: Request, res: Response) => {
+    console.log(`[SEO Route] Handling /test/${req.params.testId} for User-Agent: ${req.get('User-Agent')}`);
+    
+    // 존재하지 않는 testId인지 먼저 확인
+    const { testId } = req.params;
+    if (!testId || typeof testId !== 'string') {
+      console.log(`[SEO Route] Invalid testId: ${testId}`);
+      return res.status(404).send('Test not found');
+    }
+    
     const test = tests[testId];
     
     if (!test) {
-      return res.status(404).send('Test not found');
+      console.log(`[SEO Route] Test not found: ${testId}. Available tests:`, Object.keys(tests));
+      return res.status(404).send(`Test '${testId}' not found`);
     }
+    
+    console.log(`[SEO Route] Found test: ${test.title}`);
     
     const seoData = generateTestPageSEO(testId);
     const content = `
@@ -33,14 +60,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.send(html);
   });
 
-  // SEO-optimized routes for result pages
+  // SEO-optimized routes for result pages (EXACT MATCH ONLY)
   app.get('/result/:testId', (req: Request, res: Response) => {
+    console.log(`[SEO Route] Handling /result/${req.params.testId} for User-Agent: ${req.get('User-Agent')}`);
+    
     const { testId } = req.params;
+    if (!testId || typeof testId !== 'string') {
+      console.log(`[SEO Route] Invalid resultId: ${testId}`);
+      return res.status(404).send('Test not found');
+    }
+    
     const test = tests[testId];
     
     if (!test) {
-      return res.status(404).send('Test not found');
+      console.log(`[SEO Route] Test not found for result: ${testId}. Available tests:`, Object.keys(tests));
+      return res.status(404).send(`Test '${testId}' not found`);
     }
+    
+    console.log(`[SEO Route] Found test for result: ${test.title}`);
     
     const seoData = generateResultPageSEO(testId);
     const content = `
@@ -144,6 +181,8 @@ Crawl-delay: 1`;
     res.json(seoData);
   });
 
-  const httpServer = createServer(app);
-  return httpServer;
+  // Setup debug routes
+  setupDebugRoutes(app);
+
+  // Routes are now registered, no need to create server here
 }

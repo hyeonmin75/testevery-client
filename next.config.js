@@ -39,18 +39,18 @@ const nextConfig = {
     ];
   },
   
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/sitemap.xml',
-      },
-      {
-        source: '/robots.txt',
-        destination: '/robots.txt',
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/sitemap.xml',
+  //       destination: '/sitemap.xml',
+  //     },
+  //     {
+  //       source: '/robots.txt',
+  //       destination: '/robots.txt',
+  //     },
+  //   ];
+  // },
   // 사이트맵 및 robots.txt 생성을 위한 설정
   trailingSlash: false,
   poweredByHeader: false,
