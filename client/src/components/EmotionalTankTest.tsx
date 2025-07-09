@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'wouter';
 import { TestData, TestQuestion, CalculatedResult } from '../types/test';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
-import { Check } from 'lucide-react';
+import { Check, ArrowLeft } from 'lucide-react';
 
 interface EmotionalTankTestProps {
   testData: TestData;
@@ -15,9 +16,14 @@ interface SelectedOptions {
 }
 
 export function EmotionalTankTest({ testData, onComplete }: EmotionalTankTestProps) {
+  const [, setLocation] = useLocation();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({});
   const [isCompleting, setIsCompleting] = useState(false);
+
+  const handleBack = () => {
+    setLocation('/');
+  };
 
   const currentQuestion = testData.questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / testData.questions.length) * 100;
@@ -119,10 +125,36 @@ export function EmotionalTankTest({ testData, onComplete }: EmotionalTankTestPro
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 p-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+      {/* Header */}
+      <motion.div 
+        className="bg-white shadow-lg p-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <motion.button
+            onClick={handleBack}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>홈으로 돌아가기</span>
+          </motion.button>
+          <div className="text-lg font-semibold text-gray-800">
+            {testData.emoji} {testData.title}
+          </div>
+          <div className="text-sm text-gray-500">
+            {currentQuestionIndex + 1}/{testData.questions.length}
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="max-w-2xl mx-auto p-4">
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-8 mt-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-medium text-gray-600">
               {currentQuestionIndex + 1} / {testData.questions.length}

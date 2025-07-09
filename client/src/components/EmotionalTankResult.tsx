@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { CalculatedResult } from '../types/test';
 import { Button } from './ui/button';
 import { ShareModal } from './ShareModal';
-import { Heart, RefreshCw, Coffee, Headphones, BookOpen, TreePine } from 'lucide-react';
+import { Heart, RefreshCw, Coffee, Headphones, BookOpen, TreePine, Home } from 'lucide-react';
+import { useLocation } from 'wouter';
 
 interface EmotionalTankResultProps {
   result: CalculatedResult;
@@ -20,8 +21,13 @@ interface RecoveryTip {
 }
 
 export function EmotionalTankResult({ result, onRestart }: EmotionalTankResultProps) {
+  const [, setLocation] = useLocation();
   const [showShareModal, setShowShareModal] = useState(false);
   const [animatedPercentage, setAnimatedPercentage] = useState(0);
+
+  const handleGoHome = () => {
+    setLocation('/');
+  };
   
   const tankPercentage = result.scores.tank || 0;
   const drainScore = result.scores.drain || 0;
@@ -327,6 +333,14 @@ export function EmotionalTankResult({ result, onRestart }: EmotionalTankResultPr
             className="border-orange-300 text-orange-600 hover:bg-orange-50"
           >
             다시 테스트하기
+          </Button>
+          <Button
+            onClick={handleGoHome}
+            variant="outline"
+            className="border-gray-300 text-gray-600 hover:bg-gray-50"
+          >
+            <Home className="w-4 h-4 mr-2" />
+            홈으로 가기
           </Button>
         </motion.div>
 
