@@ -88,6 +88,13 @@ The application is configured for deployment on Vercel with the following setup:
 
 ## Changelog
 
+- January 18, 2025. 에겐-테토 심리테스트 추가 및 SEO 최적화
+  - 에겐-테토 성격 유형 테스트 구현 (12개 질문, 4가지 결과 유형)
+  - 에겐-테토 관련 전문 블로그 게시물 추가
+  - 동적 sitemap.xml 및 robots.txt 생성
+  - PWA 지원을 위한 manifest.json 추가
+  - 구조화된 데이터 (JSON-LD) 추가
+  - 완전한 SEO 최적화 (메타 태그, 보안 헤더 등)
 - July 02, 2025. Initial setup
 
 ## User Preferences

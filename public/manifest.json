@@ -1,0 +1,27 @@
+{
+  "name": "모두의 테스트 - 심리학 교육 센터",
+  "short_name": "모두의 테스트",
+  "description": "과학적 심리학 교육과 신뢰성 높은 성격 분석을 제공하는 전문 플랫폼입니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "lang": "ko",
+  "dir": "ltr",
+  "categories": ["education", "psychology", "health"],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "type": "image/png",
+      "sizes": "1280x720"
+    }
+  ]
+}

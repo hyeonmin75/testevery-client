@@ -1,4 +1,13 @@
-# robots.txt for testevery.com - 심리학 교육과 성격 분석 플랫폼
+import { GetServerSideProps } from 'next';
+
+const RobotsTxt = () => {
+  return null;
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const baseUrl = 'https://testevery.com';
+  
+  const robots = `# robots.txt for testevery.com - 심리학 교육과 성격 분석 플랫폼
 
 User-agent: *
 Allow: /
@@ -41,4 +50,15 @@ Allow: /contact
 Allow: /privacy
 
 # Sitemap location
-Sitemap: https://testevery.com/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml`;
+
+  res.setHeader('Content-Type', 'text/plain');
+  res.write(robots);
+  res.end();
+
+  return {
+    props: {},
+  };
+};
+
+export default RobotsTxt;

@@ -9,7 +9,7 @@
 <!-- Homepage -->
 <url>
   <loc>https://testevery.com</loc>
-  <lastmod>2024-01-15T00:00:00+00:00</lastmod>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
   <changefreq>daily</changefreq>
   <priority>1.0</priority>
 </url>
@@ -39,9 +39,73 @@
 <!-- Blog -->
 <url>
   <loc>https://testevery.com/blog</loc>
-  <lastmod>2024-01-15T00:00:00+00:00</lastmod>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.9</priority>
+</url>
+
+<!-- Tests -->
+<url>
+  <loc>https://testevery.com/test/mbti</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/egen_teto</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/burnout_risk_test</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/tapping_endurance</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/intuition_test</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/animal</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/love</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/career</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://testevery.com/test/reaction_speed</loc>
+  <lastmod>2024-01-18T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
 </url>
 
 <!-- Blog Posts -->

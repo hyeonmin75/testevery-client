@@ -17,6 +17,14 @@ export default function Document() {
         {/* 파비콘 */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         
+        {/* Progressive Web App 및 Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="모두의 테스트" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
         {/* Google AdSense 위치 */}
         {/* <script
           async
@@ -24,6 +32,38 @@ export default function Document() {
           crossOrigin="anonymous"
         /> */}
         
+        {/* SEO 최적화를 위한 추가 메타 태그 */}
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="author" content="모두의 테스트 - 심리학 교육 센터" />
+        <meta name="publisher" content="testevery.com" />
+        <meta name="theme-color" content="#8B5CF6" />
+        <meta name="msapplication-TileColor" content="#8B5CF6" />
+        
+        {/* 구조화된 데이터를 위한 JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "모두의 테스트",
+              "url": "https://testevery.com",
+              "description": "과학적 심리학 교육과 신뢰성 높은 성격 분석을 제공하는 전문 플랫폼입니다.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "모두의 테스트",
+                "url": "https://testevery.com"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://testevery.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+
         {/* Naver Analytics */}
         <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
         <script
