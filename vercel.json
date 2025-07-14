@@ -2,29 +2,28 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/index.ts",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "client/**/*",
-      "use": "@vercel/static-build",
+      "src": "package.json",
+      "use": "@vercel/node",
       "config": {
-        "distDir": "dist/public"
+        "includeFiles": [
+          "client/src/data/**/*.ts",
+          "server/seo.ts"
+        ]
       }
     }
   ],
   "routes": [
     {
-      "src": "/blog/(.*)",
-      "dest": "/api/blog/$1"
+      "src": "/blog/([^/]+)",
+      "dest": "/api/blog?postId=$1"
     },
     {
-      "src": "/test/(.*)",
-      "dest": "/api/test/$1"
+      "src": "/test/([^/]+)",
+      "dest": "/api/test?testId=$1"
     },
     {
-      "src": "/result/(.*)",
-      "dest": "/api/result/$1"
+      "src": "/result/([^/]+)",
+      "dest": "/api/result?testId=$1"
     },
     {
       "src": "/sitemap.xml",
@@ -38,13 +37,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "server/index.ts": {
-      "includeFiles": [
-        "client/src/data/**",
-        "shared/**"
-      ]
-    }
-  }
+  ]
 }
