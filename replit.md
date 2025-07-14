@@ -88,7 +88,7 @@ The application is configured for deployment on Vercel with the following setup:
 
 ## Changelog
 
-- January 18, 2025. SEO 최적화 및 서버사이드 렌더링 구현 완료
+- January 18, 2025. SEO 최적화 및 서버사이드 렌더링 구현 완료 (배포 대기 중)
   - **서버사이드 렌더링**: Express에서 모든 테스트 페이지 정적 HTML 제공 ✅
   - **동적 sitemap.xml**: 모든 테스트 페이지 자동 포함 (46개 페이지) ✅
   - **개선된 robots.txt**: 크롤링 가이드라인 및 sitemap 위치 명시 ✅
@@ -101,6 +101,7 @@ The application is configured for deployment on Vercel with the following setup:
   - **라우팅 최적화**: Express 라우트 우선순위 및 case-insensitive 처리 ✅
   - **배포 준비**: Vite 개발환경과 프로덕션 환경 분리 처리 ✅
   - **블로그 라우팅**: 모든 블로그 포스트 SEO 최적화 및 리다이렉트 추가 ✅
+  - **배포 필요**: 현재 www.testevery.com은 이전 버전이므로 Git → Vercel 배포 필요 ⚠️
 - January 18, 2025. 창의력 진단 테스트 및 감정탱크 테스트 추가
   - 창의력 진단 테스트 구현 (Alternate Uses Task 기반)
     * 5가지 랜덤 사물 중 1개 선택

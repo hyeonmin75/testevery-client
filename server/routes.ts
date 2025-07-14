@@ -9,7 +9,7 @@ import { setupDebugRoutes } from "./debug";
 export async function registerRoutes(app: Express): Promise<void> {
   // Debug middleware to log all requests
   app.use((req: Request, res: Response, next) => {
-    if (req.path.startsWith('/test/') || req.path.startsWith('/result/') || req.path === '/sitemap.xml' || req.path === '/robots.txt') {
+    if (req.path.startsWith('/test/') || req.path.startsWith('/result/') || req.path.startsWith('/blog/') || req.path === '/sitemap.xml' || req.path === '/robots.txt') {
       console.log(`[DEBUG] ${req.method} ${req.originalUrl} (path: ${req.path}) - User-Agent: ${req.get('User-Agent')?.substring(0, 50)}...`);
     }
     next();
