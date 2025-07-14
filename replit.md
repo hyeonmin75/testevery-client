@@ -101,7 +101,9 @@ The application is configured for deployment on Vercel with the following setup:
   - **라우팅 최적화**: Express 라우트 우선순위 및 case-insensitive 처리 ✅
   - **배포 준비**: Vite 개발환경과 프로덕션 환경 분리 처리 ✅
   - **블로그 라우팅**: 모든 블로그 포스트 SEO 최적화 및 리다이렉트 추가 ✅
-  - **배포 필요**: 현재 www.testevery.com은 이전 버전이므로 Git → Vercel 배포 필요 ⚠️
+  - **Vercel 서버리스 함수 전환**: Express 서버에서 Vercel API 함수로 변경 ✅
+  - **API 라우팅**: /api/blog, /api/test, /api/result, /api/sitemap 구현 ✅
+  - **배포 진행 중**: vercel.json 설정 완료, 자동 배포 대기 중 🔄
 - January 18, 2025. 창의력 진단 테스트 및 감정탱크 테스트 추가
   - 창의력 진단 테스트 구현 (Alternate Uses Task 기반)
     * 5가지 랜덤 사물 중 1개 선택
