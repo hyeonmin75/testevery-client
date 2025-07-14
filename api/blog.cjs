@@ -1,4 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+// @vercel/node
+const { VercelRequest, VercelResponse } = require('@vercel/node');
 
 // Complete blog posts data
 const blogPosts = [
@@ -35,7 +36,7 @@ const blogPosts = [
 ];
 
 // Simple SEO HTML generator
-function generateSEOHTML(seoData: any, content: string) {
+function generateSEOHTML(seoData, content) {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -57,7 +58,7 @@ function generateSEOHTML(seoData: any, content: string) {
 </html>`;
 }
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = function handler(req, res) {
   const { postId } = req.query;
   const userAgent = req.headers['user-agent'] || '';
   const isBot = userAgent.includes('bot') || userAgent.includes('crawl') || userAgent.includes('spider');

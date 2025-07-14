@@ -1,7 +1,7 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+// @vercel/node
 
 // Test data
-const tests: Record<string, any> = {
+const tests = {
   "mbti": {
     id: "mbti",
     title: "MBTI 성격유형 테스트",
@@ -26,7 +26,7 @@ const tests: Record<string, any> = {
   }
 };
 
-function generateSEOHTML(seoData: any, content: string) {
+function generateSEOHTML(seoData, content) {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,7 +47,7 @@ function generateSEOHTML(seoData: any, content: string) {
 </html>`;
 }
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = function handler(req, res) {
   const { testId } = req.query;
   const userAgent = req.headers['user-agent'] || '';
   const isBot = userAgent.includes('bot') || userAgent.includes('crawl') || userAgent.includes('spider');

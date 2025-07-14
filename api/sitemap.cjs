@@ -1,8 +1,22 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { tests } from '../client/src/data/tests';
-import { blogPosts } from '../client/src/data/blogPosts';
+// @vercel/node
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+// Blog posts data
+const blogPosts = [
+  {id: "psychology-research-methods", title: "심리학 연구 방법론: 과학적 접근법과 측정 도구의 이해", date: "2024-12-07"},
+  {id: "concentration-focus-psychology", title: "집중력과 주의력의 심리학: 디지털 시대의 인지적 도전과 해결책", date: "2024-11-20"},
+  {id: "intuition-psychology-decision", title: "직감의 심리학: 무의식적 의사결정과 직관적 판단의 과학", date: "2024-12-01"}
+];
+
+// Test data
+const tests = {
+  "mbti": {id: "mbti"},
+  "concentration": {id: "concentration"},
+  "egen_teto": {id: "egen_teto"},
+  "emotional_tank": {id: "emotional_tank"},
+  "creativity": {id: "creativity"}
+};
+
+module.exports = function handler(req, res) {
   const baseUrl = 'https://testevery.com';
   
   const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>

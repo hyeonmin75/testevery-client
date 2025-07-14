@@ -1,37 +1,42 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "client/src/data/**/*.ts",
-          "server/seo.ts"
-        ]
-      }
+  "functions": {
+    "api/blog.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/test.cjs": {
+      "runtime": "nodejs18.x"  
+    },
+    "api/result.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/sitemap.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/robots.cjs": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/blog/([^/]+)",
-      "dest": "/api/blog?postId=$1"
+      "dest": "/api/blog.cjs?postId=$1"
     },
     {
       "src": "/test/([^/]+)",
-      "dest": "/api/test?testId=$1"
+      "dest": "/api/test.cjs?testId=$1"
     },
     {
       "src": "/result/([^/]+)",
-      "dest": "/api/result?testId=$1"
+      "dest": "/api/result.cjs?testId=$1"
     },
     {
       "src": "/sitemap.xml",
-      "dest": "/api/sitemap"
+      "dest": "/api/sitemap.cjs"
     },
     {
       "src": "/robots.txt",
-      "dest": "/api/robots"
+      "dest": "/api/robots.cjs"
     },
     {
       "src": "/(.*)",
