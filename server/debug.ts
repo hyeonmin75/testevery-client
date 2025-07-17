@@ -23,16 +23,8 @@ export function setupDebugRoutes(app: any) {
         userAgent: req.get('User-Agent'),
         host: req.get('Host'),
         originalUrl: req.originalUrl,
-        method: req.method,
-        isBot: (req.get('User-Agent') || '').includes('bot') || (req.get('User-Agent') || '').includes('crawl') || (req.get('User-Agent') || '').includes('spider') || (req.get('User-Agent') || '').includes('Google')
-      },
-      crawlableUrls: [
-        'https://testevery.com/',
-        'https://testevery.com/sitemap.xml',
-        'https://testevery.com/robots.txt',
-        ...testIds.map(id => `https://testevery.com/test/${id}`),
-        ...testIds.map(id => `https://testevery.com/result/${id}`)
-      ]
+        method: req.method
+      }
     };
     
     res.json(status);

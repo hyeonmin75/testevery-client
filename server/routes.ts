@@ -5,7 +5,6 @@ import { generateTestPageSEO, generateResultPageSEO, generateSEOHTML, getDefault
 import { tests } from "../client/src/data/tests";
 import { blogPosts } from "../client/src/data/blogPosts";
 import { setupDebugRoutes } from "./debug";
-import path from "path";
 
 export async function registerRoutes(app: Express): Promise<void> {
   // Debug middleware to log all requests
@@ -34,20 +33,20 @@ export async function registerRoutes(app: Express): Promise<void> {
     const { postId } = req.params;
     const userAgent = req.get('User-Agent') || '';
     const isBot = userAgent.includes('bot') || userAgent.includes('crawl') || userAgent.includes('spider');
-
+    
     console.log(`[DEBUG] GET /blog/${postId} (path: ${req.path}) - User-Agent: ${userAgent.substring(0, 50)}...`);
-
+    
     if (isBot) {
       console.log(`[SEO Route] Handling /blog/${postId} for User-Agent: ${userAgent.substring(0, 50)}`);
-
+      
       const post = blogPosts.find(p => p.id === postId);
       if (!post) {
         console.log(`[SEO Route] Blog post not found: ${postId}`);
         return res.status(404).send('Blog post not found');
       }
-
+      
       console.log(`[SEO Route] Found blog post: ${post.title}`);
-
+      
       const seoData = {
         title: `${post.title} | 모두의 테스트`,
         description: post.excerpt,
@@ -72,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<void> {
           }
         }
       };
-
+      
       const htmlContent = generateSEOHTML(seoData, `
       <div class="blog-content">
         <article>
@@ -97,10 +96,10 @@ export async function registerRoutes(app: Express): Promise<void> {
         </article>
       </div>
     `);
-
+      
       return res.send(htmlContent);
     }
-
+    
     // For regular users, serve the SPA
     return res.redirect(`/#/blog/${postId}`);
   });
@@ -108,23 +107,23 @@ export async function registerRoutes(app: Express): Promise<void> {
   // SEO-optimized routes for test pages (EXACT MATCH ONLY)
   app.get('/test/:testId', (req: Request, res: Response) => {
     console.log(`[SEO Route] Handling /test/${req.params.testId} for User-Agent: ${req.get('User-Agent')}`);
-
+    
     // 존재하지 않는 testId인지 먼저 확인
     const { testId } = req.params;
     if (!testId || typeof testId !== 'string') {
       console.log(`[SEO Route] Invalid testId: ${testId}`);
       return res.status(404).send('Test not found');
     }
-
+    
     const test = tests[testId];
-
+    
     if (!test) {
       console.log(`[SEO Route] Test not found: ${testId}. Available tests:`, Object.keys(tests));
       return res.status(404).send(`Test '${testId}' not found`);
     }
-
+    
     console.log(`[SEO Route] Found test: ${test.title}`);
-
+    
     const seoData = generateTestPageSEO(testId);
     const content = `
       <div class="seo-content">
@@ -138,7 +137,7 @@ export async function registerRoutes(app: Express): Promise<void> {
         <a href="/test/${testId}" class="start-test-btn">테스트 시작하기</a>
       </div>
     `;
-
+    
     const html = generateSEOHTML(seoData, content);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.send(html);
@@ -147,22 +146,22 @@ export async function registerRoutes(app: Express): Promise<void> {
   // SEO-optimized routes for result pages (EXACT MATCH ONLY)
   app.get('/result/:testId', (req: Request, res: Response) => {
     console.log(`[SEO Route] Handling /result/${req.params.testId} for User-Agent: ${req.get('User-Agent')}`);
-
+    
     const { testId } = req.params;
     if (!testId || typeof testId !== 'string') {
       console.log(`[SEO Route] Invalid resultId: ${testId}`);
       return res.status(404).send('Test not found');
     }
-
+    
     const test = tests[testId];
-
+    
     if (!test) {
       console.log(`[SEO Route] Test not found for result: ${testId}. Available tests:`, Object.keys(tests));
       return res.status(404).send(`Test '${testId}' not found`);
     }
-
+    
     console.log(`[SEO Route] Found test for result: ${test.title}`);
-
+    
     const seoData = generateResultPageSEO(testId);
     const content = `
       <div class="seo-content">
@@ -179,70 +178,41 @@ export async function registerRoutes(app: Express): Promise<void> {
         <a href="/test/${testId}" class="start-test-btn">테스트 다시하기</a>
       </div>
     `;
-
+    
     const html = generateSEOHTML(seoData, content);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.send(html);
   });
 
-  // Dynamic sitemap.xml generation
+  // Dynamic sitemap.xml
   app.get('/sitemap.xml', (req: Request, res: Response) => {
-    console.log('[SEO Route] Generating sitemap.xml');
-
     const baseUrl = 'https://testevery.com';
     const currentDate = new Date().toISOString().split('T')[0];
-
-    const testIds = Object.keys(tests);
-    const blogPostIds = Object.keys(blogPosts);
-
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
-    <loc>${baseUrl}</loc>
+    <loc>${baseUrl}/</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Main Pages -->
   <url>
     <loc>${baseUrl}/about</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <url>
-    <loc>${baseUrl}/psychology</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>${baseUrl}/blog</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
   <url>
     <loc>${baseUrl}/contact</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
+  </url>`;
 
-  <url>
-    <loc>${baseUrl}/privacy</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Test Pages -->
-  ${testIds.map(testId => `
+    // Add test pages
+    Object.keys(tests).forEach(testId => {
+      sitemap += `
   <url>
     <loc>${baseUrl}/test/${testId}</loc>
     <lastmod>${currentDate}</lastmod>
@@ -254,71 +224,48 @@ export async function registerRoutes(app: Express): Promise<void> {
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`).join('')}
+  </url>`;
+    });
 
-  <!-- Blog Posts -->
-  ${blogPostIds.map(postId => `
+    // Add blog pages
+    blogPosts.forEach(post => {
+      sitemap += `
   <url>
-    <loc>${baseUrl}/blog/${postId}</loc>
-    <lastmod>${blogPosts[postId].date}</lastmod>
+    <loc>${baseUrl}/blog/${post.id}</loc>
+    <lastmod>${post.date}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>`).join('')}
+    <priority>0.7</priority>
+  </url>`;
+    });
+
+    sitemap += `
 </urlset>`;
 
-    res.set('Content-Type', 'application/xml');
-    res.set('Cache-Control', 'public, max-age=3600'); // 1시간 캐시
+    res.setHeader('Content-Type', 'application/xml');
     res.send(sitemap);
   });
 
-  // robots.txt
+  // Enhanced robots.txt
   app.get('/robots.txt', (req: Request, res: Response) => {
-    console.log('[SEO Route] Serving robots.txt');
-
-    const robotsContent = `User-agent: *
+    const robotsTxt = `User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://testevery.com/sitemap.xml
-
-# Allow specific crawlers
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: NaverBot
-Allow: /
-Crawl-delay: 1
-
-# Allow all important pages
+Allow: /test/*
+Allow: /result/*
 Allow: /about
-Allow: /psychology
-Allow: /blog
 Allow: /contact
-Allow: /test/
-Allow: /result/
-Allow: /privacy
-Allow: /terms
 
-# Block unwanted areas
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /node_modules/
-Disallow: /server/
-Disallow: /client/
+Disallow: /api/*
+Disallow: /admin/*
+Disallow: /_next/*
 Disallow: /*.json$
 
-# Crawl delay for better server performance
+Sitemap: https://testevery.com/sitemap.xml
+
+# Additional crawl delay for respectful crawling
 Crawl-delay: 1`;
 
-    res.set('Content-Type', 'text/plain');
-    res.set('Cache-Control', 'public, max-age=86400'); // 24시간 캐시
-    res.send(robotsContent);
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(robotsTxt);
   });
 
   // Meta tags API for dynamic SEO
@@ -331,39 +278,5 @@ Crawl-delay: 1`;
   // Setup debug routes
   setupDebugRoutes(app);
 
-  // 일반적인 SPA 라우팅 (봇이 아닌 경우)
-  app.get('*', (req: Request, res: Response) => {
-    const userAgent = req.get('User-Agent') || '';
-    const isBot = userAgent.includes('bot') || userAgent.includes('crawl') || userAgent.includes('spider') || userAgent.includes('Google');
-
-    console.log(`[Catch-all] ${req.path} - User-Agent: ${userAgent.substring(0, 50)}... (Bot: ${isBot})`);
-
-    // 정적 파일 요청인 경우 404 반환
-    if (req.path.includes('.')) {
-      console.log(`[Catch-all] Static file request: ${req.path}`);
-      return res.status(404).send('File not found');
-    }
-
-    // 봇인 경우 기본 SEO 페이지 반환
-    if (isBot) {
-      const seoData = getDefaultSEO();
-      const content = `
-        <div class="seo-content">
-          <h1>모두의 테스트</h1>
-          <p>재미있는 심리테스트와 성격진단 플랫폼</p>
-          <div class="test-info">
-            <span>🧠 다양한 심리테스트</span>
-            <span>📊 과학적 분석</span>
-            <span>🎯 정확한 결과</span>
-          </div>
-        </div>
-      `;
-
-      const html = generateSEOHTML(seoData, content);
-      return res.send(html);
-    }
-
-    // SPA 서빙
-    res.sendFile(path.join(__dirname, '../client/index.html'));
-  });
+  // Routes are now registered, no need to create server here
 }
