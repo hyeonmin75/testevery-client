@@ -1,44 +1,38 @@
-# robots.txt for testevery.com - 심리학 교육과 성격 분석 플랫폼
-
 User-agent: *
 Allow: /
-
-# Allow specific crawlers
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: NaverBot
-Allow: /
-Crawl-delay: 1
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-# Disallow admin and system areas
-Disallow: /admin/
-Disallow: /api/
-Disallow: /_next/
-Disallow: /static/
-Disallow: /node_modules/
-Disallow: /*.json$
-Disallow: /server/
-Disallow: /client/
-
-# Allow important directories
 Allow: /test/
+Allow: /result/
 Allow: /blog/
-Allow: /post/
 Allow: /about
 Allow: /contact
 Allow: /privacy
 
-# Sitemap location
-Sitemap: https://testevery.com/sitemap.xml
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /analytics/
+Disallow: /temp/
+Disallow: /*.json$
+Disallow: /tracking/
+
+# Special crawlers
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+# Sitemap
+Sitemap: https://www.testevery.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
