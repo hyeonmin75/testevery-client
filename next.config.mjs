@@ -10,9 +10,8 @@ const nextConfig = {
     unoptimized: true, // Required for static export
   },
   
-  // Enable experimental features for better SEO
+  // Experimental features disabled for stable builds
   experimental: {
-    optimizeCss: true,
   },
   
   // Redirects for old URLs (prevent 404s)

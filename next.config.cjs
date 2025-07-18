@@ -11,6 +11,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    // Remove CSS optimization to prevent critters module error
+  },
 };
 
 module.exports = nextConfig;

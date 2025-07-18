@@ -1,0 +1,26 @@
+{
+  "name": "모두의 테스트 - 과학적 심리테스트 플랫폼",
+  "short_name": "모두의 테스트",
+  "description": "과학적으로 검증된 심리테스트로 나를 더 깊이 이해해보세요",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle", "health"],
+  "lang": "ko"
+}
