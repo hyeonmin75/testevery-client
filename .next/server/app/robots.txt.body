@@ -1,0 +1,33 @@
+User-Agent: *
+Allow: /
+Allow: /test/
+Allow: /result/
+Allow: /blog/
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /analytics/
+Disallow: /temp/
+Disallow: /*.json$
+Disallow: /tracking/
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+User-Agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+Host: https://www.testevery.com
+Sitemap: https://www.testevery.com/sitemap.xml

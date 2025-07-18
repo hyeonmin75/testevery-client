@@ -1,0 +1,15 @@
+# Replit Deployment Configuration
+# This project uses Next.js static export for deployment
+
+# Build command - use Next.js build instead of Vite
+build = "npx next build"
+
+# Entry point for static hosting
+entrypoint = "out/index.html"
+
+# Deployment type - static hosting for Next.js export
+deploymentType = "static"
+
+# Environment configuration
+[env]
+NODE_ENV = "production"
