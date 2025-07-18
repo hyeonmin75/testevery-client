@@ -1,4 +1,6 @@
 {
-  "/page": "app/page.js",
-  "/blog/page": "app/blog/page.js"
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/test/[slug]/page": "app/test/[slug]/page.js",
+  "/tests/page": "app/tests/page.js",
+  "/page": "app/page.js"
 }

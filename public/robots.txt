@@ -1,38 +1,32 @@
 User-agent: *
 Allow: /
-Allow: /test/
-Allow: /result/
-Allow: /blog/
-Allow: /about
-Allow: /contact
-Allow: /privacy
 
-Disallow: /api/
+# Block admin and API routes
 Disallow: /admin/
+Disallow: /api/
 Disallow: /private/
-Disallow: /_next/
-Disallow: /analytics/
 Disallow: /temp/
+
+# Block query parameters
+Disallow: /*?*utm_*
+Disallow: /*?*fbclid*
+Disallow: /*?*gclid*
+
+# Block file types
 Disallow: /*.json$
-Disallow: /tracking/
+Disallow: /*.xml$
+Disallow: /*.log$
 
-# Special crawlers
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /analytics/
+# Allow important files
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /manifest.json
 
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /analytics/
-
-# Sitemap
+# Sitemap location
 Sitemap: https://www.testevery.com/sitemap.xml
 
-# Crawl delay for respectful crawling
+# Crawl delay
 Crawl-delay: 1
+
+# Host specification
+Host: https://www.testevery.com

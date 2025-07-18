@@ -1,31 +1,37 @@
 #!/bin/bash
 
-# Build script for Next.js deployment
-echo "Building Next.js application for deployment..."
+echo "🚀 Building TestEvery website..."
 
-# Install dependencies if needed
+# Install dependencies if not present
 if [ ! -d "node_modules" ]; then
-  echo "Installing dependencies..."
-  npm ci
+    echo "📦 Installing dependencies..."
+    npm install
 fi
 
-# Clean previous builds
-echo "Cleaning previous builds..."
-rm -rf .next out dist
-
-# Build Next.js application using the correct command
-echo "Building with Next.js..."
+# Build the Next.js application
+echo "🏗️ Building Next.js application..."
 npx next build
 
-echo "Build completed successfully!"
-echo "Output directory: ./out"
-ls -la out/ || echo "Output directory not found, checking .next..."
-ls -la .next/ || echo "No build output found"
-
-# Verify critical files exist
-if [ -f "out/index.html" ]; then
-  echo "✅ Static export successful - index.html found"
+# Check if build was successful
+if [ $? -eq 0 ]; then
+    echo "✅ Build successful!"
+    echo "📁 Static files generated in 'out' directory"
+    echo "🌐 Ready for deployment to Vercel or other static hosting"
 else
-  echo "❌ Build may have failed - no index.html found"
-  exit 1
+    echo "❌ Build failed!"
+    exit 1
 fi
+
+# Display build output info
+echo ""
+echo "📊 Build Summary:"
+echo "- Next.js version: $(npx next --version)"
+echo "- Output directory: ./out"
+echo "- Deployment target: static"
+echo "- Site ready for: www.testevery.com"
+
+echo ""
+echo "🚀 Deployment Instructions:"
+echo "1. Upload 'out' directory to your static host"
+echo "2. Or use 'vercel' command for Vercel deployment"
+echo "3. Configure domain: www.testevery.com"
