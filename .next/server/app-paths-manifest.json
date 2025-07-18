@@ -1,13 +1,4 @@
 {
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/blog/page": "app/blog/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
   "/page": "app/page.js",
-  "/blog/[slug]/page": "app/blog/[slug]/page.js",
-  "/privacy/page": "app/privacy/page.js",
-  "/result/[slug]/page": "app/result/[slug]/page.js",
-  "/test/[slug]/page": "app/test/[slug]/page.js"
+  "/blog/page": "app/blog/page.js"
 }
