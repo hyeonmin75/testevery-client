@@ -1,0 +1,6 @@
+Contact: mailto:security@testevery.com
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://testevery.com/pgp-key.txt
+Acknowledgments: https://testevery.com/security-acknowledgments
+Preferred-Languages: ko, en
+Canonical: https://testevery.com/.well-known/security.txt

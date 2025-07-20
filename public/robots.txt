@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+Allow: /test/
+Allow: /result/
+Allow: /blog/
+Allow: /about
+Allow: /contact
+Allow: /privacy
+
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /analytics/
+Disallow: /temp/
+Disallow: /*.json$
+Disallow: /tracking/
+
+# Special crawlers
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /analytics/
+
+# Sitemap
+Sitemap: https://www.testevery.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
