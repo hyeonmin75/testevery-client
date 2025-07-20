@@ -1,51 +1,46 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "out",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "framework": "nextjs",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+  "functions": {
+    "api/blog.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/test.cjs": {
+      "runtime": "nodejs18.x"  
+    },
+    "api/result.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/sitemap.cjs": {
+      "runtime": "nodejs18.x"
+    },
+    "api/robots.cjs": {
+      "runtime": "nodejs18.x"
     }
-  ],
-  "headers": [
+  },
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=31536000, stale-while-revalidate"
-        }
-      ]
+      "src": "/blog/([^/]+)",
+      "dest": "/api/blog.cjs?postId=$1"
     },
     {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=86400, stale-while-revalidate"
-        }
-      ]
+      "src": "/test/([^/]+)",
+      "dest": "/api/test.cjs?testId=$1"
     },
     {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain"
-        }
-      ]
+      "src": "/result/([^/]+)",
+      "dest": "/api/result.cjs?testId=$1"
+    },
+    {
+      "src": "/sitemap.xml",
+      "dest": "/api/sitemap.cjs"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/api/robots.cjs"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

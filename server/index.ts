@@ -1,43 +1,75 @@
-#!/usr/bin/env node
+import express, { type Request, Response, NextFunction } from "express";
+import { createServer } from "http";
+import { registerRoutes } from "./routes";
+import { setupVite, serveStatic, log } from "./vite";
 
-// Simple server that starts Next.js dev server
-// This matches the workflow configuration while keeping Next.js functionality
+const app = express();
+// Disable case-sensitive routing
+app.set('case sensitive routing', false);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-import { spawn } from 'child_process';
-import { join } from 'path';
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path = req.path;
+  let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
-const projectDir = join(process.cwd());
+  const originalResJson = res.json;
+  res.json = function (bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
 
-console.log('Starting Next.js development server...');
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path.startsWith("/api")) {
+      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
 
-// Start Next.js dev server on port 5000
-const nextProcess = spawn('npx', ['next', 'dev', '-p', '5000'], {
-  cwd: projectDir,
-  stdio: 'inherit',
-  env: {
-    ...process.env,
-    NODE_ENV: 'development',
-    PORT: '5000'
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "…";
+      }
+
+      log(logLine);
+    }
+  });
+
+  next();
+});
+
+(async () => {
+  // Register routes FIRST
+  await registerRoutes(app);
+
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+
+    res.status(status).json({ message });
+    throw err;
+  });
+
+  // Create server
+  const server = createServer(app);
+
+  // Setup Vite or static serving AFTER routes
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
   }
-});
 
-nextProcess.on('close', (code) => {
-  console.log(`Next.js process exited with code ${code}`);
-  process.exit(code || 0);
-});
-
-nextProcess.on('error', (err) => {
-  console.error('Failed to start Next.js server:', err);
-  process.exit(1);
-});
-
-// Handle process termination
-process.on('SIGINT', () => {
-  console.log('\nShutting down Next.js server...');
-  nextProcess.kill('SIGINT');
-});
-
-process.on('SIGTERM', () => {
-  console.log('Shutting down Next.js server...');
-  nextProcess.kill('SIGTERM');
-});
+  // ALWAYS serve the app on port 5000
+  // this serves both the API and the client.
+  // It is the only port that is not firewalled.
+  const port = 5000;
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+})();

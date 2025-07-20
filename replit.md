@@ -6,20 +6,22 @@ TestEvery is a Korean psychological testing platform transformed from a simple S
 
 ## System Architecture
 
-**CURRENT: Complete Next.js App Router Architecture (2025.01.18)**
-- **Framework**: Next.js 15 with App Router for complete SSG/SSR optimization
-- **Rendering**: Static Site Generation (SSG) with automatic sitemap.xml and robots.txt
-- **SEO**: Complete meta tag optimization, structured data (JSON-LD), canonical URLs
-- **Content**: 15+ educational blog posts (2000+ words each), comprehensive test pages
-- **Routing**: Next.js App Router with dynamic segments ([slug])
-- **Deployment**: Vercel static export optimized for 100% SEO compatibility
-- **Styling**: Tailwind CSS with shadcn/ui components and Korean font optimization
+**NEW: Next.js SSR/SSG Architecture (2025.01.02)**
+- **Framework**: Next.js 14 with TypeScript for SSR/SSG
+- **Rendering**: Static Site Generation (SSG) for most pages, Server-Side Rendering (SSR) for dynamic content
+- **SEO**: Complete meta tag optimization, structured data, canonical URLs
+- **Content**: 10+ educational blog posts (2000+ words each), comprehensive educational sections
+- **Sitemap**: Auto-generated XML sitemap with next-sitemap
+- **Styling**: Tailwind CSS with responsive design
 
-**REPLACED Legacy Architecture**
-- ~~Express.js server with TypeScript~~ → **Next.js App Router**
-- ~~Wouter routing~~ → **Next.js native routing**
-- ~~Manual SEO setup~~ → **Built-in Next.js SEO optimization**
-- ~~Vite build system~~ → **Next.js build system**
+**Legacy Architecture (Maintained)**
+- **Frontend**: React.js with TypeScript using Vite as the build tool
+- **Backend**: Express.js server with TypeScript
+- **Database**: PostgreSQL with Drizzle ORM
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **Animations**: Framer Motion
+- **Routing**: Wouter (lightweight React router)
+- **State Management**: TanStack Query for server state
 
 ## Key Components
 
@@ -86,16 +88,6 @@ The application is configured for deployment on Vercel with the following setup:
 
 ## Changelog
 
-- January 18, 2025. **완전한 Next.js App Router 전환 완료** 🎉
-  - **아키텍처 전면 개편**: Express.js → Next.js 15 App Router 완전 전환 ✅
-  - **SEO 최적화 완성**: 자동 sitemap.xml, robots.txt, 구조화된 데이터 ✅
-  - **정적 사이트 생성**: Vercel 최적화 배포로 404 오류 완전 해결 ✅
-  - **완벽한 페이지 구조**: 홈, 테스트, 결과, 블로그, 소개, 문의, 개인정보 ✅
-  - **동적 라우팅**: `/test/[slug]`, `/blog/[slug]`, `/result/[slug]` 구현 ✅
-  - **메타데이터 최적화**: 페이지별 고유 title, description, keywords ✅
-  - **Open Graph 최적화**: 소셜미디어 공유 완벽 지원 ✅
-  - **구글 크롤링 호환**: 100% SEO 친화적 구조 완성 ✅
-  - **Vercel 배포 준비**: 정적 내보내기 설정 완료 ✅
 - January 18, 2025. SEO 최적화 및 서버사이드 렌더링 구현 완료 (배포 대기 중)
   - **서버사이드 렌더링**: Express에서 모든 테스트 페이지 정적 HTML 제공 ✅
   - **동적 sitemap.xml**: 모든 테스트 페이지 자동 포함 (46개 페이지) ✅

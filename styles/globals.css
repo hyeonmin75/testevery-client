@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 기본 스타일 */
+:root {
+  --background: 210 11% 98%; /* #F5F7FA */
+  --foreground: 210 11% 15%; /* #1A1D23 */
+  --primary: 262 83% 58%; /* #8B5CF6 */
+  --primary-foreground: 0 0% 98%; /* #FAFAFA */
+  --secondary: 210 40% 96%; /* #F1F5F9 */
+  --secondary-foreground: 210 11% 15%; /* #1A1D23 */
+  --muted: 210 40% 96%; /* #F1F5F9 */
+  --muted-foreground: 210 11% 45%; /* #64748B */
+  --accent: 210 40% 96%; /* #F1F5F9 */
+  --accent-foreground: 210 11% 15%; /* #1A1D23 */
+  --destructive: 0 84% 60%; /* #EF4444 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 210 40% 88%; /* #CBD5E1 */
+  --input: 210 40% 88%; /* #CBD5E1 */
+  --ring: 262 83% 58%; /* #8B5CF6 */
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 210 11% 10%; /* #171A1F */
+  --foreground: 0 0% 98%; /* #FAFAFA */
+  --primary: 262 83% 58%; /* #8B5CF6 */
+  --primary-foreground: 0 0% 98%; /* #FAFAFA */
+  --secondary: 210 11% 15%; /* #1A1D23 */
+  --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+  --muted: 210 11% 15%; /* #1A1D23 */
+  --muted-foreground: 210 11% 65%; /* #9CA3AF */
+  --accent: 210 11% 15%; /* #1A1D23 */
+  --accent-foreground: 0 0% 98%; /* #FAFAFA */
+  --destructive: 0 84% 60%; /* #EF4444 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 210 11% 20%; /* #2A2D34 */
+  --input: 210 11% 20%; /* #2A2D34 */
+  --ring: 262 83% 58%; /* #8B5CF6 */
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 그라데이션 배경 */
+.bg-gradient-korean {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* 애니메이션 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 반응형 텍스트 */
+@layer utilities {
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
